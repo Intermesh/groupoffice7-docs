@@ -36,7 +36,7 @@ the initial database.
 
 This is the diagram of the database:
 
-![Database diagram](/groupoffice-docs/img/bands-db.png "Database diagram")
+![Database diagram](/img/bands-db.png "Database diagram")
 
 Put the following SQL code in Install/Database/20150115-1423.sql:
 
