@@ -1,5 +1,3 @@
-# The Group-Office API
-
 Group-Office has a [RESTFull](http://en.wikipedia.org/wiki/Representational_state_transfer)
 API. It uses JSON as data format. To learn how the API works we're going to use the Postman REST Client. I assume you've already got the server up and running.
 

@@ -1,4 +1,3 @@
-# Models
 GroupOffice has powerful ORM database models. You must create a model for each 
 database table. Relations are also defined in the models. In this case a band **has
 many** albums and an album **belongs to** a band.

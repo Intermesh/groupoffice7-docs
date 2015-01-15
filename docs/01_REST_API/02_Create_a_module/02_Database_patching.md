@@ -1,5 +1,3 @@
-# Installing and upgrading the database
-
 Each module can install and upgrade database tables. The GroupOffice framework 
 will automatically apply patch files.
 

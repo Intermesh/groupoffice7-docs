@@ -1,1 +1,1 @@
-test
+Welcome to the developers documentation site of the GroupOffice platform

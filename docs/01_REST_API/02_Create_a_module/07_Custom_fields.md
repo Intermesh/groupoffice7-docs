@@ -1,5 +1,3 @@
-# Creating custom fields
-
 GroupOffice comes with a powerful custom fields module so users can extend models with their own custom fields.
 We're going to make the Bands model extensible with custom fields in this example.
 

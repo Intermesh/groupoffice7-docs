@@ -1,4 +1,5 @@
-# Folder structure
+This chapter is intended for PHP developers who wish to extend the REST API with
+own modules.
 
 In this example we're going to create a very simple "Bands" module. It will have bands with their albums.
 

@@ -1,5 +1,3 @@
-# Soft deleting
-
 Deleting stuff in GroupOffice can be dangerous. That's why we support soft deletion.
 You can implement a Trait in your model to enable it. You also need to add an 'deleted' boolean column to the database.
 

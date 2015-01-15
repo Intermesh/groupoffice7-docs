@@ -1,5 +1,3 @@
-# Inserting a band
-
 Now your API is ready but the GET request on the /bands route returns a boring empty result. Let's insert a band!
 
 Use POSTMan to add an new band with the API.
