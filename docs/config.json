@@ -22,6 +22,7 @@
     "links": {
         "Server GitHub Repo": "https://github.com/intermesh/groupoffice-server",
 		"Client GitHub Repo": "https://github.com/intermesh/groupoffice-webclient",
-        "PHP API": "http://localhost/groupoffice-server/docs/apigen"
+        "PHP API": "http://intermesh.io/php/docs",
+		"AngularJS API": "http://intermesh.io/angular/docs"
     }
 }
