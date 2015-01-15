@@ -4,7 +4,7 @@ many** albums and an album **belongs to** a band.
 
 Read more about models in the API documentation:
 
-http://localhost/groupoffice-server/docs/apigen/class-GO.Core.Db.AbstractRecord.html
+http://intermesh.io/php/docs/class-GO.Core.Db.AbstractRecord.html
 
 
 Band:

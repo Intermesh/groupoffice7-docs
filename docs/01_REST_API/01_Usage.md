@@ -9,7 +9,7 @@ http://example.com/api/index.php/auth
 
 You can find a list of available routes here:
 
-http://localhost/groupoffice-server/docs/apigen/class-GO.Core.Http.Router.html
+http://intermesh.io/php/docs/class-GO.Core.Http.Router.html
 
 ## Authenticate
 
@@ -71,13 +71,13 @@ parameters they support.
 
 In this case the controller class is:
 
-http://localhost/groupoffice-server/docs/apigen/class-GO.Modules.Auth.Controller.UserController.html
+http://intermesh.io/php/docs/class-GO.Modules.Auth.Controller.UserController.html
 
-You can read more about this [AbstractCrudController](http://localhost/groupoffice-server/docs/apigen/class-GO.Core.Controller.AbstractCrudController.html) in the API documenation.
+You can read more about this [AbstractCrudController](http://intermesh.io/php/docs/class-GO.Core.Controller.AbstractCrudController.html) in the API documenation.
 
 ## Data format
 Each controller usually works with a model. The model should be mentioned in the
-controller documentation. In this case it's the [User](http://localhost/groupoffice-server/docs/apigen/class-GO.Modules.Auth.Model.User.html) model. To see
+controller documentation. In this case it's the [User](http://intermesh.io/php/docs/class-GO.Modules.Auth.Model.User.html) model. To see
 which properties the user has look it up in the API documentation and take a look
 at the magic properties.
 
@@ -112,4 +112,4 @@ When saving a user you must PUT or POST this user model in the same format. The
 server will respond with the success boolean. On failure the model will have one
 or more "validationErrors".
 
-In the PHP API the user is a Model based on [AbstractRecord](http://localhost/groupoffice-server/docs/apigen/class-GO.Core.Db.AbstractRecord.html).
+In the PHP API the user is a Model based on [AbstractRecord](http://intermesh.io/php/docs/class-GO.Core.Db.AbstractRecord.html).
