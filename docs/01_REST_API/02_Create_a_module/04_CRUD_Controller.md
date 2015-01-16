@@ -1,5 +1,5 @@
-Now that we have the models in place we must create a RESTFul CRUD controller to
-be able to add models through the REST API. Create the controller BandController.php:
+Now that we have the models in place we must create a [RESTFul CRUD controller](http://intermesh.io/php/docs/class-GO.Core.Controller.AbstractCrudController.html) to
+be able to Create, Read, Update and Delete models through the REST API. Create the controller BandController.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
