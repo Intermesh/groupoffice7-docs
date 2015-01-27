@@ -21,15 +21,15 @@ Add the database patch file Install/Database/20150115-1529.sql:
 Note that's important to make it cascade on band deletion.
 
 ````````````````````````````````````````````````````````````````````````````````
-CREATE TABLE IF NOT EXISTS `bandsCustomFields` (
+CREATE TABLE IF NOT EXISTS `bandsBandCustomFields` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-ALTER TABLE `bandsCustomFields`
+ALTER TABLE `bandsBandCustomFields`
  ADD PRIMARY KEY (`id`);
 
-ALTER TABLE `bandsCustomFields`
-ADD CONSTRAINT `bandsCustomFields_ibfk_1` FOREIGN KEY (`id`) REFERENCES `bandsBand` (`id`) ON DELETE CASCADE;
+ALTER TABLE `bandsBandCustomFields`
+ADD CONSTRAINT `bandsBandCustomFields_ibfk_1` FOREIGN KEY (`id`) REFERENCES `bandsBand` (`id`) ON DELETE CASCADE;
 ````````````````````````````````````````````````````````````````````````````````
 
 And run the route /modules/update to apply it.
@@ -50,7 +50,7 @@ The custom fields will have a null value. We must first add a custom field for t
 
 
 
-POST this data to /customfields/fieldsets/GO%5CModules%5CBand%5CModel%5CBand
+POST this data to /customfields/fieldsets/GO%5CModules%5CBands%5CModel%5CBand
 
 The model name must be URL encoded.
 

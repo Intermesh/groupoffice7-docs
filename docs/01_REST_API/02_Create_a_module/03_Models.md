@@ -43,6 +43,7 @@ Album:
 namespace GO\Modules\Bands\Model;
 
 use GO\Core\Db\AbstractRecord;
+use GO\Core\Auth\Model\User;
 
 /**
  * The Album model
@@ -51,7 +52,7 @@ use GO\Core\Db\AbstractRecord;
  * @property int $bandId
  * @property string $name
  * @property int $ownerUserId
- * @property \GO\Modules\Auth\Model\User $owner
+ * @property User $owner
  * @property string $createdAt
  * @property string $modifiedAt
  *

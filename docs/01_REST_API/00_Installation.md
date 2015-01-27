@@ -25,8 +25,9 @@ To install the GroupOffice server follow these steps:
    $ cd groupoffice-server
    $ composer install
    ``````````````````````````
-5. Put the /html/index.php in a web server root and make sure the path to autoload.php
-is correct:
+5. If you didn't put the library in the document root (recommended) then put 
+	the /html/index.php file in a web server root and make sure the path to autoload.php
+	is correct:
 
    ```````````````````````````````````
    require("../vendor/autoload.php");

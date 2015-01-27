@@ -1,7 +1,7 @@
 Deleting stuff in GroupOffice can be dangerous. That's why we support soft deletion.
 You can implement a Trait in your model to enable it. You also need to add an 'deleted' boolean column to the database.
 
-Add this to the Band model:
+Add this trait to the Band model (don't put this in as a namespace but inside the class definition):
 
 ````````````````````````````````````````````````````````````````````````````````
 use \GO\Core\Db\SoftDeleteTrait;

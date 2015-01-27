@@ -36,8 +36,7 @@ other attributes are determined by GroupOffice automatically.
 		},{
 			"name": "Backspacer"
 		}]
-    },
-    "success": true
+    }
 }
 ````````````````````````````````````````````````````````````````````````````````
 

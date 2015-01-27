@@ -1,4 +1,4 @@
-Group-Office has a [RESTFull](http://en.wikipedia.org/wiki/Representational_state_transfer)
+GroupOffice has a [RESTFul](http://en.wikipedia.org/wiki/Representational_state_transfer)
 API. It uses JSON as data format. To learn how the API works we're going to use the Postman REST Client. I assume you've already got the server up and running.
 
 ## Routes
@@ -108,7 +108,7 @@ This will return the user:
 }
 ````````````````````````````````````````````````````````````````````````````````
 
-When saving a user you must PUT or POST this user model in the same format. The 
+When saving a user you must PUT (for update) or POST (for create) this user model in the same format. The 
 server will respond with the success boolean. On failure the model will have one
 or more "validationErrors".
 

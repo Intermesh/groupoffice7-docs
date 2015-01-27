@@ -321,7 +321,7 @@ class BandController extends AbstractCrudController {
 
 ``````````````````````````````````````````````````````````````````````````````````````````````````
 
-Note that I've used editAccess for delete as well. Perhaps you'd like a deletePermission boolean in real life as well.
+Note that I've used editAccess for delete as well. Perhaps you'd like a deleteAccess boolean in real life as well.
 When new items are created I check the module's permission on createAccess.
 
 ## Use the API to test it
@@ -329,7 +329,7 @@ When new items are created I check the module's permission on createAccess.
 Now we're going to test this with Postman. Make sure you're logged in and request 
 the bands on route /bands. It will now show an empty result because we don't have permission yet.
 
-We can use a POST API call to /bands/1 to grant some permissions on the admins role:
+We can use a PUT API call to /bands/1 to grant some permissions on the admins role:
 
 ````````````````````````````````````````````````````````````````````````````````
 {"data": {"roles" :  [{"roleId": 1, "readAccess": true, "editAccess": true}]}}
