@@ -1,17 +1,16 @@
 GroupOffice comes with a powerful custom fields module so users can extend models with their own custom fields.
 We're going to make the Bands model extensible with custom fields in this example.
 
-## Create the model BandCustomFields:
+## Create the model BandCustomFields and make this extend the AbstractCustomfieldsRecord:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
 namespace GO\Modules\Bands\Model;
 
-use GO\Core\Db\AbstractRecord;
-use GO\Modules\CustomFields\Model\CustomFieldsTrait;
+use GO\Modules\CustomFields\Model\AbstractCustomFieldsRecord;
 
-class BandCustomFields extends AbstractRecord{	
-	use CustomFieldsTrait;
+class BandCustomFields extends AbstractCustomFieldsRecord{	
+
 }
 
 ````````````````````````````````````````````````````````````````````````````````

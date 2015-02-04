@@ -1,9 +1,12 @@
 
 See also the API docs: http://intermesh.io/php/docs/class-GO.Core.Auth.Model.RecordPermissionTrait.html
 
-GroupOffice also comes with a role based permissions feature. Let's say we want to restrict access to our bands. We'll have to create a table for it with some permission level booleans:
+GroupOffice also comes with a role based permissions feature. Let's say we want 
+to restrict access to our bands. We'll have to create a table for it with some 
+permission level booleans:
 
-We'll call this table bandsBandRole because it links the bandsBand table to the user roles. We will implement a readAccess and an editAccess level.
+We'll call this table bandsBandRole because it links the bandsBand table to the 
+user roles. We will implement a readAccess and an editAccess level.
 The table structure will then be like this:
 
 ``````````````````````````````````````````````````````````````````````````````````````````````````
@@ -11,8 +14,9 @@ The table structure will then be like this:
 CREATE TABLE IF NOT EXISTS `bandsBandRole` (
 	`bandId` int(11) NOT NULL,
 	`roleId` int(11) NOT NULL,
-	`readAccess` tinyint(1) NOT NULL DEFAULT '0',
-	`editAccess` tinyint(1) NOT NULL DEFAULT '0',
+	`read` tinyint(1) NOT NULL DEFAULT '0',
+	`edit` tinyint(1) NOT NULL DEFAULT '0',
+	`dekete` tinyint(1) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`bandId`,`roleId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -42,10 +46,10 @@ use GO\Core\Auth\Model\AbstractRole;
 /**
  * The band roles model
  * 
- * @var int $roleId
- * @var int $moduleId
- * @var bool $readAccess 
- * @var bool $editAccess
+ * @property int $roleId
+ * @property int $bandId
+ * @property bool $read
+ * @property bool $edit
  */
 class BandRole extends AbstractRole{	
 	
@@ -68,7 +72,8 @@ class BandRole extends AbstractRole{
 
 ``````````````````````````````````````````````````````````````````````````````````````````````````
 
-In the band model we need to use the **RecordPermissionTrait** to add the permission functions to the model.
+In the band model we need to use the **RecordPermissionTrait** to add the 
+permission functions to the model.
 We must also define a **roles** relation that points to the BandRole model.
 Our band model will now look like this:
 
@@ -115,9 +120,19 @@ class Band extends AbstractRecord{
 }
 ``````````````````````````````````````````````````````````````````````````````````````````````````
 
-Now we've extended the model with permission functionality but we still need to implement this functionality in the controller.
+Now we've extended the model with permission functionality but we still need to 
+implement this functionality in the controller.
 
-We can use the "findPermitted" function in the store action to fetch only the allowed bands. We can use "checkPermission" to check read and write access.
+We can use the "findPermitted" function in the store action to fetch only the 
+allowed bands. We can use the "permissions" object property of the band models 
+to check read, write and delete access.
+
+Note that the permissions model has a reserver "create" access property. This 
+tells us if a user is allowed to create new instances of the model. By default 
+the "create" this check returns true if the user has "create" access for the 
+module the model belongs too. If you have different needs then you need to 
+override the "getPermissions" method in the Band model and return your own 
+"Permissions" object.
 
 Change the BandController like this:
 
@@ -127,12 +142,11 @@ Change the BandController like this:
 namespace GO\Modules\Bands\Controller;
 
 use GO\Core\App;
-use GO\Core\Controller\AbstractCrudController;
+use GO\Core\Controller\AbstractController;
 use GO\Core\Data\Store;
 use GO\Core\Db\Query;
 use GO\Core\Exception\Forbidden;
 use GO\Core\Exception\NotFound;
-use GO\Modules\Bands\BandsModule;
 use GO\Modules\Bands\Model\Band;
 
 /**
@@ -144,7 +158,7 @@ use GO\Modules\Bands\Model\Band;
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class BandController extends AbstractCrudController {
+class BandController extends AbstractController {
 
 	/**
 	 * Fetch bands
@@ -206,7 +220,7 @@ class BandController extends AbstractCrudController {
 		}
 		
 		//Check read permission
-		if(!$band->checkPermission('readAccess')) {
+		if(!$band->permissions->read){
 			throw new Forbidden();
 		}
 
@@ -220,14 +234,13 @@ class BandController extends AbstractCrudController {
 	 * @return array
 	 */
 	protected function actionNew($returnAttributes = ['*','albums']) {
-		
-		//Check the module createAccess boolean here
-		if (BandsModule::model()->checkPermission('createAccess')) {
+				
+		//Check edit permission		
+		$band = new Band();		
+		if(!$band->permissions->create){
 			throw new Forbidden();
 		}
-
-		$band = new Band();
-
+		
 		return $this->renderModel($band, $returnAttributes);
 	}
 
@@ -246,12 +259,12 @@ class BandController extends AbstractCrudController {
 	 */
 	public function actionCreate($returnAttributes = ['*','albums']) {
 		
-		//Check the module createAccess boolean here
-		if (BandsModule::model()->checkPermission('createAccess')) {
+		//Check edit permission
+		$band = new Band();	
+		if(!$band->permissions->create){
 			throw new Forbidden();
-		}
-
-		$band = new Band();
+		}		
+		
 		$band->setAttributes(App::request()->payload['data']);
 		$band->save();
 
@@ -282,7 +295,7 @@ class BandController extends AbstractCrudController {
 		}
 		
 		//Check edit permission
-		if(!$band->checkPermission('editAccess')) {
+		if(!$band->permissions->edit) {
 			throw new Forbidden();
 		}
 
@@ -307,8 +320,7 @@ class BandController extends AbstractCrudController {
 			throw new NotFound();
 		}
 		
-		//Check edit permission
-		if(!$band->checkPermission('editAccess')) {
+		if(!$band->permissions->delete) {
 			throw new Forbidden();
 		}
 
@@ -319,21 +331,21 @@ class BandController extends AbstractCrudController {
 
 }
 
-``````````````````````````````````````````````````````````````````````````````````````````````````
 
-Note that I've used editAccess for delete as well. Perhaps you'd like a deleteAccess boolean in real life as well.
-When new items are created I check the module's permission on createAccess.
+``````````````````````````````````````````````````````````````````````````````````````````````````
 
 ## Use the API to test it
 
 Now we're going to test this with Postman. Make sure you're logged in and request 
-the bands on route /bands. It will now show an empty result because we don't have permission yet.
+the bands on route /bands. It will now show an empty result because we don't 
+have permission yet.
 
 We can use a PUT API call to /bands/1 to grant some permissions on the admins role:
 
 ````````````````````````````````````````````````````````````````````````````````
-{"data": {"roles" :  [{"roleId": 1, "readAccess": true, "editAccess": true}]}}
+{"data": {"roles" :  [{"roleId": 1, "read": true, "edit": true, "delete": true}]}}
 ````````````````````````````````````````````````````````````````````````````````
 
-Now the GET on /bands will return the band again and it will also have a **permissions** property that shows the permissions for the current user.
+Now the GET on /bands will return the band again and it will also have a 
+**permissions** property that shows the permissions for the current user.
 Note that the admin user will always have permissions.
