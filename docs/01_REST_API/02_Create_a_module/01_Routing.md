@@ -10,23 +10,16 @@ Add the controller HelloController.php in the controller folder and enter:
 <?php
 namespace GO\Modules\Bands\Controller;
 
-use GO\Core\Controller\AbstractRESTController;
+use GO\Core\Controller\AbstractController;
 
-class HelloController extends AbstractRESTController {
-	public function httpGet($name = "human"){
+class HelloController extends AbstractController {
+	public function actionName($name = "human"){
 		return ['data' => 'Hello '.$name];
 	}
 }
 ````````````````````````````````````````````````````````````````````````````````
 
-The REST controllers can implement the following methods:
-
-1. httpGet
-2. httpPost
-3. httpPut
-4. httpDelete
-
-Each of these methods handles the corresponding request method.
+The router can map HTTP requests to a controller action. 
 
 In this example we've implemented the GET request to return a JSON object that 
 greets with hello. It has one GET query parameter that defaults to the string
@@ -45,15 +38,9 @@ use GO\Modules\Bands\Controller\HelloController;
 
 class BandsModule extends AbstractModule {
 	public function routes() {
-		return [
-			'bands' => [
-				'children' => [
-					'hello' => [
-						'controller' => HelloController::className()
-					]
-				]
-			]
-		];
+		
+		HelloController::routes()
+				->get('bands/hello', 'name');
 	}
 }
 

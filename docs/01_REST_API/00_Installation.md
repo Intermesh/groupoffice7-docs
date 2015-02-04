@@ -45,7 +45,7 @@ To install the GroupOffice server follow these steps:
 
 	This will redirect to a system test page:
 
-	/index.php/modules/check
+	/index.php/system/check
 
 	Optionally you can create an alias for apache:
 
@@ -56,7 +56,7 @@ To install the GroupOffice server follow these steps:
 	It should output that all is OK ;). It doesn't look pretty but it's not meant to
 	be because it's just an API.
 
-8. Click the link "Install / Upgrade database".
+8. Open /index.php/system/install to install the database.
 
 9. Now you can login
 

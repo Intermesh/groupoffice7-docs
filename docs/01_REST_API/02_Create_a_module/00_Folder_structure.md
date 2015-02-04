@@ -36,6 +36,6 @@ class BandsModule extends AbstractModule {
 
 Install the module by running the route:
 
-/modules/upgrade
+/system/upgrade
 
 This will add the module to the "modulesModule" table.

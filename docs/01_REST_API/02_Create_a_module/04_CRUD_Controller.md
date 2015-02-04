@@ -1,4 +1,4 @@
-Now that we have the models in place we must create a [RESTFul CRUD controller](http://intermesh.io/php/docs/class-GO.Core.Controller.AbstractCrudController.html) to
+Now that we have the models in place we must create a [RESTFul CRUD controller](http://intermesh.io/php/docs/class-GO.Core.Controller.AbstractController.html) to
 be able to Create, Read, Update and Delete models through the REST API. Create the controller BandController.php:
 
 ````````````````````````````````````````````````````````````````````````````````
@@ -22,7 +22,7 @@ use GO\Modules\Bands\Model\Band;
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class BandController extends AbstractCrudController {
+class BandController extends AbstractController {
 
 	/**
 	 * Fetch bands
@@ -174,7 +174,7 @@ class BandController extends AbstractCrudController {
 
 ````````````````````````````````````````````````````````````````````````````````
 
-## Add the controller route
+## Add the controller routes
 
 Add the route to the module manager file BandModule.php:
 
@@ -188,19 +188,16 @@ use GO\Modules\Bands\Controller\HelloController;
 
 class BandsModule extends AbstractModule {
 	public function routes() {
-		return [
-			'bands' => [
-				
-				'controller' => BandController::className(),
-				'routeParams' => ['bandId'],
-				
-				'children' => [
-					'hello' => [
-						'controller' => HelloController::className()
-					]
-				]
-			]
-		];
+		BandController::routes()
+				->get('bands', 'store')
+				->get('bands/0','new')
+				->get('bands/:bandId','read')
+				->put('bands/:bandId', 'update')
+				->post('bands', 'create')
+				->delete('bands/:bandId','delete');
+		
+		HelloController::routes()
+				->get('bands/hello', 'name');
 	}
 }
 
