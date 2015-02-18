@@ -1,11 +1,12 @@
 This chapter is intended for PHP developers who wish to extend the REST API with
 own modules.
 
-In this example we're going to create a very simple "Bands" module. It will have bands with their albums.
+In this example we're going to create a very simple "Bands" module. It will have 
+bands with their albums.
 
 Create the folder **lib/GO/Modules/Bands**.
 
-Inside this folder create the following subfolders:
+Inside this folder create the following sub folders:
 
 - Controller
 - Model
@@ -34,8 +35,18 @@ class BandsModule extends AbstractModule {
 
 ## Install the module
 
-Install the module by running the route:
+Install the module by doing a POST request to the route:
 
-/system/upgrade
+/modules
+
+With request payload:
+
+``````````````````````````````````````````````
+{
+	"data": {
+		"name": "GO\\Modules\\Bands\\BandsModule"
+	}
+}
+``````````````````````````````````````````````
 
 This will add the module to the "modulesModule" table.

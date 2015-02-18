@@ -16,7 +16,7 @@ Do a GET request on /bands/0 to get an empty band model with default values:
         "validationErrors": [],
         "className": "GO\\Modules\\Bands\\Model\\Band",
         "markDeleted": false,
-				"albums": [],
+		"albums": [],
         "isOwner": true
     },
     "success": true
