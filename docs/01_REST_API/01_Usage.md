@@ -14,10 +14,7 @@ http://intermesh.io/php/docs/class-GO.Core.Http.Router.html
 ## Authenticate
 
 The authentication route is /auth so you can post this JSON object to obtain the 
-access token in a cookie:
-
-**Note:** The cookie is not visible inside postman but added by chrome in the 
-background.
+access token and the XSRFToken in a cookie:
 
 ```````````````````````````````````````````
 {
@@ -26,10 +23,19 @@ background.
 }
 ```````````````````````````````````````````
 
+**Note:** The cookies are not visible inside postman but added by chrome in the 
+background. The XSRFToken must be sent in a header "X-XSRFToken" or GET 
+parameter "XSRFToken" on each request. 
+
+More technical details can be found in the API documentation:
+
+http://intermesh.io/php/docs/class-GO.Core.Auth.Browser.Model.Token.html
+
 The server should respond with:
 
 ``````````````````
 {
+	"XSRFToken: "abcdefg",
 	"success": true
 }
 ``````````````````
