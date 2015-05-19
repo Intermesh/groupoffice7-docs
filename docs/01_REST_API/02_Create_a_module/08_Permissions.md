@@ -53,13 +53,14 @@ class BandRole extends AbstractRole {
 
 ``````````````````````````````````````````````````````````````````````````````````````````````````
 
-In the band model we need to use the **RecordPermissionTrait** to add the 
-permission functions to the model.
+We can change the Band model to extends the AbstractProtectedCRUDRecord model to 
+add standard read, write and delete permissions to the model.
 We must also define a **roles** relation that points to the BandRole model.
 
-Finally we need to define permission contants that describe the different permission types. They are prefixed with "PERMISSION_"
+The permissions system is very flexible. Any constant prefixed with "PERMISSION_" will
+automatically become a permission type.
 
-For example:
+The AbstractProtectedCRUDRecord already has these defined:
 
 - PERMISSION_READ
 - PERMISSION_WRITE
@@ -69,15 +70,22 @@ The API will have a permissions object in the band with keys "read", "write" and
 "delete". The contacts will have PERMISSION_ stripped off and they are converted 
 to lower case.
 
+We must also implement the abstract function "hasCreatePermission". It should
+return true when the current user has permission to create new bands.
+
+In most cases it's logical to implement a permission type at the module level
+to define this. In this case we will add the constant "PERMISSION_CREATE" to
+the BandsModule class.
+
 Our band model will now look like this:
 
 `````````````````````````````````````````````````````````````````````````````````````````````````
 <?php
 namespace GO\Modules\Bands\Model;
 
-use GO\Core\Db\AbstractRecord;
-
+use GO\Core\Auth\Model\AbstractProtectedCRUDRecord;
 use GO\Core\Auth\Model\User;
+use GO\Modules\Bands\BandsModule;
 
 /**
  * The Band model
@@ -88,34 +96,18 @@ use GO\Core\Auth\Model\User;
  * @property User $owner
  * @property string $createdAt
  * @property string $modifiedAt
+ * 
+ * @property Album[] $albums
+ * @property BandCustomFields $customfields
+ * @property BandRole[] $roles
  *
  * @copyright (c) 2015, Intermesh BV http://www.intermesh.nl
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class Band extends AbstractRecord{	
+class Band extends AbstractProtectedCRUDRecord{	
 	
-	use \GO\Core\Db\SoftDeleteTrait;	
-	
-	//Add this line for permissions
-	use \GO\Core\Auth\Model\RecordPermissionTrait;
-	
-	
-	/**
-	 * Allow read access to the role
-	 */
-	const PERMISSION_READ = 0;
-	
-	/**
-	 * Allow write access to the role
-	 */
-	const PERMISSION_WRITE = 1;	
-	
-	/**
-	 * Allow delete access to the role
-	 */
-	const PERMISSION_DELETE = 2;
-	
+	use \GO\Core\Db\SoftDeleteTrait;
 	
 	protected static function defineRelations() {
 		
@@ -125,212 +117,61 @@ class Band extends AbstractRecord{
 			//add this role for permissions
 			self::hasMany('roles', BandRole::className(), 'bandId');		
 	}
+	
+	/**
+	 * Allowed when user has create permission on the module permissions
+	 * 
+	 * @return boolean
+	 */
+	public function hasCreatePermission() {
+		return BandsModule::model()->permissions->has(BandsModule::PERMISSION_CREATE);
+	}
 }
-
 ``````````````````````````````````````````````````````````````````````````````````````````````````
 
-In the controller we need to check the permissions with $band->permissions->has(Band::PERMISSION_READ) for example.
-The controller will look like this now:
-
+And our BandsModule class looks like this now:
 
 ``````````````````````````````````````````````````````````````````````````````````````````````````
 <?php
+namespace GO\Modules\Bands;
 
-namespace GO\Modules\Bands\Controller;
-
-use GO\Core\App;
-use GO\Core\Controller\AbstractController;
-use GO\Core\Data\Store;
-use GO\Core\Db\Query;
-use GO\Core\Exception\Forbidden;
-use GO\Core\Exception\NotFound;
-use GO\Modules\Bands\BandsModule;
-use GO\Modules\Bands\Model\Band;
+use GO\Core\AbstractModule;
+use GO\Modules\Bands\Controller\BandController;
+use GO\Modules\Bands\Controller\HelloController;
 
 /**
- * The controller for bands. Admin role is required.
+ * The bands module
  * 
- * Uses the {@see Band} model.
+ * A module for the tutorial.
  *
- * @copyright (c) 2014, Intermesh BV http://www.intermesh.nl
+ * @copyright (c) 2015, Intermesh BV http://www.intermesh.nl
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class BandController extends AbstractController {
-
+class BandsModule extends AbstractModule {
+	
 	/**
-	 * Fetch bands
-	 *
-	 * @param string $orderColumn Order by this column
-	 * @param string $orderDirection Sort in this direction 'ASC' or 'DESC'
-	 * @param int $limit Limit the returned records
-	 * @param int $offset Start the select on this offset
-	 * @param string $searchQuery Search on this query.
-	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see GO\Core\Db\ActiveRecord::getAttributes()} for more information.
-	 * @param string $where {@see \GO\Core\Db\Criteria::whereSafe()}
-	 * @return array JSON Model data
+	 * Controls if users are allowed to create new bands
 	 */
-	protected function actionStore($orderColumn = 'name', $orderDirection = 'ASC', $limit = 10, $offset = 0, $searchQuery = "", $returnAttributes = [], $where = null) {
-
-		$query = Query::newInstance()
-				->orderBy([$orderColumn => $orderDirection])
-				->limit($limit)
-				->offset($offset);
-
-		if (!empty($searchQuery)) {
-			$query->search($searchQuery, ['t.bandname']);
-		}
-
-		if (!empty($where)) {
-
-			$where = json_decode($where, true);
-
-			if (count($where)) {
-				$query
-						->groupBy(['t.id'])
-						->whereSafe($where);
-			}
-		}
-
-		//Use findPermitted for permissions
-		$bands = Band::findPermitted($query);
-
-		$store = new Store($bands);
-		$store->setReturnAttributes($returnAttributes);
-
-		return $this->renderStore($store);
-	}
-
-	/**
-	 * GET a list of bands or fetch a single band
-	 *
-	 * 
-	 * @param int $bandId The ID of the role
-	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see GO\Core\Db\ActiveRecord::getAttributes()} for more information.
-	 * @return JSON Model data
-	 */
-	protected function actionRead($bandId = null, $returnAttributes = ['*','albums']) {
-
-		$band = Band::findByPk($bandId);
-
-		if (!$band) {
-			throw new NotFound();
-		}
+	const PERMISSION_CREATE = 1; //Use 1 as 0 is already defined in the module.
+	
+	public function routes() {
+		BandController::routes()
+				->get('bands', 'store')
+				->get('bands/0','new')
+				->get('bands/:bandId','read')
+				->put('bands/:bandId', 'update')
+				->post('bands', 'create')
+				->delete('bands/:bandId','delete');
 		
-		//Check read permission
-		if(!$band->permissions->has(Band::PERMISSION_READ)){
-			throw new Forbidden();
-		}
-
-		return $this->renderModel($band, $returnAttributes);
-	}
-
-	/**
-	 * Get's the default data for a new band
-	 * 
-	 * @param array $returnAttributes
-	 * @return array
-	 */
-	protected function actionNew($returnAttributes = ['*','albums']) {
-				
-		//Check edit permission		
-		$band = new Band();	
-		
-		if(BandsModule::newInstance()->permissions->has(BandsModule::PERMISSION_CREATE)){
-			throw new Forbidden();
-		}
-		
-		return $this->renderModel($band, $returnAttributes);
-	}
-
-	/**
-	 * Create a new band. Use GET to fetch the default attributes or POST to add a new band.
-	 *
-	 * The attributes of this band should be posted as JSON in a band object
-	 *
-	 * <p>Example for POST and return data:</p>
-	 * <code>
-	 * {"data":{"attributes":{"bandname":"test",...}}}
-	 * </code>
-	 * 
-	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see GO\Core\Db\ActiveRecord::getAttributes()} for more information.
-	 * @return JSON Model data
-	 */
-	public function actionCreate($returnAttributes = ['*','albums']) {
-		
-		//Check edit permission
-		$band = new Band();	
-		if(BandsModule::newInstance()->permissions->has(BandsModule::PERMISSION_CREATE)){
-			throw new Forbidden();
-		}		
-		
-		$band->setAttributes(App::request()->payload['data']);
-		$band->save();
-
-		return $this->renderModel($band, $returnAttributes);
-	}
-
-	/**
-	 * Update a band. Use GET to fetch the default attributes or POST to add a new band.
-	 *
-	 * The attributes of this band should be posted as JSON in a band object
-	 *
-	 * <p>Example for POST and return data:</p>
-	 * <code>
-	 * {"data":{"attributes":{"bandname":"test",...}}}
-	 * </code>
-	 * 
-	 * @param int $bandId The ID of the band
-	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see GO\Core\Db\ActiveRecord::getAttributes()} for more information.
-	 * @return JSON Model data
-	 * @throws NotFound
-	 */
-	public function actionUpdate($bandId, $returnAttributes = ['*','albums']) {
-
-		$band = Band::findByPk($bandId);
-
-		if (!$band) {
-			throw new NotFound();
-		}
-		
-		//Check edit permission
-		if(!$band->permissions->has(Band::PERMISSION_WRITE)){
-			throw new Forbidden();
-		}
-
-		$band->setAttributes(App::request()->payload['data']);
-
-		$band->save();
-
-
-		return $this->renderModel($band, $returnAttributes);
-	}
-
-	/**
-	 * Delete a band
-	 *
-	 * @param int $bandId
-	 * @throws NotFound
-	 */
-	public function actionDelete($bandId) {
-		$band = Band::findByPk($bandId);
-
-		if (!$band) {
-			throw new NotFound();
-		}
-		
-		if(!$band->permissions->has(Band::PERMISSION_DELETE)){
-			throw new Forbidden();
-		}
-
-		$band->delete();
-
-		return $this->renderModel($band);
-	}
-
+		HelloController::routes()
+				->get('bands/hello', 'name');
+	}	
 }
+``````````````````````````````````````````````````````````````````````````````````````````````````
 
-
+We don't need to change anything in the controller as everything is implemented 
+at the model level now.
 
 ``````````````````````````````````````````````````````````````````````````````````````````````````
 
