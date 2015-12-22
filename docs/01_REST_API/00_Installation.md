@@ -5,7 +5,7 @@ To install the GroupOffice server follow these steps:
 
 1. Make sure you have the required software:
    ``````````````````````````````````````````````````````````````````
-   $ sudo apt-get install git curl
+   $ sudo apt-get install git curl php5-mcrypt php5-curl
    ``````````````````````````````````````````````````````````````````
 
 2. clone the repository:
@@ -26,15 +26,15 @@ To install the GroupOffice server follow these steps:
    $ composer install
    ``````````````````````````
 5. If you didn't put the library in the document root (recommended) then put 
-	the /html/index.php file in a web server root and make sure the path to autoload.php
-	is correct:
+	 the /public/index.php file in a web server root and make sure the path to 
+   IFW.php is correct:
 
    ```````````````````````````````````
-   require("../vendor/autoload.php");
+   require("../lib/IFW/IFW.php");
    ```````````````````````````````````
    Also adjust the path to config.php that you will create in step 7:
    `````````````````````````````````````````````````````
-   App::init(require('../config.php'));
+   $app = new App(require('../config.php'));
    `````````````````````````````````````````````````````
 6. Create a MySQL database called "go7".
 7. Copy config.php.example to config.php and adjust it with the correct database parameters.
