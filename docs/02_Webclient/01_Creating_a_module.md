@@ -28,7 +28,10 @@ GO.module('GO.helloworld').
 				$stateProvider
 						.state('helloworld', {
 							url: "/helloworld",
-							templateUrl: 'modules/helloworld/views/main.html'
+							templateUrl: 'modules/helloworld/views/main.html',
+							data: {
+								noAuth: false //optional set to true to disable authentication
+							}
 						});
 			}]);
 ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
