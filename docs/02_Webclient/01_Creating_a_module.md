@@ -10,12 +10,12 @@ build script.
 
 Optionally create these subfolders:
 
-*controller: for the controller JS files.
-*models: Model JS files
-*views: HTML templates
-*language: Localization JS files
-*scss: For the SASS styles
-*services: For angular services
+- controller: for the controller JS files.
+- models: Model JS files
+- views: HTML templates
+- language: Localization JS files
+- scss: For the SASS styles
+- services: For angular services
 
 ### Create module.js
 Create "app/modules/helloworld/module.js" that will initialize the module.
