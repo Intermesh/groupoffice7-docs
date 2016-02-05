@@ -4,6 +4,19 @@ own modules.
 In this example we're going to create a very simple "Bands" module. It will have 
 bands with their albums.
 
+## Naming conventions
+
+# Namespaces: use PascalCase
+# Classes: use PascalCase. Use short and simple names and only append Interface for interface. Don't use Abstract in the name for abstract classes.
+# Variables: use camelCase
+# Methods: use camelCase and https://www.cwu.edu/~gellenbe/javastyle/method.html
+# Folder/File names: PSR-4 standard. Use case sensitive names equal to the namespace/class name.
+# Database tables: For compatibility reasons use underscores. PascalCase = pascal_case.
+# Database columns: use camelCase
+
+
+## Folder structure
+
 Create the folder **GO/Modules/Bands**.
 
 Inside this folder create the following sub folders:
@@ -12,6 +25,7 @@ Inside this folder create the following sub folders:
 - Install/Database
 - Model
 
+## Module manager file
 Each module has a module manager file. In this case:
 
 GO/Modules/Bands/BandsModule.php.
@@ -41,9 +55,6 @@ class BandsModule extends InstallableModule {
 }
 
 ``````````````````````````````````````````````
-
-> ### Naming convention
-> The folder and files must be named UpperCamelCase.
 
 ## Install the module
 

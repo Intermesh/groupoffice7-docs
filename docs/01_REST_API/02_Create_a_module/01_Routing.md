@@ -1,6 +1,6 @@
 Each module can add routes. To read more about how this works read the API documentation:
 
-http://intermesh.io/php/docs/class-GO.Core.AbstractModule.html#_routes
+http://intermesh.io/php/docs/class-IFW.Modules.Module.html#_defineHttpRoutes
 
 A route leads to a controller class. Let's start with the simplest example.
 
@@ -48,9 +48,8 @@ use GO\Modules\Bands\Controller\HelloController;
  */
 class BandsModule extends InstallableModule {
 
-	public function routes() {
-		
-		HelloController::routes()
+	public static function defineHttpRoutes(Router $router) {		
+		$router->addRoutesFor(HelloController::class)
 				->get('bands/hello', 'name');
 	}
 }
