@@ -4,17 +4,17 @@ own modules.
 In this example we're going to create a very simple "Bands" module. It will have 
 bands with their albums.
 
-Create the folder **lib/GO/Modules/Bands**.
+Create the folder **GO/Modules/Bands**.
 
 Inside this folder create the following sub folders:
 
 - Controller
-- Model
 - Install/Database
+- Model
 
 Each module has a module manager file. In this case:
 
-lib/GO/Modules/Bands/BandsModule.php.
+GO/Modules/Bands/BandsModule.php.
 
 Create this file and put in this minimal code:
 
@@ -23,11 +23,23 @@ Create this file and put in this minimal code:
 <?php
 namespace GO\Modules\Bands;
 
-use GO\Core\AbstractModule;
+use GO\Core\Modules\Model\InstallableModule;
+use GO\Modules\Bands\Controller\BandController;
+use GO\Modules\Bands\Controller\HelloController;
 
-class BandsModule extends AbstractModule {
+/**
+ * The bands module
+ * 
+ * A module for the tutorial.
+ *
+ * @copyright (c) 2015, Intermesh BV http://www.intermesh.nl
+ * @author Merijn Schering <mschering@intermesh.nl>
+ * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
+ */
+class BandsModule extends InstallableModule {
 	
 }
+
 ``````````````````````````````````````````````
 
 > ### Naming convention
@@ -49,4 +61,4 @@ With request payload:
 }
 ``````````````````````````````````````````````
 
-This will add the module to the "modulesModule" table.
+This will add the module to the "modules_module" table.

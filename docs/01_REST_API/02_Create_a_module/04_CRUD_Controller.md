@@ -182,11 +182,21 @@ Add the route to the module manager file BandModule.php:
 <?php
 namespace GO\Modules\Bands;
 
-use GO\Core\AbstractModule;
+use GO\Core\Modules\Model\InstallableModule;
 use GO\Modules\Bands\Controller\BandController;
 use GO\Modules\Bands\Controller\HelloController;
 
-class BandsModule extends AbstractModule {
+/**
+ * The bands module
+ * 
+ * A module for the tutorial.
+ *
+ * @copyright (c) 2015, Intermesh BV http://www.intermesh.nl
+ * @author Merijn Schering <mschering@intermesh.nl>
+ * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
+ */
+class BandsModule extends InstallableModule {
+
 	public function routes() {
 		BandController::routes()
 				->get('bands', 'store')
@@ -200,6 +210,7 @@ class BandsModule extends AbstractModule {
 				->get('bands/hello', 'name');
 	}
 }
+
 
 ````````````````````````````````````````````````````````````````````````````````
 

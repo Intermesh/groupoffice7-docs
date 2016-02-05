@@ -2,9 +2,20 @@ Creating a module in the AngularJS client
 -----------------------------------------
 
 ### Create folder structure
-1. Create folder "app/modules/helloworld"
-2. Create folder "app/modules/helloworld/js" for the script files.
-3. Create folder "app/modules/helloworld/views" for the HTML views.
+
+Create the module folder "app/modules/helloworld".
+
+All JS files within this folder are loaded automatically by index.php or the
+build script.
+
+Optionally create these subfolders:
+
+*controller: for the controller JS files.
+*models: Model JS files
+*views: HTML templates
+*language: Localization JS files
+*scss: For the SASS styles
+*services: For angular services
 
 ### Create module.js
 Create "app/modules/helloworld/module.js" that will initialize the module.
@@ -17,9 +28,9 @@ Example:
 'use strict';
 
 //Use GO.module instead of angular.module so it will be added to the app dependencies
-GO.module('GO.helloworld').
+GO.module('GO.Modules.HelloWorld', ['GO.Core']).
 		//Create a launcher
-		config(['launcherProvider', function (launcherProvider) {								
+		config(['GO.Core.launcherProvider', function (launcherProvider) {								
 				launcherProvider.add('helloworld', 'Hello World', []);
 			}]).
 		config(['$stateProvider', function($stateProvider) {
@@ -36,10 +47,6 @@ GO.module('GO.helloworld').
 			}]);
 ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-
-### Script loading
-Add this script to app/index.html
-
 ### Create views/main.html
 
 ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
@@ -48,4 +55,4 @@ Add this script to app/index.html
 
 
 ### Done!
-Now refresh the Angular app and it should have the hello world icon on the start screen!
+Now refresh the Angular app and it should have the hello world launcher available.

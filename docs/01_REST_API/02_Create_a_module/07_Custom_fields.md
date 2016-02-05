@@ -20,15 +20,12 @@ Add the database patch file Install/Database/20150115-1529.sql:
 Note that's important to make it cascade on band deletion.
 
 ````````````````````````````````````````````````````````````````````````````````
-CREATE TABLE IF NOT EXISTS `bandsBandCustomFields` (
-  `id` int(11) NOT NULL
+CREATE TABLE `bands_band_custom_fields` (
+  `id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `bands_band_custom_fields_ibfk_1` FOREIGN KEY (`id`) REFERENCES `bands_band` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-ALTER TABLE `bandsBandCustomFields`
- ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `bandsBandCustomFields`
-ADD CONSTRAINT `bandsBandCustomFields_ibfk_1` FOREIGN KEY (`id`) REFERENCES `bandsBand` (`id`) ON DELETE CASCADE;
 ````````````````````````````````````````````````````````````````````````````````
 
 And run the route /modules/update to apply it.
@@ -36,7 +33,7 @@ And run the route /modules/update to apply it.
 
 ## Define relation in the Band model:
 ``````````````````````````````````````````````````````````````````
-$r->hasOne('customfields', BandCustomFields::className(), 'id')
+self::hasOne('customfields', BandCustomFields::class, ['id' => 'id']);	
 ```````````````````````````````````````````````````````````````````
 
 ## Add a custom field with the API
@@ -58,14 +55,14 @@ The model name must be URL encoded.
     "data": {
         "modelName": "GO\\Modules\\Bands\\Model\\BandCustomFields",
         "name": "More info",
-		"fields": [{
-			"type": "text",
-			"name": "Text field",
-			"databaseName": "textfield",
-			"placeholder": "Type something",
-			"required": false,
-			"defaultValue": ""			
-		}]
+				"fields": [{
+					"type": "text",
+					"name": "Text field",
+					"databaseName": "textfield",
+					"placeholder": "Type something",
+					"required": false,
+					"defaultValue": ""			
+				}]
     } 
 }
 ````````````````````````````````````````````````````````````````````````````````
@@ -145,4 +142,4 @@ This will return on success:
 
 ````````````````````````````````````````````````````````````````````````````````
 
-As you can see the value is now stored in the custom fields model!
+As you can see the value is now stored in the custom fields model.

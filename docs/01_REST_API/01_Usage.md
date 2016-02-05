@@ -1,5 +1,6 @@
 GroupOffice has a [RESTFul](http://en.wikipedia.org/wiki/Representational_state_transfer)
-API. It uses JSON as data format. To learn how the API works we're going to use the Postman REST Client. I assume you've already got the server up and running.
+API. It uses JSON as data format. To learn how the API works we're going to use 
+the Postman REST Client. I assume you've already got the webserver up and running.
 
 ## Routes
 You've installed the API somewhere. For example on http://example.com/api/index.php. 

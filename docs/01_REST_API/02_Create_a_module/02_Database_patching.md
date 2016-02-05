@@ -28,11 +28,15 @@ the initial database.
 
 
 > ### Naming convention
-> The tables must be named lowerCamelCase and it should start with the module name. The tables should be in the singular form.
+> The tables must be named in lowercase and underscores and it should start with 
+> the module name. The tables should be in the singular form.
+> The Models will automatically use this name in most cases because it will use
+> All the parts of the namespaces except for Model and GO\Modules.
+> eg. GO\Modules\Bands\Model\Band will automatically use the table name "bands_band".
 >
-> **Wrong:** BandsBands
+> **Wrong:** bands_bands
 >
-> **Right**: bandsBand
+> **Right**: bands_band
 
 This is the diagram of the database:
 
@@ -41,46 +45,38 @@ This is the diagram of the database:
 Put the following SQL code in Install/Database/20150115-1423.sql:
 
 ````````````````````````````````````````````````````````````````````````````````
-CREATE TABLE IF NOT EXISTS `bandsAlbum` (
-`id` int(11) NOT NULL,
+CREATE TABLE `bands_band` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `_aclId` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `ownerUserId` int(11) NOT NULL,
+  `createdAt` datetime NOT NULL,
+  `modifiedAt` datetime NOT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `ownerUserId` (`ownerUserId`),
+  KEY `deleted` (`deleted`),
+  CONSTRAINT `bands_band_ibfk_1` FOREIGN KEY (`ownerUserId`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+CREATE TABLE `bands_album` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `bandId` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `ownerUserId` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
-  `modifiedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
-
-CREATE TABLE IF NOT EXISTS `bandsBand` (
-`id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `ownerUserId` int(11) NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `modifiedAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
-
-ALTER TABLE `bandsAlbum`
- ADD PRIMARY KEY (`id`), ADD KEY `bandId` (`bandId`), ADD KEY `ownerUserId` (`ownerUserId`);
-
-ALTER TABLE `bandsBand`
- ADD PRIMARY KEY (`id`), ADD KEY `ownerUserId` (`ownerUserId`);
-
-
-ALTER TABLE `bandsAlbum`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `bandsBand`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `bandsAlbum`
-ADD CONSTRAINT `bandsAlbum_ibfk_2` FOREIGN KEY (`ownerUserId`) REFERENCES `authUser` (`id`),
-ADD CONSTRAINT `bandsAlbum_ibfk_1` FOREIGN KEY (`bandId`) REFERENCES `bandsBand` (`id`) ON DELETE CASCADE;
-
-ALTER TABLE `bandsBand`
-ADD CONSTRAINT `bandsBand_ibfk_1` FOREIGN KEY (`ownerUserId`) REFERENCES `authUser` (`id`);
+  `modifiedAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bandId` (`bandId`),
+  KEY `ownerUserId` (`ownerUserId`),
+  CONSTRAINT `bands_album_ibfk_1` FOREIGN KEY (`bandId`) REFERENCES `bands_band` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `bands_album_ibfk_2` FOREIGN KEY (`ownerUserId`) REFERENCES `auth_user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 ````````````````````````````````````````````````````````````````````````````````
 
 
 Since we already installed the module before we need to increase the module 
-version manually now otherwise it will attempt to run this SQL file on the next update action.
+version manually in the table "modules_module" now otherwise it will attempt to 
+run this SQL file on the next update action.
 Alternatively you can remove the bands tables and run update to add them again.

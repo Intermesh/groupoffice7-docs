@@ -1,7 +1,7 @@
 Sometimes you need to pass data objects between controllers without exposing them in the URL.
 For example when creating a new contact from an e-mail message we go to the edit
 contact page and we pass along some contact attributes to prefill the form with 
-name an e-amil address.
+name an e-mail address.
 
 To do this you can define a parameter in the module.js in the UI router state 
 configuration. For example:

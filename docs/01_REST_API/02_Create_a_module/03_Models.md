@@ -4,7 +4,7 @@ many** albums and an album **belongs to** a band.
 
 Read more about models in the API documentation:
 
-http://intermesh.io/php/docs/class-GO.Core.Db.AbstractRecord.html
+http://intermesh.io/php/docs/class-IFW.Orm.Record.html
 
 
 Band:
@@ -13,7 +13,10 @@ Band:
 <?php
 namespace GO\Modules\Bands\Model;
 
-use GO\Core\Db\AbstractRecord;
+use GO\Core\Auth\Model\User;
+use GO\Modules\Bands\BandsModule;
+use IFW\Exception\Forbidden;
+use IFW\Orm\Record;
 
 /**
  * The Band model
@@ -21,19 +24,29 @@ use GO\Core\Db\AbstractRecord;
  * @property int $id
  * @property string $name
  * @property int $ownerUserId
- * @property \GO\Modules\Auth\Model\User $owner
+ * @property User $owner
  * @property string $createdAt
  * @property string $modifiedAt
+ * 
+ * @property Album[] $albums
  *
  * @copyright (c) 2015, Intermesh BV http://www.intermesh.nl
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class Band extends AbstractRecord{
-	protected static function defineRelations() {
-		self::hasMany('albums', Album::className(), 'bandId');
-	}
+class Band extends Record{	
+	
+	const PERMISSION_LISTEN = 3;
+	
+	protected static function defineRelations() {		
+		self::hasMany('albums', Album::class, ['id'=>'bandId']);
+		self::hasOne('owner', User::class, ['ownerUserId' => 'id']);	
+		parent::defineRelations();
+	}	
 }
+
+
+
 ````````````````````````````````````````````````````````````````````````````````
 
 Album:
@@ -42,8 +55,8 @@ Album:
 <?php
 namespace GO\Modules\Bands\Model;
 
-use GO\Core\Db\AbstractRecord;
 use GO\Core\Auth\Model\User;
+use IFW\Orm\Record;
 
 /**
  * The Album model
@@ -55,14 +68,21 @@ use GO\Core\Auth\Model\User;
  * @property User $owner
  * @property string $createdAt
  * @property string $modifiedAt
+ * 
+ * @property Band $band
  *
  * @copyright (c) 2015, Intermesh BV http://www.intermesh.nl
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class Album extends AbstractRecord {
+class Album extends Record {
 	protected static function defineRelations() {
-		self::belongsTo('band', Band::className(), 'bandId');
+		self::hasOne('band', Band::class, ['bandId' => 'id']);
+		self::hasOne('owner', User::class, ['ownerUserId' => 'id']);
+		
+		User::hasMany('albums', Album::class, ['ownerUserId' => 'id']);
+		
+		parent::defineRelations();
 	}
 }
 ````````````````````````````````````````````````````````````````````````````````
