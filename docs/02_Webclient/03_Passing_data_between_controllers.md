@@ -37,3 +37,5 @@ if($stateParams.attributes) {
 	$scope.contact.setAttributes($stateParams.attributes);
 }
 ``````````````````````````````````````````````````````````````
+
+See also: http://stackoverflow.com/questions/20632255/angularjs-pass-an-object-into-a-state-using-ui-router

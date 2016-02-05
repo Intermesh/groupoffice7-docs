@@ -6,13 +6,13 @@ bands with their albums.
 
 ## Naming conventions
 
-# Namespaces: use PascalCase
-# Classes: use PascalCase. Use short and simple names and only append Interface for interface. Don't use Abstract in the name for abstract classes.
-# Variables: use camelCase
-# Methods: use camelCase and https://www.cwu.edu/~gellenbe/javastyle/method.html
-# Folder/File names: PSR-4 standard. Use case sensitive names equal to the namespace/class name.
-# Database tables: For compatibility reasons use underscores. PascalCase = pascal_case.
-# Database columns: use camelCase
+- Namespaces: use PascalCase
+- Classes: use PascalCase. Use short and simple names and only append Interface for interface. Don't use Abstract in the name for abstract classes.
+- Variables: use camelCase
+- Methods: use camelCase and https://www.cwu.edu/~gellenbe/javastyle/method.html
+- Folder/File names: PSR-4 standard. Use case sensitive names equal to the namespace/class name.
+- Database tables: For compatibility reasons use underscores. PascalCase = pascal_case.
+- Database columns: use camelCase
 
 
 ## Folder structure

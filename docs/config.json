@@ -21,8 +21,11 @@
     "google_analytics": "",
     "links": {
         "Server GitHub Repo": "https://github.com/intermesh/groupoffice-server",
-		"Client GitHub Repo": "https://github.com/intermesh/groupoffice-webclient",
-        "PHP API": "http://intermesh.io/php/docs",
-		"AngularJS API": "http://intermesh.io/angular/docs"
+				"Client GitHub Repo": "https://github.com/intermesh/groupoffice-webclient",
+        "Server API": "http://intermesh.io/php/docs",
+				"Webclient API": "http://intermesh.io/angular/docs",
+				"AngularJS API" : "https://docs.angularjs.org/api",
+				"Angular Material": "https://material.angularjs.org/latest/"
+				
     }
 }

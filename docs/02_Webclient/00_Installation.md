@@ -1,4 +1,4 @@
-The webclient is built using AngularJS.
+The webclient is built using mainly AngularJS and Angular Material.
 
 ## Getting started
 1. To get started with development you will minimally need to install:

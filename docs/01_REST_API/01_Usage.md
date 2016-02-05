@@ -10,7 +10,7 @@ http://example.com/api/index.php/auth
 
 You can find a list of available routes here:
 
-http://intermesh.io/php/docs/class-GO.Core.Http.Router.html
+http://intermesh.io/php/docs/class-GO.Core.Web.App.html
 
 ## Authenticate
 
@@ -124,4 +124,4 @@ When saving a user you must PUT (for update) or POST (for create) this user mode
 in the same format. The server will respond with the success boolean. On failure 
 the model will have one or more "validationErrors".
 
-In the PHP API the user is a Model based on [AbstractRecord](http://intermesh.io/php/docs/class-GO.Core.Db.AbstractRecord.html).
+In the PHP API the user is a Model based on [Record](http://intermesh.io/php/docs/class-IFW.Orm.Record.html).
