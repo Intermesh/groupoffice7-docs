@@ -3,10 +3,10 @@ API. It uses JSON as data format. To learn how the API works we're going to use
 the Postman REST Client. I assume you've already got the webserver up and running.
 
 ## Routes
-You've installed the API somewhere. For example on http://example.com/api/index.php. 
+You've installed the API somewhere. For example on http://example.com/api. 
 When I refer to a route in this document, for example route "/auth" then this means:
 
-http://example.com/api/index.php/auth
+http://example.com/api/auth
 
 You can find a list of available routes here:
 

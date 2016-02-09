@@ -30,18 +30,25 @@ To install the GroupOffice server follow these steps:
    $ cd groupoffice-server
    $ composer install
    ``````````````````````````
-5. Optional:
-	 If you didn't put the library in the document root (recommended) then put 
-	 the /public/index.php file (or symlink it) in a web server root and make sure 
-	 the path to IFW.php is correct:
+5. If you didn't put the library in the document root (recommended) then you must 
+	 create the web accessible script in the document root. 
 
-   ```````````````````````````````````
-   require("../lib/IFW/IFW.php");
-   ```````````````````````````````````
-   Also adjust the path to config.php that you will create in step 7:
-   `````````````````````````````````````````````````````
-   $app = new App(require('../config.php'));
-   `````````````````````````````````````````````````````
+	 Create a file /etc/apache2/conf-available/groupoffice-server.conf:
+
+	 ```````````````````````````````````````````````````````
+		Alias /api /var/www/groupoffice-server/public/index.php
+
+		<Directory /var/www/groupoffice-server/public>
+		require all granted
+		</Directory>	 
+	 ```````````````````````````````````````````````````````
+
+	 Enable this config:
+	 ```````````````````````````````````````````````````````
+	 $ sudo a2enconf groupoffice-server
+	 $ sudo service apache2 reload
+   ```````````````````````````````````````````````````````
+
 6. Create a MySQL database called "go7".
 
 7. Create the data folder where Group-Office can store files.
@@ -53,24 +60,18 @@ To install the GroupOffice server follow these steps:
 8. Copy config.php.example to config.php and adjust it with the correct database 
 	parameters and data storage path configured in step 6 + 7.
 
-	Now it should work. Launch index.php:
+	Now it should work. Launch the API:
 
-	/index.php
+	/api
 
 	This will redirect to a system test page:
 
-	/index.php/system/check
-
-	Optionally you can create an alias for apache:
-
-	Alias /api /path/to/index.php
-
-	This allows pretty URL's like /api/system/check
+	/api/system/check
 
 	It should output that all is OK ;). It doesn't look pretty but it's not meant to
 	be because it's just an API.
 
-9. Open /index.php/system/install to install the database.
+9. Open /api/system/install to install the database.
 
 10. Now you can login (See the docs on how to do it with POSTMan or install the web client).
 
