@@ -2,10 +2,10 @@ The webclient is built using mainly AngularJS and Angular Material.
 
 ## Getting started
 1. To get started with development you will minimally need to install:
+	* The GroupOffice server (Do this first if you haven't done this yet)
   * [NPM](https://www.npmjs.org/)
   * [bower](http://bower.io)
-  * [sass](http://sass-lang.com/)
-	* A webserver with PHP
+  * [sass](http://sass-lang.com/)	
 
   On Ubuntu:
 
