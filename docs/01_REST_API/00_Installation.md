@@ -10,9 +10,14 @@ To install the GroupOffice server follow these steps:
 
 2. clone the repository:
 
+   It's recommended to put the server outside the webserver document root for
+   security reasons.		
+
    ``````````````````````````````````````````````````````````````````
-   $ git clone https://github.com/intermesh/groupoffice-server.git
+	 $ cd /var/www
+   $ git clone git@git.intermesh.nl:groupoffice-server.git
    ``````````````````````````````````````````````````````````````````
+
 3. Install composer if you haven't done that already. On Ubuntu do:
 
    ```````````````````````````````````````````````````
@@ -25,9 +30,10 @@ To install the GroupOffice server follow these steps:
    $ cd groupoffice-server
    $ composer install
    ``````````````````````````
-5. If you didn't put the library in the document root (recommended) then put 
-	 the /public/index.php file in a web server root and make sure the path to 
-   IFW.php is correct:
+5. Optional:
+	 If you didn't put the library in the document root (recommended) then put 
+	 the /public/index.php file (or symlink it) in a web server root and make sure 
+	 the path to IFW.php is correct:
 
    ```````````````````````````````````
    require("../lib/IFW/IFW.php");
@@ -37,7 +43,15 @@ To install the GroupOffice server follow these steps:
    $app = new App(require('../config.php'));
    `````````````````````````````````````````````````````
 6. Create a MySQL database called "go7".
-7. Copy config.php.example to config.php and adjust it with the correct database parameters.
+
+7. Create the data folder where Group-Office can store files.
+
+   ``````````````````````````````````````````````````````
+	 $ mkdir /var/www/groupoffice-server/data
+   $ sudo chown www-data:www-data /var/www/groupoffice-server/data
+   ``````````````````````````````````````````````````````
+8. Copy config.php.example to config.php and adjust it with the correct database 
+	parameters and data storage path configured in step 6 + 7.
 
 	Now it should work. Launch index.php:
 
@@ -56,9 +70,9 @@ To install the GroupOffice server follow these steps:
 	It should output that all is OK ;). It doesn't look pretty but it's not meant to
 	be because it's just an API.
 
-8. Open /index.php/system/install to install the database.
+9. Open /index.php/system/install to install the database.
 
-9. Now you can login
+10. Now you can login (See the docs on how to do it with POSTMan or install the web client).
 
 	The default login is:
 

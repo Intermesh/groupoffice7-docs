@@ -1,6 +1,13 @@
 Creating a module in the AngularJS client
 -----------------------------------------
 
+The following third party libraries are available in the webclient. Use them
+where you can:
+
+1. [Angular Material](https://material.angularjs.org/latest/)
+2. [Material Design Icons](https://materialdesignicons.com/)
+
+
 ### Create folder structure
 
 Create the module folder "app/modules/helloworld".
