@@ -4,8 +4,11 @@ Installation for development
 To install the GroupOffice server follow these steps:
 
 1. Make sure you have the required software:
+
+	 This command will install PHP, Apache2 and MySQL!
+
    ``````````````````````````````````````````````````````````````````
-   $ sudo apt-get install git curl php5-mcrypt php5-curl
+   $ sudo apt-get install git curl php5-mcrypt php5-curl libapache2-mod-php5 mysql-server
    ``````````````````````````````````````````````````````````````````
 
 2. clone the repository:
@@ -30,8 +33,8 @@ To install the GroupOffice server follow these steps:
    $ cd groupoffice-server
    $ composer install
    ``````````````````````````
-5. If you didn't put the library in the document root (recommended) then you must 
-	 create the web accessible script in the document root. 
+5. You must create the web accessible access point and we do this with an apache
+	 Alias.
 
 	 Create a file /etc/apache2/conf-available/groupoffice-server.conf:
 
