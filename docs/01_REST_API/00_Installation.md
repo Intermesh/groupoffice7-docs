@@ -16,88 +16,88 @@ To install the GroupOffice server follow these steps:
 	* curl (Just required to install composer)
 	* [Composer] https://getcomposer.org
 
-	 Install Apache2, PHP5 and MySQL. We also need some specific extensions:
-	 ````````````````````````````````````````````````````````````````````````````
-	 $ sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql php5-mcrypt php5-curl
-	 ````````````````````````````````````````````````````````````````````````````
+	Install Apache2, PHP5 and MySQL. We also need some specific extensions:
+	````````````````````````````````````````````````````````````````````````````
+	$ sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql php5-mcrypt php5-curl
+	````````````````````````````````````````````````````````````````````````````
 
-	 For some reason the PHP mcrypt library is not enabled by default so run:
+	For some reason the PHP mcrypt library is not enabled by default so run:
 
-	 ````````````````````````````````````````````````````````````````````````````
-	 $ sudo php5enmod mcrypt	
-	 ````````````````````````````````````````````````````````````````````````````
+	````````````````````````````````````````````````````````````````````````````
+	$ sudo php5enmod mcrypt	
+	````````````````````````````````````````````````````````````````````````````
 
-	 Install GIT and curl.
-   ````````````````````````````````````````````````````````````````````````````
-   $ sudo apt-get install git curl
-   ````````````````````````````````````````````````````````````````````````````
+	Install GIT and curl.
+	````````````````````````````````````````````````````````````````````````````
+	$ sudo apt-get install git curl
+	````````````````````````````````````````````````````````````````````````````
 
 2. clone the repository:
 
-   It's recommended to put the server outside the webserver document root for
-   security reasons.		
+	It's recommended to put the server outside the webserver document root for
+	security reasons.		
 
-   ````````````````````````````````````````````````````````````````````````````
-	 $ cd /var/www
-   $ git clone git@git.intermesh.nl:groupoffice-server.git
-   ````````````````````````````````````````````````````````````````````````````
+	````````````````````````````````````````````````````````````````````````````
+	$ cd /var/www
+	$ git clone git@git.intermesh.nl:groupoffice-server.git
+	````````````````````````````````````````````````````````````````````````````
 
 3. Install composer if you haven't done that already:
 
-   ````````````````````````````````````````````````````````````````````````````
-    $ curl -sS https://getcomposer.org/installer | php
-    $ sudo mv composer.phar /usr/local/bin/composer
-   ````````````````````````````````````````````````````````````````````````````
+	````````````````````````````````````````````````````````````````````````````
+	 $ curl -sS https://getcomposer.org/installer | php
+	 $ sudo mv composer.phar /usr/local/bin/composer
+	````````````````````````````````````````````````````````````````````````````
 4. Run composer in the working directory. This will install all required PHP 
-	 libraries:
+	libraries:
 
-   ````````````````````````````````````````````````````````````````````````````
-   $ cd /var/www/groupoffice-server
-   $ composer install
-   ````````````````````````````````````````````````````````````````````````````
+	````````````````````````````````````````````````````````````````````````````
+	$ cd /var/www/groupoffice-server
+	$ composer install
+	````````````````````````````````````````````````````````````````````````````
 5. You must create the web accessible access point and we do this with an apache
-	 Alias.
+	Alias.
 
-	 Create a file /etc/apache2/conf-available/groupoffice-server.conf:
+	Create a file /etc/apache2/conf-available/groupoffice-server.conf:
 
-	 ````````````````````````````````````````````````````````````````````````````
+	````````````````````````````````````````````````````````````````````````````
 		Alias /api /var/www/groupoffice-server/public/index.php
 
 		<Directory /var/www/groupoffice-server/public>
 		require all granted
-		</Directory>	 
-	 ````````````````````````````````````````````````````````````````````````````
+		</Directory>	
+	````````````````````````````````````````````````````````````````````````````
 
-	 Enable this config:
-	 ````````````````````````````````````````````````````````````````````````````
-	 $ sudo a2enconf groupoffice-server
-	 $ sudo service apache2 reload
-   ````````````````````````````````````````````````````````````````````````````
+	Enable this config:
+	````````````````````````````````````````````````````````````````````````````
+	$ sudo a2enconf groupoffice-server
+	$ sudo service apache2 reload
+	````````````````````````````````````````````````````````````````````````````
 
 6. Create a MySQL database and user for GroupOffice. For example named "go7".
 
-	 Here are some example commmands. If you use a root password then add -p.
-   ````````````````````````````````````````````````````````````````````````````
-   $ mysql -u root -e "CREATE DATABASE go7"
-	 $ mysql -u root -e "GRANT ALL PRIVILEGES ON go7.* TO 'go7'@'localhost' IDENTIFIED BY 'secret' WITH GRANT OPTION"
-	 ````````````````````````````````````````````````````````````````````````````
+	Here are some example commmands. If you use a root password then add -p.
+	````````````````````````````````````````````````````````````````````````````
+	$ mysql -u root -e "CREATE DATABASE go7"
+	$ mysql -u root -e "GRANT ALL PRIVILEGES ON go7.* TO 'go7'@'localhost' IDENTIFIED BY 'secret' WITH GRANT OPTION"
+	````````````````````````````````````````````````````````````````````````````
 
 7. Create the data folder where Group-Office can store files.
 
-   ````````````````````````````````````````````````````````````````````````````
-	 $ mkdir /var/www/groupoffice-server/data
-   $ sudo chown www-data:www-data /var/www/groupoffice-server/data
-   ````````````````````````````````````````````````````````````````````````````
+	````````````````````````````````````````````````````````````````````````````
+	$ mkdir /var/www/groupoffice-server/data
+	$ sudo chown www-data:www-data /var/www/groupoffice-server/data
+	````````````````````````````````````````````````````````````````````````````
 8. Create config.php configuration file by copying the defaults:
 
-	 ````````````````````````````````````````````````````````````````````````````
-	 $ cd /var/www/groupoffice-server
-	 $ cp config.php.example config.php
-	 ````````````````````````````````````````````````````````````````````````````
+	````````````````````````````````````````````````````````````````````````````
+	$ cd /var/www/groupoffice-server
+	$ cp config.php.example config.php
+	````````````````````````````````````````````````````````````````````````````
 
-	 Set the correct database parameters and data storage path created in step 6 + 7.
+	Set the correct database parameters and data storage path created in step 6 + 7.
 
-	 Now it should work. Launch the API:
+	Now it should work. Launch the API:
 
 	http://localhost/api
 

@@ -19,8 +19,10 @@ access token and the XSRFToken in a cookie:
 
 ```````````````````````````````````````````
 {
-	"username": "admin",
-	"password": "Admin1!"
+    "data" : {
+        "username" : "admin",
+        "password" : "Admin1!"
+    }
 }
 ```````````````````````````````````````````
 
@@ -32,12 +34,50 @@ More technical details can be found in the API documentation:
 
 http://intermesh.io/php/docs/class-GO.Core.Auth.Browser.Model.Token.html
 
-The server should respond with:
+The server should respond with the token object this:
 
 ``````````````````
 {
-	"XSRFToken": "abcdefg",
-	"success": true
+  "data": {
+    "user": {
+      "id": 1,
+      "deleted": false,
+      "enabled": true,
+      "username": "admin",
+      "createdAt": "2014-07-21T14:01:17Z",
+      "modifiedAt": "2016-02-11T11:01:28Z",
+      "loginCount": 83,
+      "lastLogin": "2016-02-11T12:01:28Z",
+      "isAdmin": true,
+      "permissions": {
+        "create": true,
+        "read": true,
+        "update": true,
+        "delete": true,
+        "changePermissions": true
+      },
+      "validationErrors": [],
+      "className": "GO\Core\Auth\Model\User",
+      "currentPassword": null,
+      "markDeleted": false
+    },
+    "accessToken": "97e52a77985e1420ece3ee4ea228fd9e75ecba28",
+    "XSRFToken": "d9f035533b0600710abf7051894a78ec39bb1663",
+    "userId": 1,
+    "expiresAt": "2016-02-12T12:01:28Z",
+    "permissions": {
+      "create": true,
+      "read": true,
+      "update": true,
+      "delete": true,
+      "changePermissions": true
+    },
+    "validationErrors": [],
+    "className": "GO\Core\Auth\Browser\Model\Token",
+    "checkXSRFToken": false,
+    "markDeleted": false
+  },
+  "success": true
 }
 ``````````````````
 
@@ -54,23 +94,31 @@ Use postman to do a GET request to route "/auth/users". It will return something
 
 `````````````````````````````````````````````````````````````````````````````````
 {
-	"success": true,
-	"results": [{
-		"id": 1,
-		"deleted": false,
-		"enabled": true,
-		"username": "admin",
-		"password": "",
-		"digest": "",
-		"createdAt": "2014-07-21T14:01:17Z",
-		"modifiedAt": "2015-01-15T10:58:32Z",
-		"loginCount": 84,
-		"lastLogin": "2015-01-15T11:58:32Z",
-		"validationErrors": [ ],
-		"className": "GO\\Modules\\Auth\\Model\\User",
-		"currentPassword": null,
-		"markDeleted": false
-		}]
+  "data": [
+    {
+      "id": 1,
+      "deleted": false,
+      "enabled": true,
+      "username": "admin",
+      "createdAt": "2014-07-21T14:01:17Z",
+      "modifiedAt": "2016-02-11T11:01:28Z",
+      "loginCount": 83,
+      "lastLogin": "2016-02-11T12:01:28Z",
+      "isAdmin": true,
+      "permissions": {
+        "create": true,
+        "read": true,
+        "update": true,
+        "delete": true,
+        "changePermissions": true
+      },
+      "validationErrors": [],
+      "className": "GO\Core\Auth\Model\User",
+      "currentPassword": null,
+      "markDeleted": false
+    }
+  ],
+  "success": true
 }
 ````````````````````````````````````````````````````````````````````````````````
 
@@ -100,23 +148,29 @@ This will return the user:
 
 ````````````````````````````````````````````````````````````````````````````````
 {
-    "data": {
-        "id": 1,
-        "deleted": false,
-        "enabled": true,
-        "username": "admin",
-        "password": "",
-        "digest": "",
-        "createdAt": "2014-07-21T14:01:17Z",
-        "modifiedAt": "2015-01-15T10:58:32Z",
-        "loginCount": 84,
-        "lastLogin": "2015-01-15T11:58:32Z",
-        "validationErrors": [],
-        "className": "GO\\Modules\\Auth\\Model\\User",
-        "currentPassword": null,
-        "markDeleted": false
+  "data": {
+    "id": 1,
+    "deleted": false,
+    "enabled": true,
+    "username": "admin",
+    "createdAt": "2014-07-21T14:01:17Z",
+    "modifiedAt": "2016-02-11T11:01:28Z",
+    "loginCount": 83,
+    "lastLogin": "2016-02-11T12:01:28Z",
+    "isAdmin": true,
+    "permissions": {
+      "create": true,
+      "read": true,
+      "update": true,
+      "delete": true,
+      "changePermissions": true
     },
-    "success": true
+    "validationErrors": [],
+    "className": "GO\Core\Auth\Model\User",
+    "currentPassword": null,
+    "markDeleted": false
+  },
+  "success": true
 }
 ````````````````````````````````````````````````````````````````````````````````
 

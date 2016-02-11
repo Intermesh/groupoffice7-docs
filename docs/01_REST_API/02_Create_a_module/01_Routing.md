@@ -2,20 +2,30 @@ Each module can add routes. To read more about how this works read the API docum
 
 http://intermesh.io/php/docs/class-IFW.Modules.Module.html#_defineHttpRoutes
 
+A route is URL path behind the API URL. For example:
+
+http://localhost/api/system/check
+
+In this example *http://localhost/api* is the API URL and */system/check* is the
+route.
+
 A route leads to a controller class. Let's start with the simplest example.
 
 Add the controller HelloController.php in the controller folder and enter:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
+
 namespace GO\Modules\Bands\Controller;
 
 use GO\Core\Controller;
 
 class HelloController extends Controller {
-	public function actionName($name = "human"){
-		return ['data' => 'Hello '.$name];
+
+	public function actionName($name = "human") {
+		$this->render(['data' => 'Hello ' . $name]);
 	}
+
 }
 ````````````````````````````````````````````````````````````````````````````````
 
@@ -31,10 +41,11 @@ GO/Modules/Bands/BandsModule.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
+
 namespace GO\Modules\Bands;
 
 use GO\Core\Modules\Model\InstallableModule;
-use GO\Modules\Bands\Controller\BandController;
+use IFW\Http\Router;
 use GO\Modules\Bands\Controller\HelloController;
 
 /**
@@ -46,17 +57,18 @@ use GO\Modules\Bands\Controller\HelloController;
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class BandsModule extends InstallableModule {
+class Module extends InstallableModule {
 
-	public static function defineHttpRoutes(Router $router) {		
+	public static function defineHttpRoutes(Router $router) {
+
 		$router->addRoutesFor(HelloController::class)
-				->get('bands/hello', 'name');
+						->get('bands/hello', 'name');
 	}
 }
 
 ````````````````````````````````````````````````````````````````````````````````
 
-Now request this route by going to the route "/bands/hello". It will output:
+Now do a GET request to the route "/bands/hello" (In our example the full URL is: http://localhost/api/bands/hello). It will output:
 
 ````````````````````````````````````````````````````````````````````````````````
 { 

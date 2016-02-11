@@ -6,13 +6,15 @@ bands with their albums.
 
 ## Naming conventions
 
-- Namespaces: use PascalCase
-- Classes: use PascalCase. Use short and simple names and only append Interface for interface. Don't use Abstract in the name for abstract classes.
-- Variables: use camelCase
-- Methods: use camelCase and https://www.cwu.edu/~gellenbe/javastyle/method.html
-- Folder/File names: PSR-4 standard. Use case sensitive names equal to the namespace/class name.
-- Database tables: For compatibility reasons use underscores. PascalCase = pascal_case.
-- Database columns: use camelCase
+| Type              | Convention                                                                                                                           |
+|-------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| Namespaces        | PascalCase                                                                                                                           |
+| Classes           | PascalCase. Use short and simple names and only append Interface for interface. Don't use Abstract in the name for abstract classes. |
+| Variables         | camelCase                                                                                                                            |
+| Methods           | use camelCase and https://www.cwu.edu/~gellenbe/javastyle/method.html                                                                |
+| Folder/File names | PSR-4 standard. Use case sensitive names equal to the namespace/class name.                                                          |
+| Database tables   | For compatibility reasons use underscores. PascalCase = pascal_case.                                                                 |
+| Database columns  | camelCase                                                                                                                            |
 
 
 ## Folder structure
@@ -21,25 +23,27 @@ Create the folder **GO/Modules/Bands**.
 
 Inside this folder create the following sub folders:
 
-- Controller
-- Install/Database
-- Model
+- Bands
+	- Controller
+	- Install
+		- Database
+	- Model
 
 ## Module manager file
 Each module has a module manager file. In this case:
 
-GO/Modules/Bands/BandsModule.php.
+GO/Modules/Bands/Module.php.
 
 Create this file and put in this minimal code:
 
 
 ``````````````````````````````````````````````
 <?php
+
 namespace GO\Modules\Bands;
 
 use GO\Core\Modules\Model\InstallableModule;
-use GO\Modules\Bands\Controller\BandController;
-use GO\Modules\Bands\Controller\HelloController;
+use IFW\Http\Router;
 
 /**
  * The bands module
@@ -50,9 +54,13 @@ use GO\Modules\Bands\Controller\HelloController;
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class BandsModule extends InstallableModule {
-	
+class Module extends InstallableModule {
+
+	public static function defineHttpRoutes(Router $router) {
+
+	}
 }
+
 
 ``````````````````````````````````````````````
 
@@ -67,7 +75,7 @@ With request payload:
 ``````````````````````````````````````````````
 {
 	"data": {
-		"name": "GO\\Modules\\Bands\\BandsModule"
+		"name": "GO\\Modules\\Bands\\Module"
 	}
 }
 ``````````````````````````````````````````````

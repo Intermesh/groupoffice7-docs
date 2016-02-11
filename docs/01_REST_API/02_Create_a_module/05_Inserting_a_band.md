@@ -9,7 +9,7 @@ Do a GET request on /bands/0 to get an empty band model with default values:
     "data": {
         "id": null,
         "name": null,
-        "ownerUserId": 1,
+        "ownedBy": 1,
         "createdAt": null,
         "modifiedAt": null,
         "isNew": true,

@@ -1,5 +1,23 @@
-Now that we have the models in place we must create a [RESTFul CRUD controller](http://intermesh.io/php/docs/class-GO.Core.Controller.AbstractController.html) to
-be able to Create, Read, Update and Delete models through the REST API. Create the controller BandController.php:
+Now that we have the models in place we must create a [RESTFul CRUD controller](http://intermesh.io/php/docs/class-GO.Core.Controller.Controller.html) to
+be able to Create, Read, Update and Delete models through the REST API. 
+
+
+## Controller actions
+A controller action is a method that is prefixed with the word "action".
+
+The router will automatically map query string parameters of the HTTP Request to
+the controller action method arguments. In the example below you could change the sort 
+order like this:
+
+http://localhost/api/bands?orderColumn=ownedBy&orderDirection=DESC
+
+If the method arguments don't have a default value then they are required in the
+URL.
+
+
+## BandController
+
+Create the controller BandController.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
@@ -176,7 +194,7 @@ class BandController extends AbstractController {
 
 ## Add the controller routes
 
-Add the route to the module manager file BandModule.php:
+Add the route to the module manager file GO/Modules/Bands/Module.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
@@ -216,6 +234,6 @@ class BandsModule extends InstallableModule {
 
 Now you should be able to perform a GET request on the API route:
 
-/bands
+/bands (http://localhost/api/bands)
 
 Read more about it in the REST API section.

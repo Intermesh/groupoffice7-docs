@@ -3,7 +3,7 @@ will automatically apply patch files.
 
 Database files must be put in this path:
 
-/{Namespace}/{ModuleName}/Database/Install
+/Path/To/Module/Database/Install
 
 You can put in php or sql files and the name must be in this format:
 
@@ -15,10 +15,10 @@ For example:
 
 When the upgrade process starts it will gather all module patch files and they 
 will be applied in chronological order. This is done so because a patch file might
-rely on other module updates when they depend on eachother.
+rely on other module updates when they depend on each other.
 
-The number of applied patches per module are stored in the modulesModule.version
- column.
+The number of applied patches per module are stored in the modules_module.version
+column.
 
 Installing and upgrading is basically the same process. The first patch file is
 the initial database.
@@ -47,16 +47,15 @@ Put the following SQL code in Install/Database/20150115-1423.sql:
 ````````````````````````````````````````````````````````````````````````````````
 CREATE TABLE `bands_band` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `_aclId` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `ownerUserId` int(11) NOT NULL,
+  `ownedBy` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
   `modifiedAt` datetime NOT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  KEY `ownerUserId` (`ownerUserId`),
+  KEY `ownedBy` (`ownedBy`),
   KEY `deleted` (`deleted`),
-  CONSTRAINT `bands_band_ibfk_1` FOREIGN KEY (`ownerUserId`) REFERENCES `auth_user` (`id`)
+  CONSTRAINT `bands_band_ibfk_1` FOREIGN KEY (`ownedBy`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -64,19 +63,25 @@ CREATE TABLE `bands_album` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bandId` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `ownerUserId` int(11) NOT NULL,
+  `ownedBy` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
   `modifiedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `bandId` (`bandId`),
-  KEY `ownerUserId` (`ownerUserId`),
+  KEY `ownedBy` (`ownedBy`),
   CONSTRAINT `bands_album_ibfk_1` FOREIGN KEY (`bandId`) REFERENCES `bands_band` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `bands_album_ibfk_2` FOREIGN KEY (`ownerUserId`) REFERENCES `auth_user` (`id`)
+  CONSTRAINT `bands_album_ibfk_2` FOREIGN KEY (`ownedBy`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 ````````````````````````````````````````````````````````````````````````````````
 
 
-Since we already installed the module before we need to increase the module 
-version manually in the table "modules_module" now otherwise it will attempt to 
-run this SQL file on the next update action.
-Alternatively you can remove the bands tables and run update to add them again.
+Now do a get request to the /system/upgrade route and it will execute this new sql
+file.
+
+The response should be:
+
+``````````````````
+{
+  "success": true
+}
+``````````````````
