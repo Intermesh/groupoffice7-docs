@@ -1,27 +1,41 @@
 The webclient is built using mainly AngularJS and Angular Material.
 
+In this instructions we've used Ubuntu 15.10. Other platforms can work as well 
+but you have to figure it out yourself ;)
+
+We assume the GroupOffice server has already been installed and in this example 
+we're going to install it at /var/www/html/groupoffice-webclient. 
+The URL will be http://localhost/groupoffice-webclient/app/
+
 ## Getting started
+
 1. To get started with development you will minimally need to install:
 	* The GroupOffice server (Do this first if you haven't done this yet)
+	* [GIT](https://git-scm.com/)
   * [NPM](https://www.npmjs.org/)
   * [bower](http://bower.io)
   * [sass](http://sass-lang.com/)	
-
-  On Ubuntu:
+	* [gulp](http://gulpjs.com/)
 
   Install git and npm with apt:
 
   `````````````````````````
   $ sudo apt-get install git npm
   `````````````````````````
-
-  I had to work around a bug with (see https://github.com/joyent/node/issues/3911):
+	
+	I had to install nodejs-legacy as well to avoid problems with a missing node binary:
 
   ``````````````````````````````````````````
-  $ sudo ln -s /usr/bin/nodejs /usr/bin/node
+  $ sudo apt-get install nodejs-legacy
   ``````````````````````````````````````````
 
-2. Clone the repository:
+2. Install gulp globally:
+
+	``````````````````````````````````````````````````````````````````````
+	$ sudo npm -g install gulp
+	``````````````````````````````````````````````````````````````````````
+
+3. Clone the repository:
 
 	First navigate into the document root:
 
@@ -33,54 +47,57 @@ The webclient is built using mainly AngularJS and Angular Material.
   $ git clone git@git.intermesh.nl:groupoffice-webclient.git
   ``````````````````````````````````````````````````````````````````````
 
-3. Get all the required NPM modules by running (I had to clear the tmp folder in my home directory becasue they are owned by root now):
+4. Get all the required NPM modules by running (I had to clear the ~/tmp folder in my home directory because they are owned by root now):
 
-  ``````````````````````````````
-  $ sudo rm -Rf /home/mschering/tmp/
+  ``````````````````````````````````````````````````````````````````````
+  $ sudo rm -Rf ~/tmp/
   $ cd groupoffice-webclient
   $ npm install
-  ``````````````````````````````
+  ``````````````````````````````````````````````````````````````````````
 
   This will automatically run "bower install" too. This will install all bower
   components required.
 
-Now navigate to the "app" folder with your browser.
-
-4. Install SASS for the stylesheets
+5. Install SASS for the stylesheets
 
 	Installing ruby
-	````````````````````````````````````````````````
+	``````````````````````````````````````````````````````````````````````
 	$ sudo apt-get install ruby-full build-essential
-	````````````````````````````````````````````````
+	``````````````````````````````````````````````````````````````````````
 
 	Installing rubygems
-	```````````````````````````````````````````
+	``````````````````````````````````````````````````````````````````````
 	$ sudo apt-get install rubygems-integration
-	```````````````````````````````````````````
+	``````````````````````````````````````````````````````````````````````
 
 	Install sass
-	`````````````````````
+	``````````````````````````````````````````````````````````````````````
 	$ sudo gem install sass
-	`````````````````````
+	``````````````````````````````````````````````````````````````````````
 
 	check if sass is working
-	`````````
+	``````````````````````````````````````````````````````````````````````
 	$ sass -v
-	`````````
+	``````````````````````````````````````````````````````````````````````
 
 	Run gulp sass script to create app/css/app.css:
 	
-	``````````````````````````
-	$ cd groupoffice-webclient
+	``````````````````````````````````````````````````````````````````````
+	$ cd /var/www/html/groupoffice-webclient
 	$ gulp sass
-	```````````````````````````
+	``````````````````````````````````````````````````````````````````````
 	
 	I personally configure Netbeans to generate app/css/app.css for me but you can 
 	also use "gulp sass:watch" to watch for changes on the *.scss files.
 
-5. Configure
+6. Configure
 	Copy app/config.js.example to app/config.js and edit the API URl inside if 
 	necessary.
+
+	``````````````````````````````````````````````````````````````````````
+	$ cd /var/www/groupoffice-webclient/app
+	$ cp config.js.example config.js
+	``````````````````````````````````````````````````````````````````````
 	
 
-6. Launch your browser and open http://localhost/groupoffice-webclient/app/
+7. Launch your browser and open http://localhost/groupoffice-webclient/app/

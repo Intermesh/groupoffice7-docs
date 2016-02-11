@@ -1,12 +1,12 @@
 GroupOffice has a [RESTFul](http://en.wikipedia.org/wiki/Representational_state_transfer)
 API. It uses JSON as data format. To learn how the API works we're going to use 
-the Postman REST Client. I assume you've already got the webserver up and running.
+the Postman REST Client.
 
 ## Routes
-You've installed the API somewhere. For example on http://example.com/api. 
+You've installed the API somewhere. For example on http://localhost/api. 
 When I refer to a route in this document, for example route "/auth" then this means:
 
-http://example.com/api/auth
+http://localhost/api/auth
 
 You can find a list of available routes here:
 
@@ -36,7 +36,7 @@ The server should respond with:
 
 ``````````````````
 {
-	"XSRFToken: "abcdefg",
+	"XSRFToken": "abcdefg",
 	"success": true
 }
 ``````````````````
