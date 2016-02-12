@@ -8,7 +8,7 @@ ALTER TABLE `bands_band` ADD `deleted` BOOLEAN NOT NULL DEFAULT FALSE , ADD INDE
 
 Now run the API route /system/upgrade to update the database.
 
-Now use POSTMan to do a DELETE request on /bands/1. Notice that it just changes
+Now use POSTMan to do a DELETE request to /bands/1. Notice that it just changes
 the deleted boolean:
 
 ````````````````````````````````````````````````````````````````````````````````
@@ -32,5 +32,17 @@ the deleted boolean:
     "markDeleted": false
   },
   "success": true
+}
+````````````````````````````````````````````````````````````````````````````````
+
+Now undelete the band because we need it later in the tutorial. Do a PUT request
+to /bands/1 with the deleted property set to false:
+
+````````````````````````````````````````````````````````````````````````````````
+{
+	"data": {		
+	    "deleted": false
+	}
+
 }
 ````````````````````````````````````````````````````````````````````````````````
