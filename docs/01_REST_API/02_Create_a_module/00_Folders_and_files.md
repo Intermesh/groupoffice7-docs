@@ -19,7 +19,14 @@ bands with their albums.
 
 ## Folder structure
 
-Create the folder **GO/Modules/Bands**.
+The GroupOffice modules that are provided in the packages are located in 
+"GO/Modules". For custom modules that you create yourself we've created an 
+additional folder/namespace called "UX/Modules". In this example we'll use that
+User Extension namespace.
+
+
+
+Create the folder **UX/Modules/Bands**.
 
 Inside this folder create the following sub folders:
 
@@ -32,7 +39,7 @@ Inside this folder create the following sub folders:
 ## Module manager file
 Each module has a module manager file. In this case:
 
-GO/Modules/Bands/Module.php.
+UX/Modules/Bands/Module.php.
 
 Create this file and put in this minimal code:
 
@@ -40,9 +47,9 @@ Create this file and put in this minimal code:
 ``````````````````````````````````````````````
 <?php
 
-namespace GO\Modules\Bands;
+namespace UX\Modules\Bands;
 
-use GO\Core\Modules\Model\InstallableModule;
+use UX\Core\Modules\Model\InstallableModule;
 use IFW\Http\Router;
 
 /**
@@ -75,9 +82,11 @@ With request payload:
 ``````````````````````````````````````````````
 {
 	"data": {
-		"name": "GO\\Modules\\Bands\\Module"
+		"name": "UX\\Modules\\Bands\\Module"
 	}
 }
 ``````````````````````````````````````````````
 
 This will add the module to the "modules_module" table.
+
+If you don't know how to do the request please read [Using the REST API](http://intermesh.io/index.php/REST_API/Usage).

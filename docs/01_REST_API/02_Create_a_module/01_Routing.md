@@ -16,9 +16,9 @@ Add the controller HelloController.php in the controller folder and enter:
 ````````````````````````````````````````````````````````````````````````````````
 <?php
 
-namespace GO\Modules\Bands\Controller;
+namespace UX\Modules\Bands\Controller;
 
-use GO\Core\Controller;
+use UX\Core\Controller;
 
 class HelloController extends Controller {
 
@@ -37,16 +37,16 @@ greets with hello. It has one GET query parameter that defaults to the string
 
 But we can't reach this controller method yet! We need to add a route to it in 
 the module manager file. Add the route **bands/hello** like this in 
-GO/Modules/Bands/BandsModule.php:
+UX/Modules/Bands/Module.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
 
-namespace GO\Modules\Bands;
+namespace UX\Modules\Bands;
 
 use GO\Core\Modules\Model\InstallableModule;
 use IFW\Http\Router;
-use GO\Modules\Bands\Controller\HelloController;
+use UX\Modules\Bands\Controller\HelloController;
 
 /**
  * The bands module

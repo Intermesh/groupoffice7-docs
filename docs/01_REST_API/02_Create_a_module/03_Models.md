@@ -2,21 +2,20 @@ GroupOffice has powerful ORM database models. You must create a model for each
 database table. Relations are also defined in the models. In this case a band **has
 many** albums and an album **has one** band.
 
-Read more about models in the API documentation:
+Read more about models and their relations in the API documentation:
 
 http://intermesh.io/php/docs/class-IFW.Orm.Record.html
 
 
-Band:
+Create UX/Modules/Bands/Model/Band.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
 
-namespace GO\Modules\Bands\Model;
+namespace UX\Modules\Bands\Model;
 
 use GO\Core\Auth\Model\User;
-use GO\Modules\Bands\BandsModule;
-use IFW\Exception\Forbidden;
+use GO\Modules\Bands\Model\BandCustomFields;
 use IFW\Orm\Record;
 
 /**
@@ -45,21 +44,20 @@ class Band extends Record {
 		parent::defineRelations();
 	}
 
-
-
 }
 
 
 
 
+
 ````````````````````````````````````````````````````````````````````````````````
 
-Album:
+Create UX/Modules/Bands/Model/Album.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
 
-namespace GO\Modules\Bands\Model;
+namespace UX\Modules\Bands\Model;
 
 use GO\Core\Auth\Model\User;
 use IFW\Orm\Record;
@@ -70,7 +68,7 @@ use IFW\Orm\Record;
  * @property int $id
  * @property int $bandId
  * @property string $name
- * @property int $ownedBy
+ * @property int $ownerUserId
  * @property User $owner
  * @property string $createdAt
  * @property string $modifiedAt
@@ -94,6 +92,7 @@ class Album extends Record {
 	}
 
 }
+
 
 ````````````````````````````````````````````````````````````````````````````````
 

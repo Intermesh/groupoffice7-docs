@@ -42,7 +42,7 @@ This is the diagram of the database:
 
 ![Database diagram](/img/bands-db.png "Database diagram")
 
-Put the following SQL code in Install/Database/20150115-1423.sql:
+Put the following SQL code in UX/Modules/Bands/Install/Database/20150115-1423.sql:
 
 ````````````````````````````````````````````````````````````````````````````````
 CREATE TABLE `bands_band` (

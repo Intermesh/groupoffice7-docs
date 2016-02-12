@@ -44,3 +44,7 @@ It's possible to optimize performance to tell the permissions object not to chec
 read permissions on each model when you already know you have executed the right
 query. The [ContactPermission](http://intermesh.io/php/docs/class-GO.Modules.Contacts.Model.ContactPermissions.html)
 object implements this for example.
+
+
+## Band permissions
+We're going to restrict access

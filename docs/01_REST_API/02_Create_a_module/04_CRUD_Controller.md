@@ -17,22 +17,21 @@ URL.
 
 ## BandController
 
-Create the controller BandController.php:
+Create the file UX/Modules/Bands/Controller/BandController.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
 
-namespace GO\Modules\Bands\Controller;
+namespace UX\Modules\Bands\Controller;
 
-use GO\Core\App;
-use GO\Core\Controller\AbstractCrudController;
-use GO\Core\Data\Store;
-use GO\Core\Db\Query;
-use GO\Core\Exception\NotFound;
-use GO\Modules\Bands\Model\Band;
+use GO\Core\Controller;
+use UX\Modules\Bands\Model\Band;
+use IFW;
+use IFW\Exception\NotFound;
+use IFW\Orm\Query;
 
 /**
- * The controller for bands. Admin role is required.
+ * The controller for bands. Admin group is required.
  * 
  * Uses the {@see Band} model.
  *
@@ -40,7 +39,7 @@ use GO\Modules\Bands\Model\Band;
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class BandController extends AbstractController {
+class BandController extends Controller {
 
 	/**
 	 * Fetch bands
@@ -50,16 +49,16 @@ class BandController extends AbstractController {
 	 * @param int $limit Limit the returned records
 	 * @param int $offset Start the select on this offset
 	 * @param string $searchQuery Search on this query.
-	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see GO\Core\Db\ActiveRecord::getAttributes()} for more information.
-	 * @param string $where {@see \GO\Core\Db\Criteria::whereSafe()}
+	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see IFW\Db\ActiveRecord::getAttributes()} for more information.
+	 * @param string $where {@see \IFW\Db\Criteria::whereSafe()}
 	 * @return array JSON Model data
 	 */
-	protected function actionStore($orderColumn = 'name', $orderDirection = 'ASC', $limit = 10, $offset = 0, $searchQuery = "", $returnAttributes = [], $where = null) {
+	protected function actionStore($orderColumn = 'name', $orderDirection = 'ASC', $limit = 10, $offset = 0, $searchQuery = "", $returnAttributes = "", $where = null) {
 
-		$query = Query::newInstance()
-				->orderBy([$orderColumn => $orderDirection])
-				->limit($limit)
-				->offset($offset);
+		$query = (new Query())
+						->orderBy([$orderColumn => $orderDirection])
+						->limit($limit)
+						->offset($offset);
 
 		if (!empty($searchQuery)) {
 			$query->search($searchQuery, ['t.bandname']);
@@ -71,28 +70,26 @@ class BandController extends AbstractController {
 
 			if (count($where)) {
 				$query
-						->groupBy(['t.id'])
-						->whereSafe($where);
+								->groupBy(['t.id'])
+								->whereSafe($where);
 			}
 		}
 
 		$bands = Band::find($query);
+		$bands->setReturnProperties($returnAttributes);
 
-		$store = new Store($bands);
-		$store->setReturnAttributes($returnAttributes);
-
-		return $this->renderStore($store);
+		$this->renderStore($bands);
 	}
 
 	/**
 	 * GET a list of bands or fetch a single band
 	 *
 	 * 
-	 * @param int $bandId The ID of the role
-	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see GO\Core\Db\ActiveRecord::getAttributes()} for more information.
+	 * @param int $bandId The ID of the group
+	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see IFW\Db\ActiveRecord::getAttributes()} for more information.
 	 * @return JSON Model data
 	 */
-	protected function actionRead($bandId = null, $returnAttributes = ['*','albums']) {
+	protected function actionRead($bandId = null, $returnAttributes = '*,albums') {
 
 		$band = Band::findByPk($bandId);
 
@@ -100,20 +97,21 @@ class BandController extends AbstractController {
 			throw new NotFound();
 		}
 
-		return $this->renderModel($band, $returnAttributes);
+		$this->renderModel($band, $returnAttributes);
 	}
 
 	/**
 	 * Get's the default data for a new band
 	 * 
-	 * @param array $returnAttributes
+	 * @param $returnAttributes
 	 * @return array
 	 */
-	protected function actionNew($returnAttributes = ['*','albums']) {
+	protected function actionNew($returnAttributes = '*,albums') {
 
+		//Check edit permission		
 		$band = new Band();
 
-		return $this->renderModel($band, $returnAttributes);
+		$this->renderModel($band, $returnAttributes);
 	}
 
 	/**
@@ -126,16 +124,16 @@ class BandController extends AbstractController {
 	 * {"data":{"attributes":{"bandname":"test",...}}}
 	 * </code>
 	 * 
-	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see GO\Core\Db\ActiveRecord::getAttributes()} for more information.
+	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see IFW\Db\ActiveRecord::getAttributes()} for more information.
 	 * @return JSON Model data
 	 */
-	public function actionCreate($returnAttributes = ['*','albums']) {
+	public function actionCreate($returnAttributes = '*,albums') {
 
 		$band = new Band();
-		$band->setAttributes(App::request()->payload['data']);
+		$band->setValues(IFW::app()->getRequest()->body['data']);
 		$band->save();
 
-		return $this->renderModel($band, $returnAttributes);
+		$this->renderModel($band, $returnAttributes);
 	}
 
 	/**
@@ -149,11 +147,11 @@ class BandController extends AbstractController {
 	 * </code>
 	 * 
 	 * @param int $bandId The ID of the band
-	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see GO\Core\Db\ActiveRecord::getAttributes()} for more information.
+	 * @param array|JSON $returnAttributes The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see IFW\Db\ActiveRecord::getAttributes()} for more information.
 	 * @return JSON Model data
 	 * @throws NotFound
 	 */
-	public function actionUpdate($bandId, $returnAttributes = ['*','albums']) {
+	public function actionUpdate($bandId, $returnAttributes = '*,albums') {
 
 		$band = Band::findByPk($bandId);
 
@@ -161,12 +159,10 @@ class BandController extends AbstractController {
 			throw new NotFound();
 		}
 
-		$band->setAttributes(App::request()->payload['data']);
-
+		$band->setValues(IFW::app()->getRequest()->body['data']);
 		$band->save();
 
-
-		return $this->renderModel($band, $returnAttributes);
+		$this->renderModel($band, $returnAttributes);
 	}
 
 	/**
@@ -184,7 +180,7 @@ class BandController extends AbstractController {
 
 		$band->delete();
 
-		return $this->renderModel($band);
+		$this->renderModel($band);
 	}
 
 }
@@ -198,11 +194,13 @@ Add the route to the module manager file GO/Modules/Bands/Module.php:
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
-namespace GO\Modules\Bands;
+namespace UX\Modules\Bands;
 
-use GO\Core\Modules\Model\InstallableModule;
-use GO\Modules\Bands\Controller\BandController;
-use GO\Modules\Bands\Controller\HelloController;
+use UX\Core\Modules\Model\InstallableModule;
+use UX\Modules\Bands\Controller\HelloController;
+
+//Use the new controller
+use UX\Modules\Bands\Controller\BandController;
 
 /**
  * The bands module
@@ -215,17 +213,19 @@ use GO\Modules\Bands\Controller\HelloController;
  */
 class BandsModule extends InstallableModule {
 
-	public function routes() {
-		BandController::routes()
-				->get('bands', 'store')
-				->get('bands/0','new')
-				->get('bands/:bandId','read')
-				->put('bands/:bandId', 'update')
-				->post('bands', 'create')
-				->delete('bands/:bandId','delete');
+	public static function defineHttpRoutes(Router $router) {
+
+		$router->addRoutesFor(HelloController::class)
+						->get('bands/hello', 'name');
 		
-		HelloController::routes()
-				->get('bands/hello', 'name');
+		//Add the new routes:
+		$router->addRoutesFor(BandController::class)
+						->get('bands', 'store')
+						->get('bands/0', 'new')
+						->get('bands/:bandId', 'read')
+						->put('bands/:bandId', 'update')
+						->post('bands', 'create')
+						->delete('bands/:bandId', 'delete');
 	}
 }
 
@@ -236,4 +236,12 @@ Now you should be able to perform a GET request on the API route:
 
 /bands (http://localhost/api/bands)
 
-Read more about it in the REST API section.
+It should return a JSON object with an empty data array because there are no 
+bands yet:
+
+````````````````````````````````````````````````````````````````````````````````
+{
+  "data": [],
+  "success": true
+}
+````````````````````````````````````````````````````````````````````````````````
