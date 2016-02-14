@@ -83,7 +83,7 @@ class Band extends Record {
 
 You can fetch a band now with custom fields by using the returnAttibutes query parameter:
 
-/bands/1?returnAttributes=*,albums,customfields
+/bands/1?returnProperties=*,albums,customfields
 
 The custom fields will have a null value. We must first add a custom field for the model.
 
@@ -136,7 +136,7 @@ The model name must be URL encoded.
 Now we can set this field on the band model. Do a PUT request to update the
 band:
 
-PUT /bands/1?returnAttributes=*,albums,customfields
+PUT /bands/1?returnProperties=*,albums,customfields
 
 ````````````````````````````````````````````````````````````````````````````````
 {
