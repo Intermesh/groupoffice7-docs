@@ -10,7 +10,7 @@ where you can:
 
 ### Create folder structure
 
-Create the module folder "app/modules/helloworld".
+Create the module folder "app/customizations/modules/bands".
 
 All JS files within this folder are loaded automatically by index.php or the
 build script.
