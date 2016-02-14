@@ -12,6 +12,7 @@ Create UX/Modules/Bands/Filter/Genre.php:
 <?php
 namespace UX\Modules\Bands\Filter;
 
+use IFW\Data\Filter\FilterOption;
 use IFW\Data\Filter\MultiselectFilter;
 use IFW\Orm\Query;
 use PDO;
@@ -43,12 +44,36 @@ class Genre extends MultiselectFilter {
 	 * @return string[]
 	 */
 	public function getOptions() {
-		return Album::find(
+		$genres = Album::find(
 						(new Query())
-						->distinct()
-						->fetchMode(PDO::FETCH_COLUMN,0)
+						->fetchMode(PDO::FETCH_COLUMN, 0)
 						->select('genre')
-						)->all();
+						->distinct()
+						);
+		
+		$options = [];
+		foreach($genres as $genre) {
+			$options[] = new FilterOption($this, $genre, $genre, $this->count($genre));
+		}
+		
+		return $options;
+		
+	}
+	
+	/**
+	 * Counts the number of occurenses but also applies all selected filter 
+	 * options in this query.
+	 * 
+	 * @param string $genre
+	 * @return int
+	 */
+	private function count($genre){
+		
+		$query = $this->collection->countQuery();		
+		$this->collection->apply($query);		
+		$query->where(['albums.genre' => $genre]);
+		
+		return (int) call_user_func([$this->collection->getModelClassName(), 'find'], $query)->single();
 	}
 
 }
@@ -98,35 +123,35 @@ also add the debug() call to the query so we can see the SQL in our debug output
 ````````````````````````````````````````````````````````````````````````````````
 protected function actionStore($orderColumn = 'name', $orderDirection = 'ASC', $limit = 10, $offset = 0, $searchQuery = "", $returnProperties = "", $where = null) {
 
-		$query = (new Query())
-						->orderBy([$orderColumn => $orderDirection])
-						->limit($limit)
-						->offset($offset)
-						->debug();
+	$query = (new Query())
+					->orderBy([$orderColumn => $orderDirection])
+					->limit($limit)
+					->offset($offset)
+					->debug();
 
-		if (!empty($searchQuery)) {
-			$query->search($searchQuery, ['t.bandname']);
-		}
-
-		if (!empty($where)) {
-
-			$where = json_decode($where, true);
-
-			if (count($where)) {
-				$query
-								->groupBy(['t.id'])
-								->whereSafe($where);
-			}
-		}
-		
-		//Add this line to apply the filters
-		$this->getFilterCollection()->apply($query);		
-
-		$bands = Band::find($query);
-		$bands->setReturnProperties($returnProperties);
-
-		$this->renderStore($bands);
+	if (!empty($searchQuery)) {
+		$query->search($searchQuery, ['t.bandname']);
 	}
+
+	if (!empty($where)) {
+
+		$where = json_decode($where, true);
+
+		if (count($where)) {
+			$query
+							->groupBy(['t.id'])
+							->whereSafe($where);
+		}
+	}
+
+	//Add this line to apply the filters
+	$this->getFilterCollection()->apply($query);		
+
+	$bands = Band::find($query);
+	$bands->setReturnProperties($returnProperties);
+
+	$this->renderStore($bands);
+}
 ````````````````````````````````````````````````````````````````````````````````
 
 
@@ -160,8 +185,72 @@ Remove Pop or Rock to see different results.
 
 ## Getting the filters
 
+In the controller we've also created a new action to get the filter information.
+First we must create a route to this action in UX/Modules/Bands/Module.php:
+
+````````````````````````````````````````````````````````````````````````````````
+public static function defineHttpRoutes(Router $router) {
+
+	$router->addRoutesFor(HelloController::class)
+					->get('bands/hello', 'name');
+
+	$router->addRoutesFor(BandController::class)
+					->get('bands', 'store')
+					->get('bands/0', 'new')
+					->get('bands/:bandId', 'read')
+					->put('bands/:bandId', 'update')
+					->post('bands', 'create')
+					->delete('bands/:bandId', 'delete')
+					
+					//Add this route
+					->get('bands/filters', 'filters');
+}
 ````````````````````````````````````````````````````````````````````````````````
 
 
+Now we can do a get request on /bands/filters. The response looks like this:
+
+````````````````````````````````````````````````````````````````````````````````
+{
+  "filters": [
+    {
+      "name": "Genre",
+      "label": null,
+      "type": "multiselect",
+      "clearFilters": [],
+      "selected": [
+        "Rock"
+      ],
+      "options": [
+        {
+          "count": 1,
+          "label": "Rock",
+          "value": "Rock",
+          "selected": true,
+          "className": "IFW\Data\Filter\FilterOption"
+        },
+        {
+          "count": 1,
+          "label": "Pop",
+          "value": "Pop",
+          "selected": false,
+          "className": "IFW\Data\Filter\FilterOption"
+        }
+      ],
+      "className": "UX\Modules\Bands\Filter\Genre"
+    }
+  ],
+  "count": 1,
+  "className": "IFW\Data\Filter\FilterCollection",
+  "success": true
+}
 ````````````````````````````````````````````````````````````````````````````````
 
+## Passing filter options
+Each filter option also returns the number of occurrences in the "count" property.
+
+We can also pass the same get parameters to this action so the counts update
+with that option enabled:
+
+Do a get with Genre=Rock and you'll get count=0 for Pop in the result. This is
+because there are zero Pop bands that also have the Rock genre.

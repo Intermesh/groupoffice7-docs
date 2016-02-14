@@ -179,3 +179,51 @@ in the same format. The server will respond with the success boolean. On failure
 the model will have one or more "validationErrors".
 
 In the PHP API the user is a Model based on [Record](http://intermesh.io/php/docs/class-IFW.Orm.Record.html).
+
+
+## Debugging
+
+Debugging can be enabled in the config.php file or by sending the HTTP header
+X-Debug=1. You will get extra debug output in the JSON responses.
+
+In our webclient you can turn it on and off by pressing CTRL + F7.
+
+## XML
+The API defaults to JSON but also supports XML. If you want XML format you can 
+set a header in the HTTP requests:
+
+````````````````````````````````````````````````````````````````````````````````
+Accept: application/xml
+````````````````````````````````````````````````````````````````````````````````
+
+or:
+
+````````````````````````````````````````````````````````````````````````````````
+Content-Type: application/xml
+````````````````````````````````````````````````````````````````````````````````
+
+The root element of the XML body is always “message”.
+So for example the login XML request looks like this:
+
+````````````````````````````````````````````````````````````````````````````````
+<?xml version="1.0"?>
+<message>
+	<data>
+		<username>admin</username>
+		<password>Admin1!</password>
+	</data>
+</message>
+````````````````````````````````````````````````````````````````````````````````
+
+And the response looks like:
+
+````````````````````````````````````````````````````````````````````````````````
+<?xml version="1.0"?>
+<message>
+	<data>
+		<user>
+			<id type="integer">1</id>
+			<deleted type="boolean">false</deleted>
+			<enabled type="boolean">true</enabled>
+etc.
+````````````````````````````````````````````````````````````````````````````````
