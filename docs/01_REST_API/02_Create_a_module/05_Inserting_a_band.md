@@ -39,9 +39,11 @@ other attributes are determined by GroupOffice automatically.
     "data": {
         "name": "Pearl Jam",
 				"albums": [{
-					"name": "Ten"
+					"name": "Ten",
+					"genre": "Rock"
 				},{
-					"name": "Backspacer"
+					"name": "Backspacer",
+					"genre": "Rock"
 				}]
     }
 }
@@ -57,6 +59,7 @@ If successful it responds with the new band:
         "id": 1,
         "bandId": 1,
         "name": "Ten",
+				"genre": "Rock",
         "ownedBy": 1,
         "createdAt": "2016-02-12T10:12:15Z",
         "modifiedAt": "2016-02-12T10:12:15Z",
@@ -75,6 +78,7 @@ If successful it responds with the new band:
         "id": 2,
         "bandId": 1,
         "name": "Backspacer",
+				"genre": "Rock",
         "ownedBy": 1,
         "createdAt": "2016-02-12T10:12:15Z",
         "modifiedAt": "2016-02-12T10:12:15Z",
