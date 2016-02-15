@@ -189,7 +189,7 @@ In the controller we've also created a new action to get the filter information.
 First we must create a route to this action in UX/Modules/Bands/Module.php:
 
 ````````````````````````````````````````````````````````````````````````````````
-public static function defineHttpRoutes(Router $router) {
+public static function defineWebRoutes(Router $router) {
 
 	$router->addRoutesFor(HelloController::class)
 					->get('bands/hello', 'name');

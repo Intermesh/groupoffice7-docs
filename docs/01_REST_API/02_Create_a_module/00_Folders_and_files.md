@@ -63,7 +63,7 @@ use IFW\Http\Router;
  */
 class Module extends InstallableModule {
 
-	public static function defineHttpRoutes(Router $router) {
+	public static function defineWebRoutes(Router $router) {
 
 	}
 }

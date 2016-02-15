@@ -213,7 +213,7 @@ use UX\Modules\Bands\Controller\BandController;
  */
 class BandsModule extends InstallableModule {
 
-	public static function defineHttpRoutes(Router $router) {
+	public static function defineWebRoutes(Router $router) {
 
 		$router->addRoutesFor(HelloController::class)
 						->get('bands/hello', 'name');

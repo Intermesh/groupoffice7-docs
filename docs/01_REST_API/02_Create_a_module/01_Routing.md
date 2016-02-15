@@ -1,6 +1,6 @@
 Each module can add routes. To read more about how this works read the API documentation:
 
-http://intermesh.io/php/docs/class-IFW.Modules.Module.html#_defineHttpRoutes
+http://intermesh.io/php/docs/class-IFW.Modules.Module.html#_defineWebRoutes
 
 A route is URL path behind the API URL. For example:
 
@@ -59,7 +59,7 @@ use UX\Modules\Bands\Controller\HelloController;
  */
 class Module extends InstallableModule {
 
-	public static function defineHttpRoutes(Router $router) {
+	public static function defineWebRoutes(Router $router) {
 
 		$router->addRoutesFor(HelloController::class)
 						->get('bands/hello', 'name');
