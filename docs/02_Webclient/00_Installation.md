@@ -29,10 +29,10 @@ The URL will be http://localhost/groupoffice-webclient/app/
   $ sudo apt-get install nodejs-legacy
   ``````````````````````````````````````````
 
-2. Install gulp globally:
+2. Install gulp and bower globally:
 
 	``````````````````````````````````````````````````````````````````````
-	$ sudo npm -g install gulp
+	$ sudo npm -g install gulp bower
 	``````````````````````````````````````````````````````````````````````
 
 3. Clone the repository:
@@ -101,3 +101,8 @@ The URL will be http://localhost/groupoffice-webclient/app/
 	
 
 7. Launch your browser and open http://localhost/groupoffice-webclient/app/
+
+
+8. Updating
+
+Whenever you run 

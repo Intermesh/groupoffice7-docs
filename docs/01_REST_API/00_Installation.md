@@ -14,7 +14,7 @@ To install the GroupOffice server follow these steps:
 	* [GIT](https://git-scm.com/)
 	* Apache2, PHP5 and MySQL
 	* curl (Just required to install composer)
-	* [Composer] https://getcomposer.org
+	* [Composer](https://getcomposer.org)
 
 	Install Apache2, PHP5 and MySQL. We also need some specific extensions:
 	````````````````````````````````````````````````````````````````````````````

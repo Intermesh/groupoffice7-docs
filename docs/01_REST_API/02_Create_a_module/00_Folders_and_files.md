@@ -49,7 +49,7 @@ Create this file and put in this minimal code:
 
 namespace UX\Modules\Bands;
 
-use UX\Core\Modules\Model\InstallableModule;
+use GO\Core\Modules\Model\InstallableModule;
 use IFW\Http\Router;
 
 /**
@@ -86,6 +86,9 @@ With request payload:
 	}
 }
 ``````````````````````````````````````````````
+
+The name of the module is the full namespaced PHP class name of the file created
+earlier.
 
 This will add the module to the "modules_module" table.
 
