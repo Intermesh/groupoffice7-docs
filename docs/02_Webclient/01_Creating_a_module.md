@@ -10,7 +10,7 @@ where you can:
 
 ### Create folder structure
 
-Create the module folder "app/customizations/modules/bands".
+Create the module folder "app/customizations/tutorial/modules/bands".
 
 All JS files within this folder are loaded automatically by index.php or the
 build script.
@@ -25,7 +25,7 @@ Optionally create these subfolders:
 - services: For angular services
 
 ### Create module.js
-Create "app/modules/helloworld/module.js" that will initialize the module.
+Create "app/modules/bands/module.js" that will initialize the module.
 
 In this file we'll add the states of the module and we can configure it before the application is running.
 
@@ -38,15 +38,15 @@ Example:
 GO.module('GO.Modules.HelloWorld', ['GO.Core']).
 		//Create a launcher
 		config(['GO.Core.launcherProvider', function (launcherProvider) {								
-				launcherProvider.add('helloworld', 'Hello World', []);
+				launcherProvider.add('bands', 'Bands', []);
 			}]).
 		config(['$stateProvider', function($stateProvider) {
 
 				// Now set up the states
 				$stateProvider
-						.state('helloworld', {
-							url: "/helloworld",
-							templateUrl: 'modules/helloworld/views/main.html',
+						.state('bands', {
+							url: "/bands",
+							templateUrl: 'modules/bands/views/main.html',
 							data: {
 								noAuth: false //optional set to true to disable authentication
 							}
@@ -54,12 +54,11 @@ GO.module('GO.Modules.HelloWorld', ['GO.Core']).
 			}]);
 ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
-### Create views/main.html
+### Create modules/bands/views/main.html
 
 ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 <h1>Hello World!</h1>
 ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
-
 
 ### Done!
 Now refresh the Angular app and it should have the hello world launcher available.
