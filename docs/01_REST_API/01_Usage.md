@@ -15,7 +15,9 @@ http://intermesh.io/php/docs/class-GO.Core.Web.App.html
 ## Authenticate
 
 The authentication route is "/auth" so you can POST this JSON in the body to 
-obtain the access token and the XSRFToken in a cookie:
+obtain the access token and the XSRFToken in a cookie. In POSTman you can set 
+the method to POST and the body to "raw" with the content type at 
+"application/json":
 
 ```````````````````````````````````````````
 {

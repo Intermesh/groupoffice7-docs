@@ -110,12 +110,10 @@ To install the GroupOffice server follow these steps:
 
 9. Open http://localhost/api/system/install to install the database.
 
-10. Now you can login
+10. Read the [Usage chapter](http://intermesh.io/index.php/REST_API/Usage) about 
+	how to login and use the API.
 
 	The default login is:
 
 	Username: admin
 	Password: Admin1!
-
-	Continue to the [Usage chapter](http://intermesh.io/index.php/REST_API/Usage) to read about how you can use the API or install
-	the webclient.

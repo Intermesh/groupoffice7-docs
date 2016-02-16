@@ -90,11 +90,11 @@ class BandPermissions extends Model {
 
 This model will allow read and write to anyone.
 
-We can use this model in the Bands record by overriding "createPermissions"
+We can use this model in the Bands record by overriding "internalGetPermissions"
 in "UX/Modules/Bands/Model/Band.php":
 
 ```````````````````````````````````````````````````````````````````````````````
-protected function createPermissions() {
+protected function internalGetPermissions() {
 	return new BandPermissions($this);
 }
 ```````````````````````````````````````````````````````````````````````````````
