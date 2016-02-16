@@ -221,7 +221,7 @@ use UX\Modules\Bands\Controller\BandController;
  * @author Merijn Schering <mschering@intermesh.nl>
  * @license http://www.gnu.org/licenses/agpl-3.0.html AGPLv3
  */
-class BandsModule extends InstallableModule {
+class Module extends InstallableModule {
 
 	public static function defineWebRoutes(Router $router) {
 
