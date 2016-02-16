@@ -1,9 +1,9 @@
 GroupOffice has a [RESTFul](http://en.wikipedia.org/wiki/Representational_state_transfer)
-API. It uses JSON as data format. To learn how the API works we're going to use 
-the Postman REST Client.
+API. It uses JSON as data format. To learn how the API works we're going to use
+the tool [POSTMan](https://www.getpostman.com/).
 
 ## Routes
-You've installed the API somewhere. For example on http://localhost/api. 
+You've installed the API somewhere. For example on "http://localhost/api". 
 When I refer to a route in this document, for example route "/auth" then this means:
 
 http://localhost/api/auth
@@ -14,8 +14,8 @@ http://intermesh.io/php/docs/class-GO.Core.Web.App.html
 
 ## Authenticate
 
-The authentication route is /auth so you can post this JSON object to obtain the 
-access token and the XSRFToken in a cookie:
+The authentication route is "/auth" so you can POST this JSON in the body to 
+obtain the access token and the XSRFToken in a cookie:
 
 ```````````````````````````````````````````
 {
@@ -122,7 +122,7 @@ Use postman to do a GET request to route "/auth/users". It will return something
 }
 ````````````````````````````````````````````````````````````````````````````````
 
-A GET request that lists objects will return a "results" array with models in them.
+A GET request that lists objects will return a "data" array with models in them.
 
 All the routes link to their controller class where you can read more about the GET 
 parameters they support.
@@ -137,13 +137,13 @@ in the API documenation.
 ## Data format
 Each controller usually works with a model. The model should be mentioned in the
 controller documentation. In this case it's the [User](http://intermesh.io/php/docs/class-GO.Core.Auth.Model.User.html) 
-model. To see which properties the user has look it up in the API documentation and take a look
-at the magic properties.
+model. To see **which properties** the user has look it up in the API 
+documentation and take a look at the **magic properties**.
 
 Note that some of the properties are read only like the primary key, className 
 and validationErrors. You'll get an error if you try to set these.
 
-You can view a single user by doing a GET request to the route /auth/users/1.
+You can view a single user by doing a GET request to the route "/auth/users/1".
 This will return the user:
 
 ````````````````````````````````````````````````````````````````````````````````
