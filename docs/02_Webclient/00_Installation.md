@@ -102,7 +102,27 @@ The URL will be http://localhost/groupoffice-webclient/app/
 
 7. Launch your browser and open http://localhost/groupoffice-webclient/app/
 
-
 8. Updating
 
-Whenever you run 
+	If you want to update the repository you can do:
+
+	``````````````````````````````````````````````````````````````````````
+	$ cd /var/www/groupoffice-webclient/ 
+	``````````````````````````````````````````````````````````````````````
+
+	To update it:
+	``````````````````````````````````````````````````````````````````````
+	$ git pull
+	``````````````````````````````````````````````````````````````````````
+
+	Install possible new bower components:
+
+	``````````````````````````````````````````````````````````````````````
+	$ bower update
+	``````````````````````````````````````````````````````````````````````
+
+	Generate the CSS file when someone made changes to the SASS files:
+	``````````````````````````````````````````````````````````````````````
+	$ gulp sass
+	``````````````````````````````````````````````````````````````````````
+
