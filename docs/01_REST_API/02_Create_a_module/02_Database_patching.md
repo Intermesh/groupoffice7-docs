@@ -63,6 +63,7 @@ CREATE TABLE `bands_album` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bandId` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+	`genre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `ownedBy` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
   `modifiedAt` datetime NOT NULL,

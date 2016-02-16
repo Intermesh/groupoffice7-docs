@@ -25,8 +25,8 @@ use IFW\Orm\Record;
  * @property string $name
  * @property int $ownedBy
  * @property User $owner
- * @property string $createdAt
- * @property string $modifiedAt
+ * @property \DateTime|string $createdAt
+ * @property \DateTime|string $modifiedAt
  * 
  * @property Album[] $albums
  * @property BandCustomFields $customfields
@@ -64,10 +64,11 @@ use IFW\Orm\Record;
  * @property int $id
  * @property int $bandId
  * @property string $name
+ * @property string $genre
  * @property int $ownerUserId
  * @property User $owner
- * @property string $createdAt
- * @property string $modifiedAt
+ * @property \DateTime|string $createdAt
+ * @property \DateTime|string $modifiedAt
  * 
  * @property Band $band
  *

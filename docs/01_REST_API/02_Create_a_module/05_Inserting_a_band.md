@@ -32,6 +32,8 @@ Now we can POST a new band with albums. GroupOffice can handle relations in one
 request too. We only need to post the required values name and albums. All the 
 other attributes are determined by GroupOffice automatically.
 
+Do a POST request to "/bands" with this request body:
+
 ````````````````````````````````````````````````````````````````````````````````
 {
     "data": {
