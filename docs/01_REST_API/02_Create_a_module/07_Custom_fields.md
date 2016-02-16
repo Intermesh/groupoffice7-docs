@@ -2,8 +2,8 @@ GroupOffice comes with a powerful custom fields module so users can extend
 models with their own custom fields. We're going to make the Bands model 
 extensible with custom fields in this example.
 
-## Create the file UX/Modules/Bands/Model/BandCustomFields.php and make this 
-model extend the model GO\Core\CustomFields\Model\CustomFieldsRecord:
+## Create the file "UX/Modules/Bands/Model/BandCustomFields.php" and make this 
+model extend the model "GO\Core\CustomFields\Model\CustomFieldsRecord":
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
@@ -18,7 +18,7 @@ class BandCustomFields extends CustomFieldsRecord {
 
 ````````````````````````````````````````````````````````````````````````````````
 
-Add the database patch file Install/Database/20160212-1118.sql:
+Add the database patch file "Install/Database/20160212-1118.sql":
 
 Note that's important to make it cascade on band deletion.
 
@@ -31,7 +31,7 @@ CREATE TABLE `bands_band_custom_fields` (
 
 ````````````````````````````````````````````````````````````````````````````````
 
-And run the route /system/update to apply it.
+And do a GET request to the route "/system/update" to apply it.
 
 
 ## Define relation in the Band model:
@@ -81,7 +81,7 @@ class Band extends Record {
 
 ## Add a custom field with the API
 
-You can fetch a band now with custom fields by using the returnAttibutes query parameter:
+You can fetch a band now with custom fields by using the returnProperties query parameter:
 
 /bands/1?returnProperties=*,albums,customfields
 
@@ -112,7 +112,7 @@ The custom fields will have a null value. We must first add a custom field for t
 }
 ````````````````````````````````````````````````````````````````````````````````
 
-POST this data to /customfields/fieldsets/UX%5CModules%5CBands%5CModel%5CBand
+POST this data to the route "/customfields/fieldsets/UX%5CModules%5CBands%5CModel%5CBand"
 
 The model name must be URL encoded.
 
@@ -133,10 +133,9 @@ The model name must be URL encoded.
 }
 ````````````````````````````````````````````````````````````````````````````````
 
-Now we can set this field on the band model. Do a PUT request to update the
-band:
+Now we can set this field on the band model. Do a PUT request to route 
+"/bands/1?returnProperties=*,albums,customfields" to update the band:
 
-PUT /bands/1?returnProperties=*,albums,customfields
 
 ````````````````````````````````````````````````````````````````````````````````
 {

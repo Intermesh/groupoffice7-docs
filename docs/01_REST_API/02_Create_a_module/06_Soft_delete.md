@@ -6,9 +6,9 @@ Now create a database patch file in Install/Database/20150115-1513.sql and add t
 ALTER TABLE `bands_band` ADD `deleted` BOOLEAN NOT NULL DEFAULT FALSE , ADD INDEX (`deleted`) ; 
 ````````````````````````````````````````````````````````````````````````````````
 
-Now run the API route /system/upgrade to update the database.
+Now do a GET request to the API route "/system/upgrade" to update the database.
 
-Now use POSTMan to do a DELETE request to /bands/1. Notice that it just changes
+Now use do a DELETE request to "/bands/1". Notice that it just changes
 the deleted boolean:
 
 ````````````````````````````````````````````````````````````````````````````````
@@ -36,7 +36,7 @@ the deleted boolean:
 ````````````````````````````````````````````````````````````````````````````````
 
 Now undelete the band because we need it later in the tutorial. Do a PUT request
-to /bands/1 with the deleted property set to false:
+to "/bands/1" with the deleted property set to false:
 
 ````````````````````````````````````````````````````````````````````````````````
 {

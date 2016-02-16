@@ -32,7 +32,7 @@ the initial database.
 > the module name. The tables should be in the singular form.
 > The Models will automatically use this name in most cases because it will use
 > All the parts of the namespaces except for Model and GO\Modules.
-> eg. GO\Modules\Bands\Model\Band will automatically use the table name "bands_band".
+> eg. "GO\Modules\Bands\Model\Band" will automatically use the table name "bands_band".
 >
 > **Wrong:** bands_bands
 >
@@ -42,7 +42,7 @@ This is the diagram of the database:
 
 ![Database diagram](/img/bands-db.png "Database diagram")
 
-Put the following SQL code in UX/Modules/Bands/Install/Database/20150115-1423.sql:
+Put the following SQL code in "UX/Modules/Bands/Install/Database/20150115-1423.sql":
 
 ````````````````````````````````````````````````````````````````````````````````
 CREATE TABLE `bands_band` (
@@ -75,7 +75,7 @@ CREATE TABLE `bands_album` (
 ````````````````````````````````````````````````````````````````````````````````
 
 
-Now do a get request to the /system/upgrade route and it will execute this new sql
+Now do a GET request to the "/system/upgrade" route and it will execute this new sql
 file.
 
 The response should be:

@@ -7,7 +7,7 @@ Read more about models and their relations in the API documentation:
 http://intermesh.io/php/docs/class-IFW.Orm.Record.html
 
 
-Create UX/Modules/Bands/Model/Band.php:
+Create 'UX/Modules/Bands/Model/Band.php':
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
@@ -52,7 +52,7 @@ class Band extends Record {
 
 ````````````````````````````````````````````````````````````````````````````````
 
-Create UX/Modules/Bands/Model/Album.php:
+Create 'UX/Modules/Bands/Model/Album.php':
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
@@ -97,6 +97,6 @@ class Album extends Record {
 ````````````````````````````````````````````````````````````````````````````````
 
 > ## TIP
-> Use this API route to generate the documentation blocks: 
->
-> - /devtools/models
+> Open the route "/devtools/models" in your browser to generate the class 
+> documentation block for your Record based on the database columns. It will 
+> also generate a default controller to get started with.

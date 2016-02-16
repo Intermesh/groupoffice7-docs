@@ -1,9 +1,7 @@
 Now your API is ready but the GET request on the /bands route returns a boring 
 empty result. So let's insert a band!
 
-Use POSTMan to add an new band with the API.
-
-Do a GET request on /bands/0 to get an empty band model with default values:
+Do a GET request on "/bands/0" to get an empty band model with default values:
 
 ````````````````````````````````````````````````````````````````````````````````
 {

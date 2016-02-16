@@ -4,6 +4,8 @@ own modules.
 In this example we're going to create a very simple "Bands" module. It will have 
 bands with their albums.
 
+I used the tool [POSTMan](https://www.getpostman.com/) to do all the HTTP requests.
+
 ## Naming conventions
 
 | Type              | Convention                                                                                                                           |
@@ -21,10 +23,8 @@ bands with their albums.
 
 The GroupOffice modules that are provided in the packages are located in 
 "GO/Modules". For custom modules that you create yourself we've created an 
-additional folder/namespace called "UX/Modules". In this example we'll use that
+additional "folder/namespace" called "UX/Modules". In this example we'll use that
 User Extension namespace.
-
-
 
 Create the folder **UX/Modules/Bands**.
 
@@ -37,9 +37,7 @@ Inside this folder create the following sub folders:
 	- Model
 
 ## Module manager file
-Each module has a module manager file. In this case:
-
-UX/Modules/Bands/Module.php.
+Each module has a module manager file. In this case "UX/Modules/Bands/Module.php".
 
 Create this file and put in this minimal code:
 
@@ -73,11 +71,9 @@ class Module extends InstallableModule {
 
 ## Install the module
 
-Install the module by doing a POST request to the route:
+Install the module by doing a POST request to the route "/modules"
 
-/modules
-
-With request payload:
+With request body:
 
 ``````````````````````````````````````````````
 {

@@ -6,18 +6,26 @@ be able to Create, Read, Update and Delete models through the REST API.
 A controller action is a method that is prefixed with the word "action".
 
 The router will automatically map query string parameters of the HTTP Request to
-the controller action method arguments. In the example below you could change the sort 
-order like this:
+the controller action method arguments. In the example action below:
 
-http://localhost/api/bands?orderColumn=ownedBy&orderDirection=DESC
+````````````````````````````````````````````````````````````````````````````````
+
+public function actionExample($bar, $foo="default") {
+
+}
+
+````````````````````````````````````````````````````````````````````````````````
+
+you can pass the arguments in your request like this: "/example?foo=value&bar=value"
 
 If the method arguments don't have a default value then they are required in the
-URL.
+URL. So in the example above the "bar" query parameter is required.
 
+Note that the order of the arguments is not important.
 
-## BandController
+## Band Controller
 
-Create the file UX/Modules/Bands/Controller/BandController.php:
+Create the file "UX/Modules/Bands/Controller/BandController.php":
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
@@ -190,14 +198,16 @@ class BandController extends Controller {
 
 ## Add the controller routes
 
-Add the route to the module manager file GO/Modules/Bands/Module.php:
+Add the route to the module manager file "UX/Modules/Bands/Module.php":
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
 namespace UX\Modules\Bands;
 
-use UX\Core\Modules\Model\InstallableModule;
+use GO\Core\Modules\Model\InstallableModule;
 use UX\Modules\Bands\Controller\HelloController;
+
+use IFW\Http\Router;
 
 //Use the new controller
 use UX\Modules\Bands\Controller\BandController;
@@ -232,12 +242,9 @@ class BandsModule extends InstallableModule {
 
 ````````````````````````````````````````````````````````````````````````````````
 
-Now you should be able to perform a GET request on the API route:
-
-/bands (http://localhost/api/bands)
-
-It should return a JSON object with an empty data array because there are no 
-bands yet:
+Now you should be able to perform a GET request on the API route "/bands" and 
+the server should respond with an empty data array because there are no bands 
+yet:
 
 ````````````````````````````````````````````````````````````````````````````````
 {

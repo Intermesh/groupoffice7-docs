@@ -23,7 +23,7 @@ read and write to bands.
 
 ### Create a bands user
 To demonstrate permissions we'll need a reglar user that's not an admin.
-Create one by doing a POST to /auth/users:
+Create one by doing a POST to the route "/auth/users":
 
 ```````````````````````````````````````````````````````````````````````````````
 {
@@ -34,11 +34,11 @@ Create one by doing a POST to /auth/users:
 }
 ```````````````````````````````````````````````````````````````````````````````
 
-Now login as that user by posting the same data as above to /auth.
+Now login as that user by posting the same data as above to the route "/auth".
 
-If we do a get on /bands now we'll get an 403 Forbidden error because this user
-is not allowed to access our earlier created band. You can see in the stact 
-trace that read permission is checked in the record constructor:
+If we do a GET request on "/bands" now we'll get an 403 Forbidden error because 
+this user is not allowed to access our earlier created band. You can see in the 
+stack trace that read permission is checked in the record constructor:
 
 ```````````````````````````````````````````````````````````````````````````````
 {
@@ -68,7 +68,7 @@ trace that read permission is checked in the record constructor:
 
 ### Create the permissions model
 
-Create UX/Modules/Bands/Model/BandPermissions.php:
+Create "UX/Modules/Bands/Model/BandPermissions.php":
 
 ```````````````````````````````````````````````````````````````````````````````
 
@@ -91,7 +91,7 @@ class BandPermissions extends Model {
 This model will allow read and write to anyone.
 
 We can use this model in the Bands record by overriding "createPermissions"
-in UX/Modules/Bands/Model/Band.php:
+in "UX/Modules/Bands/Model/Band.php":
 
 ```````````````````````````````````````````````````````````````````````````````
 protected function createPermissions() {
@@ -99,7 +99,7 @@ protected function createPermissions() {
 }
 ```````````````````````````````````````````````````````````````````````````````
 
-If we do the GET request on route /bands now again we'll get the band. Notice
+If we do the GET request on route "/bands" now again we'll get the band. Notice
 the permissions properties that has true for read and write.
 ```````````````````````````````````````````````````````````````````````````````
 {

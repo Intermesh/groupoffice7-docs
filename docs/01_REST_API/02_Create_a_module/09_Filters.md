@@ -6,7 +6,7 @@ predefined [filter types](http://intermesh.io/php/docs/namespace-IFW.Data.Filter
 
 We'll use the multi select filter.
 
-Create UX/Modules/Bands/Filter/Genre.php:
+Create "UX/Modules/Bands/Filter/Genre.php":
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
@@ -84,7 +84,7 @@ class Genre extends MultiselectFilter {
 ## Applying filters
 
 Now we must attach this filter in the BandController. 
-Edit UX/Modules/Bands/Filter/BandController.php and add an action to get the
+Edit "UX/Modules/Bands/Filter/BandController.php" and add an action to get the
 filters:
 
 
@@ -158,7 +158,7 @@ protected function actionStore($orderColumn = 'name', $orderDirection = 'ASC', $
 ## Using the filters
 
 To demonstrate the filters we must have band with a different genre. So do this
-post request to /bands:
+POST request to "/bands":
 ````````````````````````````````````````````````````````````````````````````````
 {
     "data": {
@@ -186,7 +186,7 @@ Remove Pop or Rock to see different results.
 ## Getting the filters
 
 In the controller we've also created a new action to get the filter information.
-First we must create a route to this action in UX/Modules/Bands/Module.php:
+First we must create a route to this action in "UX/Modules/Bands/Module.php":
 
 ````````````````````````````````````````````````````````````````````````````````
 public static function defineWebRoutes(Router $router) {
@@ -208,7 +208,7 @@ public static function defineWebRoutes(Router $router) {
 ````````````````````````````````````````````````````````````````````````````````
 
 
-Now we can do a get request on /bands/filters. The response looks like this:
+Now we can do a GET request on "/bands/filters". The response looks like this:
 
 ````````````````````````````````````````````````````````````````````````````````
 {

@@ -2,12 +2,12 @@ Each module can add routes. To read more about how this works read the API docum
 
 http://intermesh.io/php/docs/class-IFW.Modules.Module.html#_defineWebRoutes
 
-A route is URL path behind the API URL. For example:
+A **route** is the path behind the API URL. For example:
 
 http://localhost/api/system/check
 
-In this example *http://localhost/api* is the API URL and */system/check* is the
-route.
+In this example **http://localhost/api** is the API URL and **/system/check** is 
+the route.
 
 A route leads to a controller class. Let's start with the simplest example.
 
@@ -18,7 +18,7 @@ Add the controller HelloController.php in the controller folder and enter:
 
 namespace UX\Modules\Bands\Controller;
 
-use UX\Core\Controller;
+use GO\Core\Controller;
 
 class HelloController extends Controller {
 
