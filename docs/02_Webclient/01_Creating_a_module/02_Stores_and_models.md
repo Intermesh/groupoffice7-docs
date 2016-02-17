@@ -32,7 +32,7 @@ GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).
 
 
 							//Add the controller here.
-							controller: 'UX.Tutorial.Modules.Bands.MainController',
+							controller: 'UX.Tutorial.Modules.Bands.Controller.Main',
 
 
 							data: {
@@ -80,13 +80,13 @@ angular.module('UX.Tutorial.Modules.Bands').
 # Main controller
 
 Now create the main controller file 
-'ux/tutorial/modules/bands/controller/main-controller.js' for the main view:
+'ux/tutorial/modules/bands/controller/main.js' for the main view:
 
 ```````````````````````````````````````````````````````````````````````````````
 'use strict';
 
 GO.module('UX.Tutorial.Modules.Bands').
-				controller('UX.Tutorial.Modules.Bands.MainController', [
+				controller('UX.Tutorial.Modules.Bands.Controller.Main', [
 					'$scope',
 					'UX.Tutorial.Modules.Bands.Model.Band',
 					function ($scope, Band) {
@@ -137,7 +137,7 @@ We'll use the 'go-list' directive in the main view to present the data. Change
 
 	<go-list store="store" flex>
 
-		<item index="model.name" ui-sref="bands.band(model.id)">
+		<item index="model.name" ui-sref="bands.band({bandId: model.id})">
 			<div class="md-list-item-text">
 				<h3>{{model.name}}</h3>
 			</div>
@@ -150,6 +150,9 @@ We'll use the 'go-list' directive in the main view to present the data. Change
 
 	</go-list>
 </div>
+
+
+<div flex ui-view layout="column" class="go-info-panel"></div>
 
 
 ```````````````````````````````````````````````````````````````````````````````
