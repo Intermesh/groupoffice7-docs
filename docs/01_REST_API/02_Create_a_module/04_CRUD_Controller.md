@@ -69,7 +69,7 @@ class BandController extends Controller {
 						->offset($offset);
 
 		if (!empty($searchQuery)) {
-			$query->search($searchQuery, ['t.bandname']);
+			$query->search($searchQuery, ['t.name']);
 		}
 
 		if (!empty($where)) {
