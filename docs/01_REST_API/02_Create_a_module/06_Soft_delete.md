@@ -35,6 +35,7 @@ the deleted boolean:
 }
 ````````````````````````````````````````````````````````````````````````````````
 
+# Undelete
 Now undelete the band because we need it later in the tutorial. Do a PUT request
 to "/bands/1" with the deleted property set to false:
 

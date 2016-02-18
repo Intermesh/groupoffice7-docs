@@ -12,7 +12,7 @@ Let's define that state in "ux/tutorial/modules/bands/module.js":
 ````````````````````````````````````````````````````````````````````````````````
 GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).		
 		config(['GO.Core.launcherProvider', function (launcherProvider) {								
-				launcherProvider.add('bands', 'Bands', []);
+				launcherProvider.add('bands', 'Bands', ['UX/Modules/Bands/Module']);
 			}]).
 		config(['$stateProvider', function($stateProvider) {
 				$stateProvider
@@ -145,7 +145,8 @@ The view template must be created in 'ux/tutorial/modules/bands/views/band.html'
 
 # Create band controller
 
-The controller will take the band ID from $stateParams and read it into the model.
+The controller will take the band ID from '$stateParams' and read it into the 
+model.
 
 Create 'ux/tutorial/modules/bands/controller/band.js':
 

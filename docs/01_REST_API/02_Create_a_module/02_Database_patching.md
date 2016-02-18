@@ -3,7 +3,7 @@ will automatically apply patch files.
 
 Database files must be put in this path:
 
-/Path/To/Module/Database/Install
+/Path/To/Module/Install/Database
 
 You can put in php or sql files and the name must be in this format:
 
@@ -51,10 +51,8 @@ CREATE TABLE `bands_band` (
   `ownedBy` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
   `modifiedAt` datetime NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `ownedBy` (`ownedBy`),
-  KEY `deleted` (`deleted`),
   CONSTRAINT `bands_band_ibfk_1` FOREIGN KEY (`ownedBy`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

@@ -15,7 +15,6 @@ Create 'UX/Modules/Bands/Model/Band.php':
 namespace UX\Modules\Bands\Model;
 
 use GO\Core\Auth\Model\User;
-use GO\Modules\Bands\Model\BandCustomFields;
 use IFW\Orm\Record;
 
 /**

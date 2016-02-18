@@ -28,7 +28,7 @@ GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).
 				$stateProvider
 						.state('bands', {
 							url: "/bands",
-							templateUrl: 'customizations/tutorial/modules/bands/views/main.html',
+							templateUrl: 'ux/tutorial/modules/bands/views/main.html',
 
 
 							//Add the controller here.

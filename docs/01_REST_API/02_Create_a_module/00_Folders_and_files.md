@@ -48,7 +48,7 @@ Create this file and put in this minimal code:
 namespace UX\Modules\Bands;
 
 use GO\Core\Modules\Model\InstallableModule;
-use IFW\Http\Router;
+use IFW\Web\Router;
 
 /**
  * The bands module

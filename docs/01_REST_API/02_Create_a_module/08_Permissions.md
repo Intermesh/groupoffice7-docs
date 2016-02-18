@@ -14,8 +14,6 @@ Record has a property permissions that will return all allowed actions:
 }
 ````````````````````````````````````````
 
-
-
 ## Band permissions
 We're going to control access to our bands.  Now bands use the default 
 permissions that allow only access to admins. We're going to allow everybody to
