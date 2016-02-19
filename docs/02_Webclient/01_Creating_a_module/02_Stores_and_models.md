@@ -67,14 +67,18 @@ angular.module('UX.Tutorial.Modules.Bands').
 
 						});
 
-						//Set the relation with it's primary key so the model knows that 
-						//these columns must be sent along with the modified properties.
+						//Set the relations with their primary keys so the model knows that 
+						//this is a related model and only the modified properties and the 
+						//primary keys should be sent.
+						
 						Band.prototype.$relationKeys = {
-							albums: ['id', 'bandId']
+							albums: ['id', 'bandId'],
+							customfields: ['id']
 						};
 
 						return Band;
 					}]);
+
 ```````````````````````````````````````````````````````````````````````````````
 
 # Main controller
@@ -160,3 +164,5 @@ We'll use the 'go-list' directive in the main view to present the data. Change
 
 Now reload the webclient and navigate to the bands module. It should show the 
 list of bands created in the API.
+
+The list uses an infinite scrolling feature to deal with large stores.
