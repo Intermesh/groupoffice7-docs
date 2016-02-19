@@ -207,8 +207,6 @@ namespace UX\Modules\Bands;
 use GO\Core\Modules\Model\InstallableModule;
 use UX\Modules\Bands\Controller\HelloController;
 
-use IFW\Http\Router;
-
 //Use the new controller
 use UX\Modules\Bands\Controller\BandController;
 
@@ -223,7 +221,7 @@ use UX\Modules\Bands\Controller\BandController;
  */
 class Module extends InstallableModule {
 
-	public static function defineWebRoutes(Router $router) {
+	public static function defineWebRoutes(\IFW\Web\Router $router) {
 
 		$router->addRoutesFor(HelloController::class)
 						->get('bands/hello', 'name');

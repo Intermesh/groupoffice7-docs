@@ -126,9 +126,8 @@ the permissions properties that has true for read and write.
 ```````````````````````````````````````````````````````````````````````````````
 
 In real life you would probably want something more complex like allowing access
-per group. This could be accomplished by creating a link table with permission
-columns for it.
-
+per group. This could be accomplished by creating a link table from bands to 
+groups with permission columns like "read" and "write" for it.
 
 There are also some default permissions objects that you can use:
 

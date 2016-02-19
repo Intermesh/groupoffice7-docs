@@ -48,7 +48,6 @@ Create this file and put in this minimal code:
 namespace UX\Modules\Bands;
 
 use GO\Core\Modules\Model\InstallableModule;
-use IFW\Web\Router;
 
 /**
  * The bands module
@@ -61,7 +60,7 @@ use IFW\Web\Router;
  */
 class Module extends InstallableModule {
 
-	public static function defineWebRoutes(Router $router) {
+	public static function defineWebRoutes(\IFW\Web\Router $router) {
 
 	}
 }

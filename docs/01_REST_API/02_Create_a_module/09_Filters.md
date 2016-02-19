@@ -6,19 +6,18 @@ predefined [filter types](http://intermesh.io/php/docs/namespace-IFW.Data.Filter
 
 We'll use the multi select filter.
 
-Create "UX/Modules/Bands/Filter/Genre.php":
+Create "UX/Modules/Bands/Model/GenreFilter.php":
 
 ````````````````````````````````````````````````````````````````````````````````
 <?php
-namespace UX\Modules\Bands\Filter;
+namespace UX\Modules\Bands\Model;
 
 use IFW\Data\Filter\FilterOption;
 use IFW\Data\Filter\MultiselectFilter;
 use IFW\Orm\Query;
 use PDO;
-use UX\Modules\Bands\Model\Album;
 
-class Genre extends MultiselectFilter {
+class GenreFilter extends MultiselectFilter {
 	
 	/**
 	 * Applies the filter on a store query
@@ -83,8 +82,30 @@ class Genre extends MultiselectFilter {
 
 ## Applying filters
 
+We'll add this filter in a collection that we create in the band module.
+
+Edit 'UX/Modules/Bands/Model/Band.php' and add this use:
+
+````````````````````````````````````````````````````````````````````````````````
+use IFW\Data\Filter\FilterCollection;
+````````````````````````````````````````````````````````````````````````````````
+
+and this function:
+
+````````````````````````````````````````````````````````````````````````````````
+public static function createFilterCollection() {
+	$filters = new FilterCollection(Band::class);		
+	$filters->addFilter(GenreFilter::class);		
+
+	//Adds custom field filters automatically
+	Field::addFilters(BandCustomFields::class, $filters);
+
+	return $filters;
+}
+````````````````````````````````````````````````````````````````````````````````
+
 Now we must attach this filter in the BandController. 
-Edit "UX/Modules/Bands/Filter/BandController.php" and add an action to get the
+Edit "UX/Modules/Bands/Controller/BandController.php" and add an action to get the
 filters:
 
 
@@ -93,26 +114,14 @@ Add these uses:
 ````````````````````````````````````````````````````````````````````````````````
 use GO\Core\CustomFields\Model\Field;
 use IFW\Data\Filter\FilterCollection;
-use UX\Modules\Bands\Filter\Genre;
 use UX\Modules\Bands\Model\BandCustomFields;
 ````````````````````````````````````````````````````````````````````````````````
 
-Add this action and private function:
+Add this action:
 
 ````````````````````````````````````````````````````````````````````````````````
 public function actionFilters() {
-	$this->render($this->getFilterCollection()->toArray());		
-}
-
-private function getFilterCollection() {
-	$filters = new FilterCollection(Band::class);
-
-	$filters->addFilter(Genre::class);
-
-	//Adds custom field filters automatically
-	Field::addFilters(BandCustomFields::class, $filters);
-
-	return $filters;
+	$this->render(Band::createFilterCollection()->toArray());		
 }
 ````````````````````````````````````````````````````````````````````````````````
 
@@ -145,7 +154,7 @@ protected function actionStore($orderColumn = 'name', $orderDirection = 'ASC', $
 	}
 
 	//Add this line to apply the filters
-	$this->getFilterCollection()->apply($query);		
+	Band::createFilterCollection()->apply($query);		
 
 	$bands = Band::find($query);
 	$bands->setReturnProperties($returnProperties);
@@ -157,8 +166,8 @@ protected function actionStore($orderColumn = 'name', $orderDirection = 'ASC', $
 
 ## Using the filters
 
-To demonstrate the filters we must have band with a different genre. So do this
-POST request to "/bands":
+To demonstrate the filters we must have band with a different genre. 
+Login as user "admin" again and do this POST request to "/bands":
 ````````````````````````````````````````````````````````````````````````````````
 {
     "data": {
@@ -178,7 +187,7 @@ can be overridden to change the name but in most cases this won't be necessary.
 The name is also used as query paramter to send the filter value. Multiple values
 are separated by a comma. So to filter on genre we can do this request:
 
-GET http://localhost/api/bands?Genre=Rock,Pop
+GET http://localhost/api/bands?GenreFilter=Rock,Pop
 
 Remove Pop or Rock to see different results.
 
@@ -208,19 +217,19 @@ public static function defineWebRoutes(Router $router) {
 ````````````````````````````````````````````````````````````````````````````````
 
 
-Now we can do a GET request on "/bands/filters". The response looks like this:
+Now we can do a GET request on "/bands/filters". Note that in this example the
+"value" and "label" are identical because we don't have a table with id and name
+for the genres. The response looks like this:
 
 ````````````````````````````````````````````````````````````````````````````````
 {
   "filters": [
     {
-      "name": "Genre",
+      "name": "GenreFilter",
       "label": null,
       "type": "multiselect",
       "clearFilters": [],
-      "selected": [
-        "Rock"
-      ],
+      "selected": null,
       "options": [
         {
           "count": 1,
@@ -237,7 +246,7 @@ Now we can do a GET request on "/bands/filters". The response looks like this:
           "className": "IFW\Data\Filter\FilterOption"
         }
       ],
-      "className": "UX\Modules\Bands\Filter\Genre"
+      "className": "UX\Modules\Bands\Model\GenreFilter"
     }
   ],
   "count": 1,
@@ -252,5 +261,8 @@ Each filter option also returns the number of occurrences in the "count" propert
 We can also pass the same get parameters to this action so the counts update
 with that option enabled:
 
-Do a get with Genre=Rock and you'll get count=0 for Pop in the result. This is
+Do a get with GenreFilter=Rock and you'll get count=0 for Pop in the result. This is
 because there are zero Pop bands that also have the Rock genre.
+
+You can do the same for the route '/bands'. Do a GET request to 
+'/bands?GenreFilter=Rock' and you'll only get the bands with a Rock album.

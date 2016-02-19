@@ -45,7 +45,6 @@ UX/Modules/Bands/Module.php:
 namespace UX\Modules\Bands;
 
 use GO\Core\Modules\Model\InstallableModule;
-use IFW\Http\Router;
 use UX\Modules\Bands\Controller\HelloController;
 
 /**
@@ -59,7 +58,7 @@ use UX\Modules\Bands\Controller\HelloController;
  */
 class Module extends InstallableModule {
 
-	public static function defineWebRoutes(Router $router) {
+	public static function defineWebRoutes(\IFW\Web\Router $router) {
 
 		$router->addRoutesFor(HelloController::class)
 						->get('bands/hello', 'name');
