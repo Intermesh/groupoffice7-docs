@@ -24,10 +24,9 @@ GO.module('UX.Tutorial.Modules.Bands').
 				controller('UX.Tutorial.Modules.Bands.Controller.Main', [
 					'$scope',
 					'UX.Tutorial.Modules.Bands.Model.Band',
-
-					//Add this dependency:
 					'GO.Core.Components.Modal',
-					function ($scope, Band, Modal) {
+					'$state',
+					function ($scope, Band, Modal, $state) {
 
 						$scope.band = new Band();
 
@@ -35,10 +34,6 @@ GO.module('UX.Tutorial.Modules.Bands').
 							returnProperties: "id,name"
 						});
 
-						$scope.store.load();
-
-
-						//Add this edit function
 						$scope.edit = function (band) {
 
 							if (!band) {
@@ -49,10 +44,17 @@ GO.module('UX.Tutorial.Modules.Bands').
 							Modal.show({
 								editModel: band,
 								templateUrl: 'ux/tutorial/modules/bands/views/band-edit.html'
+							}).then(function (data) {
+								data.close.then(function (band) {
+									if (band) {
+										$state.go("bands.band", {bandId: band.id});
+									}
+								});
 							});
 						};
 
 					}]);
+
 
 ````````````````````````````````````````````````````````````````````````````````
 
@@ -101,7 +103,7 @@ Create the band edit view 'ux/tutorial/modules/bands/views/band-edit.html':
 			<div layout ng-init="album.$formName = 'album_' + $index" ng-repeat="album in model.albums">
 				<md-input-container flex>							
 					<label>{{"Album name"| goT}}</label>
-					<input type="text" name="{{album.$formName}}" ng-model="album.name" required go-autofocus="($index > 0 || model.id) && !album.id">
+					<input type="text" name="{{album.$formName}}" ng-model="album.name" required go-autofocus="!album.id">
 					<div ng-messages="bandForm[album.$formName].$error" role="alert">
 						<div ng-message="required">
 							{{"This field is required" | goT}}
@@ -137,3 +139,22 @@ Create the band edit view 'ux/tutorial/modules/bands/views/band-edit.html':
 
 This view has the name field in it and uses an "ng-repeat" to render the band 
 input fields.
+
+
+# Add button
+Add a button to add new bands to the main view. Edit
+
+'ux/tutorial/modules/bands/main.html' and add the following code right after
+the '</go-list>' tag:
+
+````````````````````````````````````````````````````````````````````````````````
+<div class="go-fab-list">
+	<md-button class="md-fab"  ng-click='edit()'>
+		<md-icon class="mdi-plus"></md-icon>
+		<md-tooltip md-direction="left">{{"Add"| goT}}</md-tooltip>
+	</md-button>
+</div>
+````````````````````````````````````````````````````````````````````````````````
+
+Now reload the angular view and a green cirular button should appear in the 
+bottom right corner of the list.
