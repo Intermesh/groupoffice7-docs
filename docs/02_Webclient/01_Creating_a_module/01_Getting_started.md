@@ -43,7 +43,7 @@ Example:
 GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).
 		//Create a launcher
 		config(['GO.Core.launcherProvider', function (launcherProvider) {								
-				launcherProvider.add('bands', 'Bands', []);
+				launcherProvider.add('bands', 'Bands', ['UX\\Modules\\Bands\\Module']);
 			}]).
 		config(['$stateProvider', function($stateProvider) {
 

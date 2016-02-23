@@ -12,7 +12,7 @@ Let's define that state in "ux/tutorial/modules/bands/module.js":
 ````````````````````````````````````````````````````````````````````````````````
 GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).		
 		config(['GO.Core.launcherProvider', function (launcherProvider) {								
-				launcherProvider.add('bands', 'Bands', ['UX/Modules/Bands/Module']);
+				launcherProvider.add('bands', 'Bands', ['UX\\Modules\\Bands\\Module']);
 			}]).
 		config(['$stateProvider', function($stateProvider) {
 				$stateProvider

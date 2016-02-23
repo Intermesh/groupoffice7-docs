@@ -21,7 +21,7 @@ GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).
 				
 				// Add the server module dependency here:
 				
-				launcherProvider.add('bands', 'Bands', ['UX/Modules/Bands/Module']);
+				launcherProvider.add('bands', 'Bands', ['UX\\Modules\\Bands\\Module']);
 			}]).
 		config(['$stateProvider', function($stateProvider) {
 
