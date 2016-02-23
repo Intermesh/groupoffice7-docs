@@ -89,7 +89,7 @@ The view template must be created in 'ux/tutorial/modules/bands/views/band.html'
 		<md-toolbar class="md-hue-1">
 			<div class="md-toolbar-tools">
 				<h2 flex>Info</h2>
-				<md-button class="md-icon-button" ng-disabled="!band.permissions.update" ng-click="edit({band: band})">
+				<md-button class="md-icon-button" ng-disabled="!band.permissions.update" ng-click="edit(band)">
 					<md-tooltip>
 						{{"Edit"| goT}}					
 					</md-tooltip>

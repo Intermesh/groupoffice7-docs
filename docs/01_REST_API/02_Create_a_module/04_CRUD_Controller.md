@@ -97,7 +97,7 @@ class BandController extends Controller {
 	 * @param array|JSON $returnProperties The attributes to return to the client. eg. ['\*','emailAddresses.\*']. See {@see IFW\Db\ActiveRecord::getAttributes()} for more information.
 	 * @return JSON Model data
 	 */
-	protected function actionRead($bandId = null, $returnProperties = '*,albums') {
+	protected function actionRead($bandId, $returnProperties = '*,albums') {
 
 		$band = Band::findByPk($bandId);
 

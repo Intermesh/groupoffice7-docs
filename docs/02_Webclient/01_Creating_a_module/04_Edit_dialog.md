@@ -34,6 +34,8 @@ GO.module('UX.Tutorial.Modules.Bands').
 							returnProperties: "id,name"
 						});
 
+						$scope.store.load();
+
 						$scope.edit = function (band) {
 
 							if (!band) {
