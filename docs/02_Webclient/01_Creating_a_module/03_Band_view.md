@@ -78,7 +78,7 @@ The view template must be created in 'ux/tutorial/modules/bands/views/band.html'
 
 <div class="go-progress-container"><md-progress-linear md-mode="indeterminate" ng-if="band.$busy"></md-progress-linear></div>
 <md-tabs md-selected="0">
-	<!-- goto is defined in $rootScope in app/controller/body-controller.js"
+	<!-- goto is defined in $rootScope in app/controller/body-controller.js" -->
 	<md-tab ng-click="goto('info')">Info</md-tab>
 </md-tabs>
 
