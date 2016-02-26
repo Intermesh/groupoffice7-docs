@@ -113,50 +113,51 @@ We'll use the 'go-list' directive in the main view to present the data. Change
 'ux/tutorial/modules/bands/view/main.html' into:
 
 ```````````````````````````````````````````````````````````````````````````````
-
-<div class="go-list" layout="column">
-	<go-list-toolbar store="store">
-		<div class="md-toolbar-tools">
-			<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
-				<md-icon class="mdi-menu"></md-icon>
-			</md-button>
-
-			<span flex></span>
-
-			<go-search-button></go-search-button>
-
-			<md-menu md-position-mode="target-right target">
-				<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
-					<md-icon md-menu-origin class="mdi-dots-vertical"></md-icon>
+<go-hook name="bands" layout="row" flex>
+	<div class="go-list" layout="column">
+		<go-list-toolbar store="store">
+			<div class="md-toolbar-tools">
+				<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
+					<md-icon class="mdi-menu"></md-icon>
 				</md-button>
-				<md-menu-content>
-					<md-menu-item>
-						<md-button ng-click="store.reload()">{{"Refresh"| goT}}</md-button>
-					</md-menu-item>
-				</md-menu-content>
-			</md-menu>
-		</div>			
-	</go-list-toolbar>
+
+				<span flex></span>
+
+				<go-search-button></go-search-button>
+
+				<md-menu md-position-mode="target-right target">
+					<md-button aria-label="{{::'More options'| goT}}" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+						<md-icon md-menu-origin class="mdi-dots-vertical"></md-icon>
+					</md-button>
+					<md-menu-content>
+						<md-menu-item>
+							<md-button ng-click="store.reload()">{{"Refresh"| goT}}</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</div>			
+		</go-list-toolbar>
 
 
-	<go-list store="store" flex>
+		<go-list store="store" flex>
 
-		<item index="model.name" ui-sref="bands.band({bandId: model.id})">
-			<div class="md-list-item-text">
-				<h3>{{model.name}}</h3>
-			</div>
-		</item>
+			<item index="model.name" ui-sref="bands.band({bandId: model.id})">
+				<div class="md-list-item-text">
+					<h3>{{model.name}}</h3>
+				</div>
+			</item>
 
-		<empty-state>
-			<md-icon class="mdi-account"></md-icon>
-			<p>{{"No bands found"| goT}}</p>
-		</empty-state>
+			<empty-state>
+				<md-icon class="mdi-account"></md-icon>
+				<p>{{"No bands found"| goT}}</p>
+			</empty-state>
 
-	</go-list>
+		</go-list>
+	</div>
+
+
+	<div flex ui-view layout="column" class="go-info-panel"></div>
 </div>
-
-
-<div flex ui-view layout="column" class="go-info-panel"></div>
 
 
 ```````````````````````````````````````````````````````````````````````````````
