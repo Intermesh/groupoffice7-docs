@@ -90,6 +90,15 @@ The URL will be http://localhost/groupoffice-webclient/app/
 	I personally configure Netbeans to generate app/css/app.css for me but you can 
 	also use "gulp sass:watch" to watch for changes on the *.scss files.
 
+	If you want to use Netbeans with the "sass" command then you'll need the 
+	[sass-globbing](https://github.com/chriseppstein/sass-globbing) plugin:
+
+	``````````````````````````````````````````````````````````````````````
+	$ sudo gem install sass-globbing
+	``````````````````````````````````````````````````````````````````````
+	Then edit the project properties and set the command line arguments for 
+	sass to "-r sass-globbing".
+
 6. Configure
 	Copy app/config.js.example to app/config.js and edit the API URl inside if 
 	necessary.

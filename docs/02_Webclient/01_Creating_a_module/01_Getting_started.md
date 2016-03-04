@@ -40,23 +40,27 @@ Example:
 'use strict';
 
 //Use GO.module instead of angular.module so it will be added to the app dependencies
-GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).
-		//Create a launcher
-		config(['GO.Core.launcherProvider', function (launcherProvider) {								
-				launcherProvider.add('bands', 'Bands', ['UX\\Modules\\Bands\\Module']);
-			}]).
-		config(['$stateProvider', function($stateProvider) {
+GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
+	.config([
+		'GO.Core.Providers.ClientModulesProvider',
+		function (ClientModulesProvider) {
 
-				// Now set up the states
-				$stateProvider
-						.state('bands', {
-							url: "/bands",
-							templateUrl: 'ux/tutorial/modules/bands/views/main.html',
-							data: {
-								noAuth: false //optional set to true to disable authentication
-							}
+			var module = ClientModulesProvider.add('bands', []);
+			module.addLauncher('Bands');
+		}])
+	.config([
+		'$stateProvider',
+		function ($stateProvider) {
+			$stateProvider
+							.state('bands', {
+								url: "/bands",
+								templateUrl: 'ux/tutorial/modules/bands/views/main.html',								
+								data: {
+									noAuth: false //optional, set to true to disable authentication. It defaults to false.
+								}
 						});
-			}]);
+		}]);
+
 ```````````````````````````````````````````````````````````````````````````````````````````````````````````````````````
 
 **Note** that you must use "GO.module" instead of "angular.module". "GO.module" also

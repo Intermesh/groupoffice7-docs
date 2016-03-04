@@ -10,30 +10,34 @@ Let's define that state in "ux/tutorial/modules/bands/module.js":
 'use strict';
 
 ````````````````````````````````````````````````````````````````````````````````
-GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).		
-		config(['GO.Core.launcherProvider', function (launcherProvider) {								
-				launcherProvider.add('bands', 'Bands', ['UX\\Modules\\Bands\\Module']);
-			}]).
-		config(['$stateProvider', function($stateProvider) {
-				$stateProvider
-						.state('bands', {
-							url: "/bands",
-							templateUrl: 'ux/tutorial/modules/bands/views/main.html',
-							controller: 'UX.Tutorial.Modules.Bands.Controller.Main',
-							data: {
-								noAuth: false //optional, set to true to disable authentication. It defaults to false.
-							}
-						})
+GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
+	.config([
+		'GO.Core.Providers.ClientModulesProvider',
+		function (ClientModulesProvider) {
 
-						//Add this sub state:
+			var module = ClientModulesProvider.add('bands', ['UX\\Modules\\Bands\\Module']);
+			module.addLauncher('Bands');
+		
+		}])
+	.config(['$stateProvider', function($stateProvider) {
+		$stateProvider
+				.state('bands', {
+					url: "/bands",
+					templateUrl: 'ux/tutorial/modules/bands/views/main.html',
+					controller: 'UX.Tutorial.Modules.Bands.Controller.Main',
+					data: {
+						noAuth: false //optional, set to true to disable authentication. It defaults to false.
+					}
+				})
 
-						.state('bands.band', {
-							url: "/{bandId:[0-9]*}",
-							templateUrl: 'ux/tutorial/modules/bands/views/band.html',
-							controller: 'UX.Tutorial.Modules.Bands.Controller.Band'
-						})
-						;
-			}]);
+				//Add this sub state:
+
+				.state('bands.band', {
+					url: "/{bandId:[0-9]*}",
+					templateUrl: 'ux/tutorial/modules/bands/views/band.html',
+					controller: 'UX.Tutorial.Modules.Bands.Controller.Band'
+				});
+	}]);
 ````````````````````````````````````````````````````````````````````````````````
 
 
@@ -43,7 +47,7 @@ The view template must be created in 'ux/tutorial/modules/bands/views/band.html'
 
 
 ````````````````````````````````````````````````````````````````````````````````
-<go-hook name="bands.band">
+<go-hook name="bands.band" flex layout="column">
 	<go-mask active="band.deleted">
 		<md-button class="md-raised md-warn" ng-click="band.unDelete()">{{"Undo delete"| goT }}</md-button>		
 	</go-mask>

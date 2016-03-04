@@ -16,14 +16,19 @@ Edit 'app/ux/tutorial/modules/bands/module.js':
 ````````````````````````````````````````````````````````````````````````````````
 'use strict';
 
-GO.module('UX.Tutorial.Modules.Bands', ['GO.Core']).
-		config(['GO.Core.launcherProvider', function (launcherProvider) {		
-				
-				// Add the server module dependency here:
-				
-				launcherProvider.add('bands', 'Bands', ['UX\\Modules\\Bands\\Module']);
-			}]).
-		config(['$stateProvider', function($stateProvider) {
+GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
+	.config([
+		'GO.Core.Providers.ClientModulesProvider',
+		function (ClientModulesProvider) {
+
+			// Add the server module dependency here:
+
+			var module = ClientModulesProvider.add('bands', ['UX\\Modules\\Bands\\Module']);
+			module.addLauncher('Bands');
+
+
+		}])
+		.config(['$stateProvider', function($stateProvider) {
 
 				$stateProvider
 						.state('bands', {
@@ -55,7 +60,7 @@ Create the file: 'app/ux/tutorial/modules/bands/model/band.js':
 
 angular.module('UX.Tutorial.Modules.Bands').
 				factory('UX.Tutorial.Modules.Bands.Model.Band', [
-						'GO.Core.Data.Model', 
+						'GO.Core.Factories.Data.Model', 
 						function (Model) {
 						
 						//Extend the base model and set default return proeprties

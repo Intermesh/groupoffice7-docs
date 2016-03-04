@@ -10,10 +10,10 @@ For example if you create an override for the "contacts" module and you do this
 for client "intermesh" you should put the hooks in the file 
 'ux/intermesh/modules/contacts/hooks.js'.
 
-If you look at the file 'app/modules/contacts/views/contact.html you'll find this
+If you look at the file 'app/modules/contacts/views/contact.html' you'll find this
 tag:
 ````````````````````````````````````````````````````````````````````````````````
-<go-hook name="contact"></go-hook>
+<go-hook name="contact" flex layout="column"></go-hook>
 ````````````````````````````````````````````````````````````````````````````````
 
 You can hook into the contents of that tag and adjust the template just before
@@ -35,7 +35,7 @@ GO.hooks.register('contacts.contact' , ['element', function(element) {
 
 
 //example controller override to put a confirm dialog before the original edit function of a contact
-GO.hooks.overrideController("GO.Modules.Contacts.ContactController", ["ctrlLocals", "$mdDialog", "GO.Core.Translate", function(ctrlLocals, $mdDialog, Translate){
+GO.hooks.overrideController("GO.Modules.Contacts.ContactController", ["ctrlLocals", "$mdDialog", "GO.Core.Providers.Translate", function(ctrlLocals, $mdDialog, Translate){
 		
 	//copy the original edit function so we can use it later after the confirmation
 	var origEdit = ctrlLocals.$scope.edit;
