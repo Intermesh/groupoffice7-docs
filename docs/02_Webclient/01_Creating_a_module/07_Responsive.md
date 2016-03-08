@@ -85,7 +85,7 @@ Change the main view 'ux/tutorial/modules/bands/view/main.html':
 
 
 	<!-- Change the following line -->
-	<div flex ui-view layout="column" class="go-card go-info-panel" ng-class="{'go-active' : !$state.is('bands')}"></div>
+	<div flex ui-view layout="row" class="go-card go-info-panel" ng-class="{'go-active' : !$state.is('bands')}"></div>
 </div>
 
 ````````````````````````````````````````````````````````````````````````````````

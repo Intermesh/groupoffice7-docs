@@ -24,9 +24,9 @@ GO.module('UX.Tutorial.Modules.Bands').
 				controller('UX.Tutorial.Modules.Bands.Controller.Main', [
 					'$scope',
 					'UX.Tutorial.Modules.Bands.Model.Band',
-					'GO.Core.Components.Modal',
+					'GO.Core.Widgets.Dialog',
 					'$state',
-					function ($scope, Band, Modal, $state) {
+					function ($scope, Band, Dialog, $state) {
 
 						$scope.band = new Band();
 
@@ -43,11 +43,11 @@ GO.module('UX.Tutorial.Modules.Bands').
 								band.addStore($scope.store);
 							}
 
-							Modal.show({
+							Dialog.show({
 								editModel: band,
 								templateUrl: 'ux/tutorial/modules/bands/views/band-edit.html'
-							}).then(function (data) {
-								data.close.then(function (band) {
+							}).then(function (dialog) {
+								dialog.close.then(function (band) {
 									if (band) {
 										$state.go("bands.band", {bandId: band.id});
 									}
@@ -66,7 +66,8 @@ updated when the model changes.
 
 The band model is passed as "editModel" option to 'GO.Core.Components.Modal'. 
 This will automatically add a "save()" and "cancel()" function to the modal 
-controller.
+controller. It will also automatically do a GET request to the server to "read"
+the model.
 
 Create the band edit view 'ux/tutorial/modules/bands/views/band-edit.html':
 
@@ -158,5 +159,69 @@ the '</go-list>' tag:
 </div>
 ````````````````````````````````````````````````````````````````````````````````
 
-Now reload the angular view and a green cirular button should appear in the 
+Now reload the angular view and a green circular button should appear in the 
 bottom right corner of the list.
+
+
+= Dialog controller
+
+If you want to add extra functionality to the controller then you can create
+a dialog controller for it.
+
+
+Change the edit function in the main controller into:
+
+````````````````````````````````````````````````````````````````````````````````
+$scope.edit = function (band) {
+
+	if (!band) {
+		band = new Band();
+		band.addStore($scope.store);
+	}
+
+	Dialog.show({
+		editModel: band,
+		templateUrl: 'ux/tutorial/modules/bands/views/band-edit.html',
+
+		//add controller here
+		controller: 'UX.Tutorial.Modules.Bands.Controller.BandEdit'
+
+	}).then(function (dialog) {
+		dialog.close.then(function (band) {
+			if (band) {
+				$state.go("bands.band", {bandId: band.id});
+			}
+		});
+	});
+};
+````````````````````````````````````````````````````````````````````````````````
+
+
+Create the file 'ux/tutorial/modules/bands/controller/band-edit.js':
+
+````````````````````````````````````````````````````````````````````````````````
+'use strict';
+
+GO.module('UX.Tutorial.Modules.Bands').
+				controller('UX.Tutorial.Modules.Bands.Controller.BandEdit', [
+					'$scope',
+					'close', // You can inject the 'close' function. When called the dialog closes.
+					'read', // You can inject the 'read' promise. This is resolved when the passed 'editModel' is done with it's read request to the server.
+					function ($scope, close, read) {
+						
+						read.then(function(result) {
+							
+							if(result.model.isNew()) {
+								result.model.setAttributes({
+									name: 'Default'
+								});
+							}
+						});
+						
+					}]);
+````````````````````````````````````````````````````````````````````````````````
+
+This controller doesn't do anything useful. It set's the band name to 'Default'
+if the model is new and after the read of the model is finished. The read 
+promise of the model is injectable because the read request is made by the
+edit dialog. You can also inject a 'close' function.

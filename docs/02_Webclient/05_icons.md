@@ -1,7 +1,7 @@
 GroupOffice uses [Material Design Icons](https://materialdesignicons.com/) font.
 
 You can lookup any icon there and use it's name prepended with "mdi-" in the 
-class attribute of an elemnent:
+class attribute of an element:
 
 ````````````````````````````````````
 <md-icon class="mdi-android"></md-icon>
