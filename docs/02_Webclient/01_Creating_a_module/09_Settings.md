@@ -47,19 +47,10 @@ GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
 
 ````````````````````````````````````````````````````````````````````````````````
 
-We've added the template for the navigation panel in the settings page and we've
-added a new state 'settings.bands'.
+We've added a settings option that will route to the "settings.bands" state and
+we've added a new state 'settings.bands'.
 
-Now add the view 'ux/tutorial/modules/bands/views/settings/navigation.html':
-
-````````````````````````````````````````````````````````````````````````````````
-<md-list-item ui-sref="settings.bands" ui-sref-active="selected">
-	<md-icon class="mdi-music-note"></md-icon>
-	<p>{{"Bands" | goT}}</p>
-</md-list-item>					
-````````````````````````````````````````````````````````````````````````````````
-
-And the actual settings page 'ux/tutorial/modules/bands/views/settings/form.html':
+Now create the actual settings page 'ux/tutorial/modules/bands/views/settings/form.html':
 
 ````````````````````````````````````````````````````````````````````````````````
 <form layout="column" name="bandForm" go-submit="save()" novalidate>

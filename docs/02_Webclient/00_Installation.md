@@ -51,6 +51,7 @@ The URL will be http://localhost/groupoffice-webclient/app/
 
   ``````````````````````````````````````````````````````````````````````
   $ sudo rm -Rf ~/tmp/
+	$ sudo chown $USER -R ~/.npm
   $ cd groupoffice-webclient
   $ npm install
   ``````````````````````````````````````````````````````````````````````
