@@ -100,6 +100,11 @@ The URL will be http://localhost/groupoffice-webclient/app/
 	Then edit the project properties and set the command line arguments for 
 	sass to "-r sass-globbing".
 
+	We ran into an error with sass watch. We fixed this problem by running:
+	``````````````````````````````````````````````````````````````````````
+	$ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+	``````````````````````````````````````````````````````````````````````
+
 6. Configure
 	Copy app/config.js.example to app/config.js and edit the API URl inside if 
 	necessary.

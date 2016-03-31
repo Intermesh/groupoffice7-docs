@@ -51,7 +51,7 @@ use UX\Modules\Bands\Model\BandCustomFields;
  *
  * @property int $id
  * @property string $name
- * @property int $ownedBy
+ * @property int $createdBy
  * @property User $owner
  * @property string $createdAt
  * @property string $modifiedAt
@@ -67,7 +67,7 @@ class Band extends Record {
 
 	protected static function defineRelations() {
 		self::hasMany('albums', Album::class, ['id' => 'bandId']);
-		self::hasOne('owner', User::class, ['ownedBy' => 'id']);
+		self::hasOne('owner', User::class, ['createdBy' => 'id']);
 		
 		//add this custom field relation
 		self::hasOne('customfields', BandCustomFields::class, ['id' => 'id']);
@@ -93,7 +93,7 @@ The custom fields will have a null value. We must first add a custom field for t
     "customfields": null,
     "id": 1,
     "name": "Pearl Jam",
-    "ownedBy": 1,
+    "createdBy": 1,
     "createdAt": "2016-02-12T10:12:15Z",
     "modifiedAt": "2016-02-12T10:15:40Z",
     "deleted": true,
@@ -173,7 +173,7 @@ This will return on success:
         "id": 1,
         "bandId": 1,
         "name": "Ten",
-        "ownedBy": 1,
+        "createdBy": 1,
         "createdAt": "2016-02-12T10:12:15Z",
         "modifiedAt": "2016-02-12T10:12:15Z",
         "permissions": {
@@ -191,7 +191,7 @@ This will return on success:
         "id": 2,
         "bandId": 1,
         "name": "Backspacer",
-        "ownedBy": 1,
+        "createdBy": 1,
         "createdAt": "2016-02-12T10:12:15Z",
         "modifiedAt": "2016-02-12T10:12:15Z",
         "permissions": {
@@ -208,7 +208,7 @@ This will return on success:
     ],
     "id": 1,
     "name": "Pearl Jam",
-    "ownedBy": 1,
+    "createdBy": 1,
     "createdAt": "2016-02-12T10:12:15Z",
     "modifiedAt": "2016-02-12T10:46:34Z",
     "deleted": true,

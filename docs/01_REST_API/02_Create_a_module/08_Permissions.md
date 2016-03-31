@@ -105,7 +105,7 @@ the permissions properties that has true for read and write.
     {
       "id": 1,
       "name": "Pearl Jam",
-      "ownedBy": 1,
+      "createdBy": 1,
       "createdAt": "2016-02-12T10:12:15Z",
       "modifiedAt": "2016-02-12T12:44:51Z",
       "deleted": false,
@@ -134,7 +134,7 @@ There are also some default permissions objects that you can use:
 See: http://intermesh.io/php/docs/namespace-IFW.Auth.Permissions.html
 
 1. AdminsOnly: Only admins can use the models (default)
-2. Owner: Only the owner can use the model. It looks at the database field "ownedBy"
+2. Owner: Only the owner can use the model. It looks at the database field "createdBy"
 3. ReadOnly: It's read only for everyone except admins.
 4. ViaRelation: You can tell the model to look at a related model's permissions 
    object. For example when saving an e-mail address of a contact it checks the 

@@ -16,7 +16,7 @@ the deleted boolean:
   "data": {
     "id": 1,
     "name": "Pearl Jam",
-    "ownedBy": 1,
+    "createdBy": 1,
     "createdAt": "2016-02-12T10:12:15Z",
     "modifiedAt": "2016-02-12T10:15:40Z",
     "deleted": true,

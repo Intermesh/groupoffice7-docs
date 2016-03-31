@@ -48,12 +48,12 @@ Put the following SQL code in "UX/Modules/Bands/Install/Database/20150115-1423.s
 CREATE TABLE `bands_band` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `ownedBy` int(11) NOT NULL,
+  `createdBy` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
   `modifiedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `ownedBy` (`ownedBy`),
-  CONSTRAINT `bands_band_ibfk_1` FOREIGN KEY (`ownedBy`) REFERENCES `auth_user` (`id`)
+  KEY `createdBy` (`createdBy`),
+  CONSTRAINT `bands_band_ibfk_1` FOREIGN KEY (`createdBy`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
@@ -62,14 +62,14 @@ CREATE TABLE `bands_album` (
   `bandId` int(11) NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
 	`genre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `ownedBy` int(11) NOT NULL,
+  `createdBy` int(11) NOT NULL,
   `createdAt` datetime NOT NULL,
   `modifiedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `bandId` (`bandId`),
-  KEY `ownedBy` (`ownedBy`),
+  KEY `createdBy` (`createdBy`),
   CONSTRAINT `bands_album_ibfk_1` FOREIGN KEY (`bandId`) REFERENCES `bands_band` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `bands_album_ibfk_2` FOREIGN KEY (`ownedBy`) REFERENCES `auth_user` (`id`)
+  CONSTRAINT `bands_album_ibfk_2` FOREIGN KEY (`createdBy`) REFERENCES `auth_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 ````````````````````````````````````````````````````````````````````````````````
 

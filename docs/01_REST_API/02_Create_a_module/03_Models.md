@@ -22,7 +22,7 @@ use IFW\Orm\Record;
  *
  * @property int $id
  * @property string $name
- * @property int $ownedBy
+ * @property int $createdBy
  * @property User $owner
  * @property \DateTime|string $createdAt
  * @property \DateTime|string $modifiedAt
@@ -38,7 +38,7 @@ class Band extends Record {
 
 	protected static function defineRelations() {
 		self::hasMany('albums', Album::class, ['id' => 'bandId']);
-		self::hasOne('owner', User::class, ['ownedBy' => 'id']);
+		self::hasOne('owner', User::class, ['createdBy' => 'id']);
 
 		parent::defineRelations();
 	}
@@ -79,10 +79,10 @@ class Album extends Record {
 
 	protected static function defineRelations() {
 		self::hasOne('band', Band::class, ['bandId' => 'id']);
-		self::hasOne('owner', User::class, ['ownedBy' => 'id']);
+		self::hasOne('owner', User::class, ['createdBy' => 'id']);
 
 		//Define this new relation in the user model too.
-		User::hasMany('albums', Album::class, ['id' => 'ownedBy']);
+		User::hasMany('albums', Album::class, ['id' => 'createdBy']);
 
 		parent::defineRelations();
 	}
