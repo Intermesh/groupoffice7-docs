@@ -120,7 +120,7 @@ We'll use the 'go-list' directive in the main view to present the data. Change
 ```````````````````````````````````````````````````````````````````````````````
 <go-hook name="bands" layout="row" flex>
 	<div class="go-list" layout="column">
-		<go-list-toolbar store="store">
+		<go-list-toolbar store="store" class="md-hue-1" select-mode-trigger="2">
 			<div class="md-toolbar-tools">
 				<md-button aria-label="{{::'Open side navigation'| goT}}" ng-click="toggleSidenav('left')" hide-gt-md class="md-icon-button">
 					<md-icon class="mdi-menu"></md-icon>
@@ -147,9 +147,7 @@ We'll use the 'go-list' directive in the main view to present the data. Change
 		<go-list store="store" flex>
 
 			<item index="model.name" ui-sref="bands.band({bandId: model.id})">
-				<div class="md-list-item-text">
-					<h3>{{model.name}}</h3>
-				</div>
+				<p>{{model.name}}</p>
 			</item>
 
 			<empty-state>
