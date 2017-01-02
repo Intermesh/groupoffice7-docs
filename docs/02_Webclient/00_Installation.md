@@ -10,7 +10,7 @@ The URL will be http://localhost/groupoffice-webclient/app/
 ## Getting started
 
 1. To get started with development you will minimally need to install:
-	* [The GroupOffice server](http://intermesh.io/index.php/REST_API/Installation) (Do this first if you haven't done this yet)
+	* [The GroupOffice server](http://groupoffice.io/index.php/REST_API/Installation) (Do this first if you haven't done this yet)
 	* [GIT](https://git-scm.com/)
   * [NPM](https://www.npmjs.org/)
   * [bower](http://bower.io)

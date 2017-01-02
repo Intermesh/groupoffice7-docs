@@ -87,4 +87,4 @@ earlier.
 
 This will add the module to the "modules_module" table.
 
-If you don't know how to do the request please read [Using the REST API](http://intermesh.io/index.php/REST_API/Usage).
+If you don't know how to do the request please read [Using the REST API](http://groupoffice.io/index.php/REST_API/Usage).

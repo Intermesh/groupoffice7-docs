@@ -1,4 +1,4 @@
-Now that we have the models in place we must create a [RESTFul CRUD controller](http://intermesh.io/php/docs/class-GO.Core.Controller.Controller.html) to
+Now that we have the models in place we must create a [RESTFul CRUD controller](http://groupoffice.io/php/docs/class-GO.Core.Controller.Controller.html) to
 be able to Create, Read, Update and Delete models through the REST API. 
 
 

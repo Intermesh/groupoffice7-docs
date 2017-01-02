@@ -4,7 +4,7 @@ many** albums and an album **has one** band.
 
 Read more about models and their relations in the API documentation:
 
-http://intermesh.io/php/docs/class-IFW.Orm.Record.html
+http://groupoffice.io/php/docs/class-IFW.Orm.Record.html
 
 
 Create 'UX/Modules/Bands/Model/Band.php':

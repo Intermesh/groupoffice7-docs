@@ -12,7 +12,7 @@ To install the GroupOffice server follow these steps:
 1. Make sure you have the required software:
 
 	* [GIT](https://git-scm.com/)
-	* Apache2, PHP5 and MySQL
+	* Apache2, PHP5.6+ and MySQL5.5+
 	* curl (Just required to install composer)
 	* [Composer](https://getcomposer.org)
 
@@ -39,7 +39,7 @@ To install the GroupOffice server follow these steps:
 
 	````````````````````````````````````````````````````````````````````````````
 	$ cd /var/www
-	$ git clone git@git.intermesh.nl:groupoffice-server.git
+	$ git clone git@github.com:Intermesh/groupoffice-server.git
 	````````````````````````````````````````````````````````````````````````````
 
 3. Install composer if you haven't done that already:
@@ -110,10 +110,16 @@ To install the GroupOffice server follow these steps:
 
 9. Open http://localhost/api/system/install to install the database.
 
-10. Read the [Usage chapter](http://intermesh.io/index.php/REST_API/Usage) about 
+10. Install cron job in /etc/cron.d/groupoffice-server :
+
+* * * * * www-data /var/www/groupoffice-server/bin/groupoffice cron/run
+
+11. Read the [Usage chapter](http://groupoffice.io/index.php/REST_API/Usage) about 
 	how to login and use the API.
 
 	The default login is:
 
 	Username: admin
 	Password: Admin1!
+
+12. Now [install the Web client](http://groupoffice.io/index.php/Webclient/Installation)

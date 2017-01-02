@@ -1,6 +1,6 @@
 Each module can add routes. To read more about how this works read the API documentation:
 
-http://intermesh.io/php/docs/class-IFW.Modules.Module.html#_defineWebRoutes
+http://groupoffice.io/php/docs/class-IFW.Modules.Module.html#_defineWebRoutes
 
 A **route** is the path behind the API URL. For example:
 

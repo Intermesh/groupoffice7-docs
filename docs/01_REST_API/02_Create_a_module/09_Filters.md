@@ -2,7 +2,7 @@ In modules we often use filters. For example you can filter on tags or contact g
 mechanism that makes it easy to implement them.
 
 We're going to implement a filter by album genre. There are various
-predefined [filter types](http://intermesh.io/php/docs/namespace-IFW.Data.Filter.html)
+predefined [filter types](http://groupoffice.io/php/docs/namespace-IFW.Data.Filter.html)
 
 We'll use the multi select filter.
 

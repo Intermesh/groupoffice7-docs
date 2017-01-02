@@ -1,5 +1,5 @@
 GroupOffice also comes with a per record permissions feature. 
-By default Record models implement [admins only permissions](http://intermesh.io/php/docs/class-IFW.Auth.Permissions.AdminsOnly.html) 
+By default Record models implement [admins only permissions](http://groupoffice.io/php/docs/class-IFW.Auth.Permissions.AdminsOnly.html) 
 which means only admins may read and write them.
 
 Record has a property permissions that will return all allowed actions:
@@ -131,7 +131,7 @@ groups with permission columns like "read" and "write" for it.
 
 There are also some default permissions objects that you can use:
 
-See: http://intermesh.io/php/docs/namespace-IFW.Auth.Permissions.html
+See: http://groupoffice.io/php/docs/namespace-IFW.Auth.Permissions.html
 
 1. AdminsOnly: Only admins can use the models (default)
 2. Owner: Only the owner can use the model. It looks at the database field "createdBy"
@@ -147,5 +147,5 @@ If you return record's that are not allowed the API will throw a Forbidden error
 
 It's possible to optimize performance to tell the permissions object not to check
 read permissions on each record constructor when you already know you have executed the right
-query. The [ContactPermission](http://intermesh.io/php/docs/class-GO.Modules.Contacts.Model.ContactPermissions.html)
+query. The [ContactPermission](http://groupoffice.io/php/docs/class-GO.Modules.Contacts.Model.ContactPermissions.html)
 object implements this for example.

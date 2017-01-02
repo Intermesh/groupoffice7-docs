@@ -7,10 +7,10 @@ It also supports relations to other models.
 
 To learn more about the ORM of Group-Office please read these API pages:
 
-- http://intermesh.io/php/docs/class-IFW.Orm.Record.html
-- http://intermesh.io/php/docs/class-IFW.Orm.Record.html#_find
-- http://intermesh.io/php/docs/class-IFW.Orm.Record.html#_defineRelations
-- http://intermesh.io/php/docs/class-IFW.Orm.Record.html#_save
+- http://groupoffice.io/php/docs/class-IFW.Orm.Record.html
+- http://groupoffice.io/php/docs/class-IFW.Orm.Record.html#_find
+- http://groupoffice.io/php/docs/class-IFW.Orm.Record.html#_defineRelations
+- http://groupoffice.io/php/docs/class-IFW.Orm.Record.html#_save
 
 ## Relational saving
 

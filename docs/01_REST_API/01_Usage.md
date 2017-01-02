@@ -10,7 +10,7 @@ http://localhost/api/auth
 
 You can find a list of available routes here:
 
-http://intermesh.io/php/docs/class-GO.Core.Web.App.html
+http://groupoffice.io/php/docs/class-GO.Core.Web.App.html
 
 ## Authenticate
 
@@ -34,7 +34,7 @@ parameter "XSRFToken" on each request.
 
 More technical details can be found in the API documentation:
 
-http://intermesh.io/php/docs/class-GO.Core.Auth.Browser.Model.Token.html
+http://groupoffice.io/php/docs/class-GO.Core.Auth.Browser.Model.Token.html
 
 The server should respond with the token object this:
 
@@ -131,14 +131,14 @@ parameters they support.
 
 In this case the controller class is:
 
-http://intermesh.io/php/docs/class-GO.Core.Auth.Controller.UserController.html
+http://groupoffice.io/php/docs/class-GO.Core.Auth.Controller.UserController.html
 
-You can read more about this [AbstractController](http://intermesh.io/php/docs/class-GO.Core.Controller.AbstractController.html) 
+You can read more about this [AbstractController](http://groupoffice.io/php/docs/class-GO.Core.Controller.AbstractController.html) 
 in the API documenation.
 
 ## Data format
 Each controller usually works with a model. The model should be mentioned in the
-controller documentation. In this case it's the [User](http://intermesh.io/php/docs/class-GO.Core.Auth.Model.User.html) 
+controller documentation. In this case it's the [User](http://groupoffice.io/php/docs/class-GO.Core.Auth.Model.User.html) 
 model. To see **which properties** the user has look it up in the API 
 documentation and take a look at the **magic properties**.
 
@@ -180,7 +180,7 @@ When saving a user you must PUT (for update) or POST (for create) this user mode
 in the same format. The server will respond with the success boolean. On failure 
 the model will have one or more "validationErrors".
 
-In the PHP API the user is a Model based on [Record](http://intermesh.io/php/docs/class-IFW.Orm.Record.html).
+In the PHP API the user is a Model based on [Record](http://groupoffice.io/php/docs/class-IFW.Orm.Record.html).
 
 
 ## Debugging

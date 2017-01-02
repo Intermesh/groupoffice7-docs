@@ -3,7 +3,7 @@ typically represents a record model on the server and a store is a collection of
 models.
 
 In this example we'll create a list to show all bands from the server that uses 
-a store. The server will need the bands module from the [tutorial](http://intermesh.io/index.php/REST_API/Create_a_module/Folders_and_files).
+a store. The server will need the bands module from the [tutorial](http://groupoffice.io/index.php/REST_API/Create_a_module/Folders_and_files).
 
 
 # Dependency and main controller
