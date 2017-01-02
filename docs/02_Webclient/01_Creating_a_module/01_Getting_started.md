@@ -5,15 +5,18 @@ The following third party libraries are available in the webclient. Use them
 where you can:
 
 1. [Angular Material](https://material.angularjs.org/latest/)
-2. [Material Design Icons](https://materialdesignicons.com/) we use the font for icons.
+2. [Google Material Design Icons](https://material.io/icons/) we use the font for icons.
 
 
 ### Create folder structure
 
-The root folder "ux" is reserved for user extensions so you won't have to put
-any code in the core modules folder.
+We want to separate code per owner. So inside the "app/modules" there's the 
+default "groupoffice" folder for the standard modules. Each vendor should create
+it's own folder there. We'll use "tutorial".
 
-Create the module folder "app/ux/tutorial/modules/bands".
+Create the module folder "app/modules/tutorial/modules/bands".
+
+From now on all paths will be relative to the path above.
 
 All JS files within this folder are loaded automatically by index.php or the
 build script.
@@ -21,14 +24,14 @@ build script.
 Optionally create these subfolders:
 
 - controller: for the controller JS files.
-- models: Model JS files
-- views: HTML templates
+- model: Model JS files
+- view: HTML templates
 - language: Localization JS files
 - scss: For the SASS styles
-- services: For angular services
+- service: For angular services
 
 ### Create module.js
-Create "ux/tutorial/modules/bands/module.js" that will initialize the module.
+Create "module.js" that will initialize the module.
 
 In this file we'll add the states of the module and we can configure it before 
 the application is running. We've used [UI Router](https://angular-ui.github.io/ui-router/site/#/api/ui.router) 
@@ -40,7 +43,7 @@ Example:
 'use strict';
 
 //Use GO.module instead of angular.module so it will be added to the app dependencies
-GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
+GO.module('GO.Modules.Tutorial.Bands', ['GO.Core'])
 	.config([
 		'GO.Core.Providers.ClientModulesProvider',
 		function (ClientModulesProvider) {

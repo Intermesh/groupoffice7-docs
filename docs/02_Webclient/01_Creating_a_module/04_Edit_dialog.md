@@ -20,10 +20,10 @@ Edit 'ux/tutorial/modules/bands/controller/main.js':
 
 'use strict';
 
-GO.module('UX.Tutorial.Modules.Bands').
-				controller('UX.Tutorial.Modules.Bands.Controller.Main', [
+GO.module('GO.Modules.Tutorial.Bands').
+				controller('GO.Modules.Tutorial.Bands.Controller.Main', [
 					'$scope',
-					'UX.Tutorial.Modules.Bands.Model.Band',
+					'GO.Modules.Tutorial.Bands.Model.Band',
 					'GO.Core.Widgets.Dialog',
 					'$state',
 					function ($scope, Band, Dialog, $state) {
@@ -184,7 +184,7 @@ $scope.edit = function (band) {
 		templateUrl: 'ux/tutorial/modules/bands/views/band-edit.html',
 
 		//add controller here
-		controller: 'UX.Tutorial.Modules.Bands.Controller.BandEdit'
+		controller: 'GO.Modules.Tutorial.Bands.Controller.BandEdit'
 
 	}).then(function (dialog) {
 		dialog.close.then(function (band) {
@@ -202,8 +202,8 @@ Create the file 'ux/tutorial/modules/bands/controller/band-edit.js':
 ````````````````````````````````````````````````````````````````````````````````
 'use strict';
 
-GO.module('UX.Tutorial.Modules.Bands').
-				controller('UX.Tutorial.Modules.Bands.Controller.BandEdit', [
+GO.module('GO.Modules.Tutorial.Bands').
+				controller('GO.Modules.Tutorial.Bands.Controller.BandEdit', [
 					'$scope',
 					'close', // You can inject the 'close' function. When called the dialog closes.
 					'read', // You can inject the 'read' promise. This is resolved when the passed 'editModel' is done with it's read request to the server.

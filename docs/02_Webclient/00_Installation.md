@@ -44,7 +44,7 @@ The URL will be http://localhost/groupoffice-webclient/app/
 	``````````````````````````````````````````````````````````````````````
 
   ``````````````````````````````````````````````````````````````````````
-  $ git clone git@git.intermesh.nl:groupoffice-webclient.git
+  $ git clone git@github.com:Intermesh/groupoffice-webclient.git
   ``````````````````````````````````````````````````````````````````````
 
 4. Get all the required NPM modules by running (I had to clear the ~/tmp folder in my home directory because they are owned by root now):
@@ -88,8 +88,7 @@ The URL will be http://localhost/groupoffice-webclient/app/
 	$ gulp sass
 	``````````````````````````````````````````````````````````````````````
 	
-	I personally configure Netbeans to generate app/css/app.css for me but you can 
-	also use "gulp sass:watch" to watch for changes on the *.scss files.
+	You can use "gulp sass:watch" to watch for changes on the *.scss files.
 
 	If you want to use Netbeans with the "sass" command then you'll need the 
 	[sass-globbing](https://github.com/chriseppstein/sass-globbing) plugin:

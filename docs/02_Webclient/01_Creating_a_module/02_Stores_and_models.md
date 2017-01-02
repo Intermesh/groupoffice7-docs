@@ -16,7 +16,7 @@ Edit 'app/ux/tutorial/modules/bands/module.js':
 ````````````````````````````````````````````````````````````````````````````````
 'use strict';
 
-GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
+GO.module('GO.Modules.Tutorial.Bands', ['GO.Core'])
 	.config([
 		'GO.Core.Providers.ClientModulesProvider',
 		function (ClientModulesProvider) {
@@ -37,7 +37,7 @@ GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
 
 
 							//Add the controller here.
-							controller: 'UX.Tutorial.Modules.Bands.Controller.Main',
+							controller: 'GO.Modules.Tutorial.Bands.Controller.Main',
 
 
 							data: {
@@ -58,8 +58,8 @@ Create the file: 'app/ux/tutorial/modules/bands/model/band.js':
 ```````````````````````````````````````````````````````````````````````````````
 'use strict';
 
-angular.module('UX.Tutorial.Modules.Bands').
-				factory('UX.Tutorial.Modules.Bands.Model.Band', [
+angular.module('GO.Modules.Tutorial.Bands').
+				factory('GO.Modules.Tutorial.Bands.Model.Band', [
 						'GO.Core.Factories.Data.Model', 
 						function (Model) {
 						
@@ -94,10 +94,10 @@ Now create the main controller file
 ```````````````````````````````````````````````````````````````````````````````
 'use strict';
 
-GO.module('UX.Tutorial.Modules.Bands').
-				controller('UX.Tutorial.Modules.Bands.Controller.Main', [
+GO.module('GO.Modules.Tutorial.Bands').
+				controller('GO.Modules.Tutorial.Bands.Controller.Main', [
 					'$scope',
-					'UX.Tutorial.Modules.Bands.Model.Band',
+					'GO.Modules.Tutorial.Bands.Model.Band',
 					function ($scope, Band) {
 
 						$scope.band = new Band();

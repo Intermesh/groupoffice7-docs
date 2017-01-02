@@ -8,8 +8,8 @@ In the strings we can use dots to mimick a namespace. In the variables we can ju
 So the string is the full name space that we use as the variable name.
 
 `````````````````````````````````````````````````````````````````````````````````````````````````
-angular.module('GO.Modules.Email').
-		controller('GO.Modules.Email.EmailController', ['$scope', 'GO.Modules.Email.Account', function($scope, Account) {
+angular.module('GO.Modules.Messages').
+		controller('GO.Modules.Messages.Controller.Messages', ['$scope', 'GO.Modules.Messages.Model.Account', function($scope, Account) {
 });
 
 `````````````````````````````````````````````````````````````````````````````````````````````````

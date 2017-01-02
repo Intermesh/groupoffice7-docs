@@ -11,7 +11,7 @@ Edit 'ux/tutorial/modules/bands/module.js':
 'use strict';
 
 //Use GO.module instead of angular.module so it will be added to the app dependencies
-GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
+GO.module('GO.Modules.Tutorial.Bands', ['GO.Core'])
 	.config([
 		'GO.Core.Providers.ClientModulesProvider',
 		function (ClientModulesProvider) {
@@ -28,7 +28,7 @@ GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
 							.state('bands', {
 								url: "/bands",
 								templateUrl: 'ux/tutorial/modules/bands/views/main.html',
-								controller: 'UX.Tutorial.Modules.Bands.Controller.Main',
+								controller: 'GO.Modules.Tutorial.Bands.Controller.Main',
 								data: {
 									noAuth: false //optional, set to true to disable authentication. It defaults to false.
 								}
@@ -36,7 +36,7 @@ GO.module('UX.Tutorial.Modules.Bands', ['GO.Core'])
 							.state('bands.band', {
 								url: "/{bandId:[0-9]*}",
 								templateUrl: 'ux/tutorial/modules/bands/views/band.html',
-								controller: 'UX.Tutorial.Modules.Bands.Controller.Band'
+								controller: 'GO.Modules.Tutorial.Bands.Controller.Band'
 							})
 							.state('settings.bands', {
 								url: "/bands",

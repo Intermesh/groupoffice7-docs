@@ -123,3 +123,10 @@ To install the GroupOffice server follow these steps:
 	Password: Admin1!
 
 12. Now [install the Web client](http://groupoffice.io/index.php/Webclient/Installation)
+
+13. Updating, When you want to update use these commands:
+
+	````````````````````````````````````````````````````````````````````````````
+	$ git pull
+	$ composer update
+	````````````````````````````````````````````````````````````````````````````
