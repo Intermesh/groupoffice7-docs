@@ -18,7 +18,7 @@ To install the GroupOffice server follow these steps:
 
 	Install Apache2, PHP5 and MySQL. We also need some specific extensions:
 	````````````````````````````````````````````````````````````````````````````
-	$ sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql php5-mcrypt php5-curl
+	$ sudo apt-get install mysql-server libapache2-mod-php php5-mysql php5-mcrypt php5-curl
 	````````````````````````````````````````````````````````````````````````````
 
 	For some reason the PHP mcrypt library is not enabled by default so run:
