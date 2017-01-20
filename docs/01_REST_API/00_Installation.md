@@ -114,7 +114,29 @@ To install the GroupOffice server follow these steps:
 
 * * * * * www-data /var/www/groupoffice-server/bin/groupoffice cron/run
 
-11. Read the [Usage chapter](http://groupoffice.io/index.php/REST_API/Usage) about 
+11. Install command line wrapper script
+	Create the file /usr/local/bin/groupoffice and put this in:
+
+	```````````````````````````````````````````````````````````````````````
+	#!/bin/bash
+	sudo -u www-data /var/www/groupoffice-server/bin/groupoffice $@
+	```````````````````````````````````````````````````````````````````````
+
+	This allows you to run command line actions easily. For example:
+
+	```````````````````````````````````````````````````````````````````````
+	groupoffice system/upgrade
+	```````````````````````````````````````````````````````````````````````
+
+	```````````````````````````````````````````````````````````````````````
+	groupoffice accounts/sync
+	```````````````````````````````````````````````````````````````````````
+
+	```````````````````````````````````````````````````````````````````````
+	groupoffice cron/run
+	```````````````````````````````````````````````````````````````````````
+
+12. Read the [Usage chapter](http://groupoffice.io/index.php/REST_API/Usage) about 
 	how to login and use the API.
 
 	The default login is:
@@ -122,11 +144,12 @@ To install the GroupOffice server follow these steps:
 	Username: admin
 	Password: Admin1!
 
-12. Now [install the Web client](http://groupoffice.io/index.php/Webclient/Installation)
+13. Now [install the Web client](http://groupoffice.io/index.php/Webclient/Installation)
 
-13. Updating, When you want to update use these commands:
+14. Updating, When you want to update use these commands:
 
 	````````````````````````````````````````````````````````````````````````````
 	$ git pull
 	$ composer update
+	$ groupoffice system/upgrade
 	````````````````````````````````````````````````````````````````````````````
