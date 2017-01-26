@@ -18,18 +18,18 @@ To install the GroupOffice server follow these steps:
 
 	Install Apache2, PHP5 and MySQL. We also need some specific extensions:
 	````````````````````````````````````````````````````````````````````````````
-	$ sudo apt-get install mysql-server libapache2-mod-php php5-mysql php5-mcrypt php5-curl
-	````````````````````````````````````````````````````````````````````````````
-
-	For some reason the PHP mcrypt library is not enabled by default so run:
-
-	````````````````````````````````````````````````````````````````````````````
-	$ sudo php5enmod mcrypt	
+	$ sudo apt-get install mysql-server libapache2-mod-php php5-mysql php5-curl
 	````````````````````````````````````````````````````````````````````````````
 
 	Install GIT and curl.
 	````````````````````````````````````````````````````````````````````````````
 	$ sudo apt-get install git curl
+	````````````````````````````````````````````````````````````````````````````
+
+	Install composer:
+	````````````````````````````````````````````````````````````````````````````
+	 $ curl -sS https://getcomposer.org/installer | php
+	 $ sudo mv composer.phar /usr/local/bin/composer
 	````````````````````````````````````````````````````````````````````````````
 
 2. clone the repository:
@@ -42,20 +42,14 @@ To install the GroupOffice server follow these steps:
 	$ git clone git@github.com:Intermesh/groupoffice-server.git
 	````````````````````````````````````````````````````````````````````````````
 
-3. Install composer if you haven't done that already:
-
-	````````````````````````````````````````````````````````````````````````````
-	 $ curl -sS https://getcomposer.org/installer | php
-	 $ sudo mv composer.phar /usr/local/bin/composer
-	````````````````````````````````````````````````````````````````````````````
-4. Run composer in the working directory. This will install all required PHP 
+3. Run composer in the working directory. This will install all required PHP 
 	libraries:
 
 	````````````````````````````````````````````````````````````````````````````
 	$ cd /var/www/groupoffice-server
 	$ composer install
 	````````````````````````````````````````````````````````````````````````````
-5. You must create the web accessible access point and we do this with an apache
+4. You must create the web accessible access point and we do this with an apache
 	Alias.
 
 	Create a file /etc/apache2/conf-available/groupoffice-server.conf:
@@ -74,7 +68,7 @@ To install the GroupOffice server follow these steps:
 	$ sudo service apache2 reload
 	````````````````````````````````````````````````````````````````````````````
 
-6. Create a MySQL database and user for GroupOffice. For example named "go7".
+5. Create a MySQL database and user for GroupOffice. For example named "go7".
 
 	Here are some example commmands. If you use a root password then add -p.
 	````````````````````````````````````````````````````````````````````````````
@@ -82,13 +76,13 @@ To install the GroupOffice server follow these steps:
 	$ mysql -u root -e "GRANT ALL PRIVILEGES ON go7.* TO 'go7'@'localhost' IDENTIFIED BY 'secret' WITH GRANT OPTION"
 	````````````````````````````````````````````````````````````````````````````
 
-7. Create the data folder where Group-Office can store files.
+6. Create the data folder where Group-Office can store files.
 
 	````````````````````````````````````````````````````````````````````````````
 	$ mkdir /var/www/groupoffice-server/data
 	$ sudo chown www-data:www-data /var/www/groupoffice-server/data
 	````````````````````````````````````````````````````````````````````````````
-8. Create config.php configuration file by copying the defaults:
+7. Create config.php configuration file by copying the defaults:
 
 	````````````````````````````````````````````````````````````````````````````
 	$ cd /var/www/groupoffice-server
@@ -108,13 +102,13 @@ To install the GroupOffice server follow these steps:
 	It should output that all is OK ;). It doesn't look pretty but it's not meant to
 	be because it's just an API.
 
-9. Open http://localhost/api/system/install to install the database.
+8. Open http://localhost/api/system/install to install the database.
 
-10. Install cron job in /etc/cron.d/groupoffice-server :
+9. Install cron job in /etc/cron.d/groupoffice-server :
 
 * * * * * www-data /var/www/groupoffice-server/bin/groupoffice cron/run
 
-11. Install command line wrapper script
+10. Install command line wrapper script
 	Create the file /usr/local/bin/groupoffice and put this in:
 
 	```````````````````````````````````````````````````````````````````````
@@ -136,7 +130,7 @@ To install the GroupOffice server follow these steps:
 	groupoffice cron/run
 	```````````````````````````````````````````````````````````````````````
 
-12. Read the [Usage chapter](http://groupoffice.io/index.php/REST_API/Usage) about 
+11. Read the [Usage chapter](http://groupoffice.io/index.php/REST_API/Usage) about 
 	how to login and use the API.
 
 	The default login is:
@@ -144,9 +138,9 @@ To install the GroupOffice server follow these steps:
 	Username: admin
 	Password: Admin1!
 
-13. Now [install the Web client](http://groupoffice.io/index.php/Webclient/Installation)
+12. Now [install the Web client](http://groupoffice.io/index.php/Webclient/Installation)
 
-14. Updating, When you want to update use these commands:
+13. Updating, When you want to update use these commands:
 
 	````````````````````````````````````````````````````````````````````````````
 	$ git pull
