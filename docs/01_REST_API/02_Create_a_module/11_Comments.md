@@ -11,7 +11,7 @@ For example:
 CREATE TABLE `contacts_comment` (
   `commentId` int(11) NOT NULL,
   `contactId` int(11) NOT NULL
-) ENGINE=InnoDBD EFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 ALTER TABLE `contacts_comment`
   ADD PRIMARY KEY (`commentId`),
