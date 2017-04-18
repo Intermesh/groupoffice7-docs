@@ -109,10 +109,9 @@ The URL will be http://localhost/groupoffice-webclient/app/
 	necessary.
 
 	``````````````````````````````````````````````````````````````````````
-	$ cd /var/www/groupoffice-webclient/app
+	$ cd /var/www/html/groupoffice-webclient/app
 	$ cp config.js.example config.js
 	``````````````````````````````````````````````````````````````````````
-	
 
 7. Launch your browser and open http://localhost/groupoffice-webclient/app/
 
@@ -121,7 +120,7 @@ The URL will be http://localhost/groupoffice-webclient/app/
 	If you want to update the repository you can do:
 
 	``````````````````````````````````````````````````````````````````````
-	$ cd /var/www/groupoffice-webclient/ 
+	$ cd /var/www/html/groupoffice-webclient/
 	``````````````````````````````````````````````````````````````````````
 
 	To update it:

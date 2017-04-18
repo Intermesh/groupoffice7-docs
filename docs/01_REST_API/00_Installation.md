@@ -18,7 +18,7 @@ To install the GroupOffice server follow these steps:
 
 	Install Apache2, PHP5 and MySQL. We also need some specific extensions:
 	````````````````````````````````````````````````````````````````````````````
-	$ sudo apt-get install mysql-server libapache2-mod-php php5-mysql php5-curl
+	$ sudo apt-get install mysql-server libapache2-mod-php php-mysql php-curl php-zip
 	````````````````````````````````````````````````````````````````````````````
 
 	Install GIT and curl.
@@ -34,7 +34,7 @@ To install the GroupOffice server follow these steps:
 
 2. clone the repository:
 
-	It's recommended to put the server outside the webserver document root for
+	It's recommended to put the server outside the web server document root for
 	security reasons.		
 
 	````````````````````````````````````````````````````````````````````````````
@@ -104,16 +104,18 @@ To install the GroupOffice server follow these steps:
 
 8. Open http://localhost/api/system/install to install the database.
 
-9. Install cron job in /etc/cron.d/groupoffice-server :
-
-* * * * * www-data /var/www/groupoffice-server/bin/groupoffice cron/run
-
-10. Install command line wrapper script
+9. Install command line wrapper script
 	Create the file /usr/local/bin/groupoffice and put this in:
 
 	```````````````````````````````````````````````````````````````````````
 	#!/bin/bash
-	sudo -u www-data /var/www/groupoffice-server/bin/groupoffice $@
+	sudo -u www-data /var/www/groupoffice-server/bin/groupoffice $@	
+	```````````````````````````````````````````````````````````````````````
+
+	Make this file executable:
+
+	```````````````````````````````````````````````````````````````````````
+	sudo chown +x /usr/local/bin/groupoffice
 	```````````````````````````````````````````````````````````````````````
 
 	This allows you to run command line actions easily. For example:
@@ -129,6 +131,11 @@ To install the GroupOffice server follow these steps:
 	```````````````````````````````````````````````````````````````````````
 	groupoffice cron/run
 	```````````````````````````````````````````````````````````````````````
+10. Install cron job in /etc/cron.d/groupoffice-server :
+
+	````````````````````````````````````````````````````````````````````````````
+	* * * * * www-data /usr/local/bin/groupoffice cron/run
+	````````````````````````````````````````````````````````````````````````````
 
 11. Read the [Usage chapter](http://groupoffice.io/index.php/REST_API/Usage) about 
 	how to login and use the API.
