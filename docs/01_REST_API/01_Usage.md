@@ -85,6 +85,9 @@ The server should respond with the token object this:
 
 Use POSTMan to authenticate with a POST request.
 
+TODO: Explain modules prop.
+Explain status 503
+
 **Note:** OAuth2 will also be supported in the future.
 
 ## Listing users

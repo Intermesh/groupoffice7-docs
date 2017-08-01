@@ -68,3 +68,65 @@ http://stackoverflow.com/questions/762937/whats-the-difference-between-identifyi
 
 At the moment the only place where the difference is made is in the record 
 copy function. Identifying relations are copied along by default.
+
+
+
+
+
+
+
+
+
+
+TODO:
+
+new implementation:
+
+$contact = new Contact();
+		
+		$contact->customFields = [				
+			'test' => 'test'	
+		]; //creates new or updates existing because it's an identifying relation
+		
+		$contact->emailAddresses[] = [
+				'id' => 1,
+				"email" => 'test'
+		]; //updates contact e-mail address
+		
+		$contact->emailAddresses[] = [
+				"email" => 'test'
+		]; //Creates new address
+		
+		
+		
+		$contact->emailAddresses[0]->email = $veld1;
+		$contact->emailAddresses[1]->email = $test2;
+		
+		
+		$contact->owner = [
+				'id' => 1,
+				'name' =>  'Admins'
+		]; //throwed exception. You can't change non identifying relations
+		
+		$contact->ownedBy = 1; //is the way to change owner
+
+LATER: s possible but can only change the key The user object is never saved
+		
+		
+		$admins = \GO\Core\Users\Model\Group::findAminGroup();
+		
+		$contact->owner = $admins; //throws exception 
+		
+		
+		$contact->owner->name="Superadmins";
+		$contact->save();
+		//Doesn't work. It will not save owner
+		
+		
+		$contact->organizations[] = ['id' => 1]; //creates via record
+		
+		$contact->organizations[] = ['id' => 1, 'markDeleted' => true]; //deletes via record
+		
+		
+		$user->tasks[] = new Task(); //not identifying throws exception
+		

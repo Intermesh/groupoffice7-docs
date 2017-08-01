@@ -16,7 +16,7 @@ To install the GroupOffice server follow these steps:
 	* curl (Just required to install composer)
 	* [Composer](https://getcomposer.org)
 
-	Install Apache2, PHP5 and MySQL. We also need some specific extensions:
+	Install Apache, PHP, MySQL and sudo. We also need some specific extensions:
 	````````````````````````````````````````````````````````````````````````````
 	$ sudo apt-get install mysql-server libapache2-mod-php php-mysql php-curl php-zip
 	````````````````````````````````````````````````````````````````````````````
@@ -154,3 +154,9 @@ To install the GroupOffice server follow these steps:
 	$ composer update
 	$ groupoffice system/upgrade
 	````````````````````````````````````````````````````````````````````````````
+
+14. Create a second command to run CLI as the current user:
+
+	```
+	ln -s /var/www/groupoffice-server/bin/groupoffice /usr/local/bin/sugroupoffice
+	```
